@@ -102,10 +102,10 @@ int main(int, char const**)
                 CreateBox(World, MouseX, MouseY);
             }
             
-            /** Simulate the world */
-            World.Step(1/60.f, 8, 3);
-            
         }
+        /** Simulate the world */
+        World.Step(1/60.f, 8, 3);
+
         window.clear(sf::Color::White);
         for (b2Body* BodyIterator = World.GetBodyList(); BodyIterator != 0; BodyIterator = BodyIterator->GetNext())
         {
