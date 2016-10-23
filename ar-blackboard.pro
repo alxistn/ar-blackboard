@@ -5,8 +5,7 @@ CONFIG -= qt
 CONFIG += link_pkgconfig
 PKGCONFIG += opencv
 PKGCONFIG += box2d
-
-LIBS += -lsfml-audio -lsfml-graphics -lsfml-network -lsfml-window -lsfml-system
+PKGCONFIG += sdl2
 
 INCLUDEPATH += "/usr/include/"
 DEPENDPATH += "/usr/include/"
