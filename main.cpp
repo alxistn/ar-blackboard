@@ -14,15 +14,9 @@ int main ()
     GameScene scene1(window1.getViewPort());
     window1.setScene(&scene1);
 
-    FPSTimer fpsTimer(60);
+    FPSTimer fpsTimer;
     fpsTimer.start();
     while (quit == false) {
-
-        //Rendering
-        window1.draw();
-
-        //Caps FPS & Update FPSTimer
-        fpsTimer.sleep();
 
         //Events
 
@@ -30,12 +24,16 @@ int main ()
         //Logic
         scene1.update(fpsTimer.getFrameTime());
 
+        //Rendering
+        window1.draw();
 
 
         //Logic & Rendering
         //window1.update(fpsTimer.getFrameTime());
 
 
+        //Update FPSTimer (& Cap FPS)
+        fpsTimer.update();
     }
 
     SDL_Quit();

@@ -1,41 +1,49 @@
+#include "cmath"
 #include "fpstimer.h"
+#include <iostream>
 
 FPSTimer::FPSTimer(float maxFPS)
-    : _maxFPS(maxFPS), _min_frame_time((1.0f / maxFPS) * 1000.0f)
+    : _maxFPS(maxFPS), _minFrameTime((1.0f / maxFPS) * 1000.0f)
+{
+}
+
+FPSTimer::FPSTimer()
+    : _maxFPS(0), _minFrameTime(0.0f)
 {
 }
 
 void FPSTimer::start()
 {
-    _current_time = SDL_GetTicks();
+    _currentTime = SDL_GetTicks();
 }
 
-void FPSTimer::sleep()
+void FPSTimer::update()
 {
-    float sleep_time;
-
-    _old_time = _current_time;
-    _current_time = SDL_GetTicks();
-    _frame_time = (_current_time - _old_time);
-    if (_frame_time < _min_frame_time) {
-        sleep_time = _min_frame_time - _frame_time;
-        //SDL_Delay(sleep_time);
-        _frame_time += sleep_time;
-        _current_time += sleep_time;
+    _oldTime = _currentTime;
+    _currentTime = SDL_GetTicks();
+    _frameTime = (_currentTime - _oldTime);
+    if (_minFrameTime > 0.0f) {
+        std::cout << "Sleep" << std::endl;
+        Uint32 sleep_time = roundf(_minFrameTime - _frameTime);
+        if (sleep_time > 0) {
+            SDL_Delay(sleep_time);
+            _currentTime = SDL_GetTicks();
+            _frameTime = (_currentTime - _oldTime);
+        }
     }
 }
 
 
 float FPSTimer::getFPS() const
 {
-    if (_frame_time == 0.0f)
-        return 0.0f;
-    return 1000.0f / _frame_time;
+    if (_frameTime == 0.0f)
+        return 1000.0f;
+    return 1000.0f / _frameTime;
 }
 
 float FPSTimer::getFrameTime() const
 {
-    if (_frame_time == 0.0f)
+    if (_frameTime == 0.0f)
         return 0.0f;
-    return _frame_time / 1000.0f;
+    return _frameTime / 1000.0f;
 }

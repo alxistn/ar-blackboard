@@ -7,19 +7,20 @@ class FPSTimer
 {
 private:
 
-    int _maxFPS;
-    float _min_frame_time;
+    float _maxFPS;
+    float _minFrameTime;
 
-    Uint32 _old_time = 0;
-    Uint32 _current_time = 0;
-    float _frame_time = 0;
+    Uint32 _oldTime = 0;
+    Uint32 _currentTime = 0;
+    float _frameTime = 0;
 
 
 public:
+    FPSTimer();
     FPSTimer(float maxFPS);
 
     void start();
-    void sleep();
+    void update();
 
     float getFPS() const;
     float getFrameTime() const;

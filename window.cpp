@@ -10,7 +10,7 @@ Window::Window(int width, int height, const std::string& title)
     _window = SDL_CreateWindow(_title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, _width, _height, SDL_WINDOW_SHOWN);
     if (_window == NULL)
        throw std::logic_error(SDL_GetError());
-    _renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED/* | SDL_RENDERER_PRESENTVSYNC*/);
+    _renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (_renderer == NULL)
        throw std::logic_error(SDL_GetError());
     SDL_RenderGetViewport(_renderer, &_viewPort);
