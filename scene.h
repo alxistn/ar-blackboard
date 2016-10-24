@@ -17,6 +17,7 @@ public:
 
     virtual void draw(SDL_Renderer* renderer) const = 0;
     virtual void update(float deltaTime) = 0;
+    virtual void handleEvent(const SDL_Event& event) = 0;
 };
 
 #endif // SCENE_H

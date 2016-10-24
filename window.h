@@ -16,8 +16,11 @@ private:
     SDL_Window* _window = NULL;
     SDL_Renderer* _renderer = NULL;
     SDL_Rect _viewPort;
+    Uint32 _id;
 
     Scene* _scene = NULL;
+
+    bool _hidden = false;
 
 public:
     Window(int width, int height, const std::string& title);
@@ -28,6 +31,13 @@ public:
 
     const SDL_Rect& getViewPort() const;
     void setScene(Scene* scene);
+    Scene* getScene();
+
+    void handleEvent(const SDL_Event& event);
+    void hide();
+    void show();
+
+    bool hidden() const;
 };
 
 #endif // WINDOW_H

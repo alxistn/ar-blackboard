@@ -16,9 +16,12 @@ public:
 
     virtual void draw(SDL_Renderer* renderer) const;
     virtual void update(float deltaTime);
+    virtual void handleEvent(const SDL_Event& event);
 
-    void CreateGround(float X, float Y);
-    void CreateBox(int X, int Y);
+    void createGround(float X, float Y);
+    void createBox(int X, int Y);
+
+
 
 };
 

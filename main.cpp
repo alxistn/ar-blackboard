@@ -13,6 +13,9 @@ int main ()
     GameScene scene1(window1.getViewPort());
     window1.setScene(&scene1);
 
+    Window window2(640, 480, "Box2D Scene");
+    window2.setScene(new GameScene(window2.getViewPort()));
+
     FPSTimer fpsTimer;
     fpsTimer.start();
     bool quit = false;
@@ -24,52 +27,24 @@ int main ()
         while(SDL_PollEvent(&event) != 0)
         {
             //User requests quit
-            if(event.type == SDL_QUIT)
-            {
+            if (event.type == SDL_QUIT)
                 quit = true;
-            }
-            else if (event.type == SDL_MOUSEBUTTONUP)
-            {
-                //Get mouse position
-                int x, y;
-                SDL_GetMouseState(&x, &y);
-                std::cout << "Mouse buttom pressed at " << x << " " << y << std::endl;
-                scene1.CreateBox(x, y);
-            }
-            //User presses a key
-            else if(event.type == SDL_KEYDOWN)
-            {
-                //Handle some key events
-                switch(event.key.keysym.sym)
-                {
-                    case SDLK_UP:
-                        std::cout << "Key up pressed" << std::endl;
-                    break;
-
-                    case SDLK_DOWN:
-                        std::cout << "Key down pressed" << std::endl;
-                    break;
-
-                    case SDLK_LEFT:
-                        std::cout << "Key left pressed" << std::endl;
-                    break;
-
-                    case SDLK_RIGHT:
-                        std::cout << "Key right pressed" << std::endl;
-                    break;
-
-                    default:
-                        std::cout << "Non handled key pressed" << std::endl;
-                    break;
-                }
+            else {
+                window1.handleEvent(event);
+                window2.handleEvent(event);
             }
         }
+        if (window1.hidden() && window2.hidden())
+            quit = true;
 
         //Logic
-        scene1.update(fpsTimer.getFrameTime());
+        window1.update(fpsTimer.getFrameTime());
+        window2.update(fpsTimer.getFrameTime());
+
 
         //Rendering
         window1.draw();
+        window2.draw();
 
 
         //Logic & Rendering
