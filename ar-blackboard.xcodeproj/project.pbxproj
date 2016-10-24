@@ -1,0 +1,376 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7D1114C01DBE3C9100BBA772 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D1114BD1DBE3C9100BBA772 /* SDL2_image.framework */; };
+		7D1114C11DBE3C9100BBA772 /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D1114BE1DBE3C9100BBA772 /* SDL2_ttf.framework */; };
+		7D1114C21DBE3C9100BBA772 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D1114BF1DBE3C9100BBA772 /* SDL2.framework */; };
+		7D8659E51DBE516E0035A935 /* libBox2D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D8659E41DBE516E0035A935 /* libBox2D.a */; };
+		7D8659EF1DBE51770035A935 /* fpstimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7D8659E61DBE51770035A935 /* fpstimer.cpp */; };
+		7D8659F01DBE51770035A935 /* gamescene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7D8659E81DBE51770035A935 /* gamescene.cpp */; };
+		7D8659F11DBE51770035A935 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7D8659EA1DBE51770035A935 /* main.cpp */; };
+		7D8659F21DBE51770035A935 /* scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7D8659EB1DBE51770035A935 /* scene.cpp */; };
+		7D8659F31DBE51770035A935 /* window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7D8659ED1DBE51770035A935 /* window.cpp */; };
+		7D8659F71DBE53610035A935 /* ar-blackboard-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D8659F61DBE53610035A935 /* ar-blackboard-Info.plist */; };
+		7D8659F91DBE53C50035A935 /* ar-blackboard.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D8659F81DBE53C50035A935 /* ar-blackboard.plist */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		7D1114BD1DBE3C9100BBA772 /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../../../../../Library/Frameworks/SDL2_image.framework; sourceTree = "<group>"; };
+		7D1114BE1DBE3C9100BBA772 /* SDL2_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_ttf.framework; path = ../../../../../../Library/Frameworks/SDL2_ttf.framework; sourceTree = "<group>"; };
+		7D1114BF1DBE3C9100BBA772 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
+		7D8659E41DBE516E0035A935 /* libBox2D.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBox2D.a; sourceTree = "<group>"; };
+		7D8659E61DBE51770035A935 /* fpstimer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fpstimer.cpp; sourceTree = SOURCE_ROOT; };
+		7D8659E71DBE51770035A935 /* fpstimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fpstimer.h; sourceTree = SOURCE_ROOT; };
+		7D8659E81DBE51770035A935 /* gamescene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gamescene.cpp; sourceTree = SOURCE_ROOT; };
+		7D8659E91DBE51770035A935 /* gamescene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gamescene.h; sourceTree = SOURCE_ROOT; };
+		7D8659EA1DBE51770035A935 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = SOURCE_ROOT; };
+		7D8659EB1DBE51770035A935 /* scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scene.cpp; sourceTree = SOURCE_ROOT; };
+		7D8659EC1DBE51770035A935 /* scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scene.h; sourceTree = SOURCE_ROOT; };
+		7D8659ED1DBE51770035A935 /* window.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = window.cpp; sourceTree = SOURCE_ROOT; };
+		7D8659EE1DBE51770035A935 /* window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = window.h; sourceTree = SOURCE_ROOT; };
+		7D8659F61DBE53610035A935 /* ar-blackboard-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ar-blackboard-Info.plist"; sourceTree = SOURCE_ROOT; };
+		7D8659F81DBE53C50035A935 /* ar-blackboard.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ar-blackboard.plist"; sourceTree = SOURCE_ROOT; };
+		7DF40AF11DBA6FFA001D5F27 /* ar-blackboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ar-blackboard.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7DF40AED1DBA6FFA001D5F27 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7D1114C01DBE3C9100BBA772 /* SDL2_image.framework in Frameworks */,
+				7D1114C11DBE3C9100BBA772 /* SDL2_ttf.framework in Frameworks */,
+				7D1114C21DBE3C9100BBA772 /* SDL2.framework in Frameworks */,
+				7D8659E51DBE516E0035A935 /* libBox2D.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7D1114BC1DBE3C9100BBA772 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7D1114BD1DBE3C9100BBA772 /* SDL2_image.framework */,
+				7D1114BE1DBE3C9100BBA772 /* SDL2_ttf.framework */,
+				7D1114BF1DBE3C9100BBA772 /* SDL2.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7DF40AE71DBA6FFA001D5F27 = {
+			isa = PBXGroup;
+			children = (
+				7DF40B091DBA7025001D5F27 /* Library */,
+				7DF40AF31DBA6FFA001D5F27 /* Sources */,
+				7DF40AF21DBA6FFA001D5F27 /* Products */,
+				7D1114BC1DBE3C9100BBA772 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		7DF40AF21DBA6FFA001D5F27 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7DF40AF11DBA6FFA001D5F27 /* ar-blackboard.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7DF40AF31DBA6FFA001D5F27 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				7D8659F61DBE53610035A935 /* ar-blackboard-Info.plist */,
+				7D8659E61DBE51770035A935 /* fpstimer.cpp */,
+				7D8659E71DBE51770035A935 /* fpstimer.h */,
+				7D8659E81DBE51770035A935 /* gamescene.cpp */,
+				7D8659E91DBE51770035A935 /* gamescene.h */,
+				7D8659EA1DBE51770035A935 /* main.cpp */,
+				7D8659EB1DBE51770035A935 /* scene.cpp */,
+				7D8659EC1DBE51770035A935 /* scene.h */,
+				7D8659ED1DBE51770035A935 /* window.cpp */,
+				7D8659EE1DBE51770035A935 /* window.h */,
+				7D8659F81DBE53C50035A935 /* ar-blackboard.plist */,
+			);
+			name = Sources;
+			path = SFML_B2D;
+			sourceTree = "<group>";
+		};
+		7DF40B091DBA7025001D5F27 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				7D8659E41DBE516E0035A935 /* libBox2D.a */,
+			);
+			name = Library;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7DF40AF01DBA6FFA001D5F27 /* ar-blackboard */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7DF40B061DBA6FFA001D5F27 /* Build configuration list for PBXNativeTarget "ar-blackboard" */;
+			buildPhases = (
+				7DF40AEC1DBA6FFA001D5F27 /* Sources */,
+				7DF40AED1DBA6FFA001D5F27 /* Frameworks */,
+				7DF40AEE1DBA6FFA001D5F27 /* Resources */,
+				7DF40AEF1DBA6FFA001D5F27 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ar-blackboard";
+			productName = SFML_B2D;
+			productReference = 7DF40AF11DBA6FFA001D5F27 /* ar-blackboard.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7DF40AE81DBA6FFA001D5F27 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0800;
+				ORGANIZATIONNAME = "ar-blackbord";
+				TargetAttributes = {
+					7DF40AF01DBA6FFA001D5F27 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = G87WHEK888;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 7DF40AEB1DBA6FFA001D5F27 /* Build configuration list for PBXProject "ar-blackboard" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DF40AE71DBA6FFA001D5F27;
+			productRefGroup = 7DF40AF21DBA6FFA001D5F27 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7DF40AF01DBA6FFA001D5F27 /* ar-blackboard */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7DF40AEE1DBA6FFA001D5F27 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7D8659F91DBE53C50035A935 /* ar-blackboard.plist in Resources */,
+				7D8659F71DBE53610035A935 /* ar-blackboard-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7DF40AEF1DBA6FFA001D5F27 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This shell script simply copies required SFML dylibs/frameworks into the application bundle frameworks folder.\n# If you're using static libraries (which is not recommended) you should remove this script from your project.\n\n# SETTINGS\nCMAKE_INSTALL_FRAMEWORK_PREFIX=\"/Library/Frameworks\"\nCMAKE_INSTALL_LIB_PREFIX=\"/usr/local/lib\"\nFRAMEWORKS_FULL_PATH=\"$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/\"\n\n# Are we building a project that uses frameworks or dylibs?\ncase \"$SFML_BINARY_TYPE\" in\n    DYLIBS)\n        frameworks=\"false\"\n        ;;\n    *)\n        frameworks=\"true\"\n        ;;\nesac\n\n# Echoes to stderr\nerror () # $* message to display\n{\n    echo $* 1>&2\n    exit 2\n}\n\nassert () # $1 is a boolean, $2...N is an error message\n{\n    if [ $# -lt 2 ]\n    then\n        error \"Internal error in assert: not enough args\"\n    fi\n\n    if [ $1 -ne 0 ]\n    then\n        shift\n        error \"$*\"\n    fi\n}\n\nforce_remove () # $@ is some paths\n{\n    test $# -ge 1\n    assert $? \"force_remove() requires at least one parameter\"\n    rm -fr $@\n    assert $? \"couldn't remove $@\"\n}\n\ncopy () # $1 is a source, $2 is a destination\n{\n    test $# -eq 2\n    assert $? \"copy() requires two parameters\"\n    ditto \"$1\" \"$2\"\n    assert $? \"couldn't copy $1 to $2\"\n}\n\nrequire () # $1 is a SFML module like 'system' or 'audio'\n{\n    dest=\"$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/\"\n\n    if [ -z \"$1\" ]\n    then\n        error \"require() requires one parameter!\"\n    else\n        # clean potentially old stuff\n        force_remove \"$dest/libsfml-$1\"*\n        force_remove \"$dest/sfml-$1.framework\"\n\n        # copy SFML libraries\n        if [ \"$frameworks\" = \"true\" ]\n        then\n            source=\"$CMAKE_INSTALL_FRAMEWORK_PREFIX/sfml-$1.framework\"\n            target=\"sfml-$1.framework\"\n        elif [ \"$SFML_LINK_DYLIBS_SUFFIX\" = \"-d\" ]\n        then\n            source=\"$CMAKE_INSTALL_LIB_PREFIX/libsfml-$1-d.dylib\"\n            target=\"`readlink $source`\"\n        else\n            source=\"$CMAKE_INSTALL_LIB_PREFIX/libsfml-$1.dylib\"\n            target=\"`readlink $source`\"\n        fi\n\n        copy \"$source\" \"$dest/$target\"\n\n        # copy extra dependencies\n        if [ \"$1\" = \"audio\" ]\n        then\n            # copy \"FLAC\" \"ogg\" \"vorbis\" \"vorbisenc\" \"vorbisfile\" \"OpenAL\" frameworks too\n            for f in \"FLAC\" \"ogg\" \"vorbis\" \"vorbisenc\" \"vorbisfile\" \"OpenAL\"\n            do\n                copy \"$CMAKE_INSTALL_FRAMEWORK_PREFIX/$f.framework\" \"$dest/$f.framework\"\n            done\n        elif [ \"$1\" = \"graphics\" ]\n        then\n            copy \"$CMAKE_INSTALL_FRAMEWORK_PREFIX/freetype.framework\" \"$dest/freetype.framework\"\n        fi\n    fi\n}\n\nif [ -n \"$SFML_SYSTEM\" ]\nthen\n    require \"system\"\nfi\n\nif [ -n \"$SFML_AUDIO\" ]\nthen\n    require \"audio\"\nfi\n\nif [ -n \"$SFML_NETWORK\" ]\nthen\n    require \"network\"\nfi\n\nif [ -n \"$SFML_WINDOW\" ]\nthen\n    require \"window\"\nfi\n\nif [ -n \"$SFML_GRAPHICS\" ]\nthen\n    require \"graphics\"\nfi\n\n                ";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7DF40AEC1DBA6FFA001D5F27 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7D8659F21DBE51770035A935 /* scene.cpp in Sources */,
+				7D8659F01DBE51770035A935 /* gamescene.cpp in Sources */,
+				7D8659F31DBE51770035A935 /* window.cpp in Sources */,
+				7D8659EF1DBE51770035A935 /* fpstimer.cpp in Sources */,
+				7D8659F11DBE51770035A935 /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		7DF40B041DBA6FFA001D5F27 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				FRAMEWORK_SEARCH_PATHS = (
+					/Library/Frameworks/,
+					"$(inherited)",
+				);
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include/,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib/,
+					"$(inherited)",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"$(SFML_SYSTEM)",
+					"$(SFML_WINDOW)",
+					"$(SFML_GRAPHICS)",
+					"$(SFML_AUDIO)",
+					"$(SFML_NETWORK)",
+				);
+				SFML_AUDIO = "$(SFML_LINK_PREFIX) sfml-audio$(SFML_LINK_SUFFIX)";
+				SFML_BINARY_TYPE = FRAMEWORKS;
+				SFML_GRAPHICS = "$(SFML_LINK_PREFIX) sfml-graphics$(SFML_LINK_SUFFIX)";
+				SFML_LINK_DYLIBS_PREFIX = "-l";
+				SFML_LINK_DYLIBS_SUFFIX = "";
+				SFML_LINK_FRAMEWORKS_PREFIX = "-framework";
+				SFML_LINK_FRAMEWORKS_SUFFIX = "";
+				SFML_LINK_PREFIX = "$(SFML_LINK_$(SFML_BINARY_TYPE)_PREFIX)";
+				SFML_LINK_SUFFIX = "$(SFML_LINK_$(SFML_BINARY_TYPE)_SUFFIX)";
+				SFML_NETWORK = "$(SFML_LINK_PREFIX) sfml-network$(SFML_LINK_SUFFIX)";
+				SFML_SYSTEM = "$(SFML_LINK_PREFIX) sfml-system$(SFML_LINK_SUFFIX)";
+				SFML_WINDOW = "$(SFML_LINK_PREFIX) sfml-window$(SFML_LINK_SUFFIX)";
+				SUPPORTED_PLATFORMS = macosx;
+			};
+			name = Debug;
+		};
+		7DF40B051DBA6FFA001D5F27 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				FRAMEWORK_SEARCH_PATHS = (
+					/Library/Frameworks/,
+					"$(inherited)",
+				);
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include/,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib/,
+					"$(inherited)",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"$(SFML_SYSTEM)",
+					"$(SFML_WINDOW)",
+					"$(SFML_GRAPHICS)",
+					"$(SFML_AUDIO)",
+					"$(SFML_NETWORK)",
+				);
+				SFML_AUDIO = "$(SFML_LINK_PREFIX) sfml-audio$(SFML_LINK_SUFFIX)";
+				SFML_BINARY_TYPE = FRAMEWORKS;
+				SFML_GRAPHICS = "$(SFML_LINK_PREFIX) sfml-graphics$(SFML_LINK_SUFFIX)";
+				SFML_LINK_DYLIBS_PREFIX = "-l";
+				SFML_LINK_DYLIBS_SUFFIX = "";
+				SFML_LINK_FRAMEWORKS_PREFIX = "-framework";
+				SFML_LINK_FRAMEWORKS_SUFFIX = "";
+				SFML_LINK_PREFIX = "$(SFML_LINK_$(SFML_BINARY_TYPE)_PREFIX)";
+				SFML_LINK_SUFFIX = "$(SFML_LINK_$(SFML_BINARY_TYPE)_SUFFIX)";
+				SFML_NETWORK = "$(SFML_LINK_PREFIX) sfml-network$(SFML_LINK_SUFFIX)";
+				SFML_SYSTEM = "$(SFML_LINK_PREFIX) sfml-system$(SFML_LINK_SUFFIX)";
+				SFML_WINDOW = "$(SFML_LINK_PREFIX) sfml-window$(SFML_LINK_SUFFIX)";
+				SUPPORTED_PLATFORMS = macosx;
+			};
+			name = Release;
+		};
+		7DF40B071DBA6FFA001D5F27 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = G87WHEK888;
+				FRAMEWORK_SEARCH_PATHS = (
+					/Library/Frameworks/,
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include/,
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "ar-blackboard.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ar-blackboard",
+					"$(PROJECT_DIR)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "ar-blackbord.ar-blackboard";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SFML_LINK_DYLIBS_PREFIX = "-l";
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Debug;
+		};
+		7DF40B081DBA6FFA001D5F27 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = G87WHEK888;
+				FRAMEWORK_SEARCH_PATHS = (
+					/Library/Frameworks/,
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include/,
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "ar-blackboard.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ar-blackboard",
+					"$(PROJECT_DIR)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "ar-blackbord.ar-blackboard";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SFML_LINK_DYLIBS_PREFIX = "-l";
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7DF40AEB1DBA6FFA001D5F27 /* Build configuration list for PBXProject "ar-blackboard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7DF40B041DBA6FFA001D5F27 /* Debug */,
+				7DF40B051DBA6FFA001D5F27 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7DF40B061DBA6FFA001D5F27 /* Build configuration list for PBXNativeTarget "ar-blackboard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7DF40B071DBA6FFA001D5F27 /* Debug */,
+				7DF40B081DBA6FFA001D5F27 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7DF40AE81DBA6FFA001D5F27 /* Project object */;
+}
