@@ -18,6 +18,7 @@
 		7D8659F31DBE51770035A935 /* window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7D8659ED1DBE51770035A935 /* window.cpp */; };
 		7D8659F71DBE53610035A935 /* ar-blackboard-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D8659F61DBE53610035A935 /* ar-blackboard-Info.plist */; };
 		7D8659F91DBE53C50035A935 /* ar-blackboard.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D8659F81DBE53C50035A935 /* ar-blackboard.plist */; };
+		7D8659FC1DBE9CCC0035A935 /* GameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7D8659FA1DBE9CCC0035A935 /* GameObject.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,8 @@
 		7D8659EE1DBE51770035A935 /* window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = window.h; sourceTree = SOURCE_ROOT; };
 		7D8659F61DBE53610035A935 /* ar-blackboard-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ar-blackboard-Info.plist"; sourceTree = SOURCE_ROOT; };
 		7D8659F81DBE53C50035A935 /* ar-blackboard.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ar-blackboard.plist"; sourceTree = SOURCE_ROOT; };
+		7D8659FA1DBE9CCC0035A935 /* GameObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameObject.cpp; sourceTree = SOURCE_ROOT; };
+		7D8659FB1DBE9CCC0035A935 /* GameObject.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GameObject.hpp; sourceTree = SOURCE_ROOT; };
 		7DF40AF11DBA6FFA001D5F27 /* ar-blackboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ar-blackboard.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -96,6 +99,8 @@
 				7D8659ED1DBE51770035A935 /* window.cpp */,
 				7D8659EE1DBE51770035A935 /* window.h */,
 				7D8659F81DBE53C50035A935 /* ar-blackboard.plist */,
+				7D8659FA1DBE9CCC0035A935 /* GameObject.cpp */,
+				7D8659FB1DBE9CCC0035A935 /* GameObject.hpp */,
 			);
 			name = Sources;
 			path = SFML_B2D;
@@ -198,6 +203,7 @@
 			files = (
 				7D8659F21DBE51770035A935 /* scene.cpp in Sources */,
 				7D8659F01DBE51770035A935 /* gamescene.cpp in Sources */,
+				7D8659FC1DBE9CCC0035A935 /* GameObject.cpp in Sources */,
 				7D8659F31DBE51770035A935 /* window.cpp in Sources */,
 				7D8659EF1DBE51770035A935 /* fpstimer.cpp in Sources */,
 				7D8659F11DBE51770035A935 /* main.cpp in Sources */,

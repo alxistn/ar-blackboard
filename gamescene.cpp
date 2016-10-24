@@ -56,7 +56,6 @@ void GameScene::handleEvent(const SDL_Event& event)
 
 void GameScene::createGround(float x, float y, float w, float h)
 {
-    std::cout << "create ground: y: " << y << std::endl;
     b2BodyDef bodyDef;
     bodyDef.position = b2Vec2(x/30.f, y/30.f);
     bodyDef.type = b2_staticBody;
