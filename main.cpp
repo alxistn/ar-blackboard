@@ -1,121 +1,42 @@
 #include <iostream>
 
-#include <SDL2/SDL.h>
-#include <Box2D/Box2D.h>
-#include <opencv2/opencv.hpp>
-#include <opencv2/highgui.hpp>
+#include "window.h"
+#include "gamescene.h"
+#include "fpstimer.h"
 
-void fillTexture(SDL_Texture * texture, cv::Mat const &mat)
+int main ()
 {
-    IplImage * img = &(IplImage)mat;
+    if (SDL_Init(SDL_INIT_VIDEO) < 0)
+        throw std::logic_error(SDL_GetError());
 
-    unsigned char * texture_data = NULL;
-    int texture_pitch = 0;
-
-    SDL_LockTexture(texture, 0, (void **)&texture_data, &texture_pitch);
-    memcpy(texture_data, (void *)img->imageData, img->width * img->height * img->nChannels);
-    SDL_UnlockTexture(texture);
-}
-
-int main(int argc, char * argv[])
-{
-    cv::VideoCapture cap;
-
-    cap.open(0);
-
-    if (!cap.isOpened())
-    {
-        std::cerr << "***Could not initialize capturing...***" << std::endl;
-        return -1;
-    }
-
-    if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
-    {
-        std::cerr << "Failed to initialize SDL: " << SDL_GetError() << std::endl;
-        return 1;
-    }
-
-    SDL_Window * window = nullptr;
-    SDL_Renderer * renderer = nullptr;
-
-    if (SDL_CreateWindowAndRenderer(800, 600, 0, &window, &renderer) < 0)
-    {
-        std::cerr << "Error creating window or renderer: " << SDL_GetError() << std::endl;
-        SDL_Quit();
-        return 1;
-    }
-
-    SDL_Texture * texture = SDL_CreateTexture(
-        renderer,
-        SDL_PIXELFORMAT_BGR24,
-        SDL_TEXTUREACCESS_STREAMING,
-        (int)cap.get(cv::CAP_PROP_FRAME_WIDTH),
-        (int)cap.get(cv::CAP_PROP_FRAME_HEIGHT)
-    );
-
-    cv::Mat frame;
-
-    std::cout << "Hot keys:" << std::endl;
-    std::cout << "\tESC - quit the program" << std::endl;
-    std::cout << "\tp - pause video" << std::endl;
-
-    bool paused = false;
     bool quit = false;
+    Window window1(640, 480, "Box2D Scene");
+    GameScene scene1(window1.getViewPort());
+    window1.setScene(&scene1);
 
-    SDL_Event e;
+    FPSTimer fpsTimer(60);
+    fpsTimer.start();
+    while (quit == false) {
 
-    while (!quit)
-    {
-        while (SDL_PollEvent(&e))
-        {
-            switch (e.type)
-            {
-                case SDL_QUIT:
-                    quit = true;
-                    break;
+        //Rendering
+        window1.draw();
 
-                case SDL_KEYDOWN:
-                    switch (e.key.keysym.sym)
-                    {
-                        case SDLK_ESCAPE:
-                            quit = true;
-                            break;
+        //Caps FPS & Update FPSTimer
+        fpsTimer.sleep();
 
-                        case SDLK_p:
-                            paused = !paused;
-                            break;
-                    }
-                    break;
-            }
-        }
+        //Events
 
-        if (!paused)
-        {
-            cap >> frame;
 
-            if (frame.empty())
-            {
-                quit = true;
-                continue;
-            }
+        //Logic
+        scene1.update(fpsTimer.getFrameTime());
 
-            fillTexture(texture, frame);
-        }
 
-        SDL_RenderClear(renderer);
-        SDL_RenderCopy(renderer, texture, NULL, NULL);
-        SDL_RenderPresent(renderer);
 
-        SDL_Delay(10);
+        //Logic & Rendering
+        //window1.update(fpsTimer.getFrameTime());
+
+
     }
 
-    cap.release();
-
-    SDL_DestroyTexture(texture);
-
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
     SDL_Quit();
-
-    return 0;
 }

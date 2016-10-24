@@ -9,5 +9,15 @@ PKGCONFIG += sdl2
 
 INCLUDEPATH += "/usr/include/"
 DEPENDPATH += "/usr/include/"
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    window.cpp \
+    fpstimer.cpp \
+    scene.cpp \
+    gamescene.cpp
+
+HEADERS += \
+    window.h \
+    fpstimer.h \
+    scene.h \
+    gamescene.h
 
