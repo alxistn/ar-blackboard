@@ -1,4 +1,5 @@
 #include "gamescene.h"
+#include <iostream>
 
 GameScene::GameScene(const SDL_Rect& viewPort)
     : Scene(viewPort), _gravity(0.f, 9.8f), _world(_gravity)
