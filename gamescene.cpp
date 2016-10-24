@@ -1,5 +1,5 @@
-#include <iostream>
 #include "gamescene.h"
+#include <iostream>
 
 GameScene::GameScene(const SDL_Rect& viewPort)
     : Scene(viewPort), _gravity(0.f, 9.8f), _world(_gravity)
@@ -25,8 +25,6 @@ void GameScene::draw(SDL_Renderer* renderer) const
         {
             SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
             SDL_Rect groundRect;
-            std::cout << "x: " << bodyIterator->GetPosition().x * 30.0f << std::endl;
-            std::cout << "y: " << bodyIterator->GetPosition().y * 30.0f << std::endl;
             groundRect.x = bodyIterator->GetPosition().x * 30.0f - (_width / 2) / 2;
             groundRect.y = bodyIterator->GetPosition().y * 30.0f - 16.0f / 2;
             groundRect.w = _width / 2;

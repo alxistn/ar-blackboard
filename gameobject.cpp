@@ -6,9 +6,9 @@
 //  Copyright © 2016 ar-blackbord. All rights reserved.
 //
 
-#include "GameObject.hpp"
+#include "gameobject.hpp"
 
-GameObject::GameObject(b2World* world, float x, float y, b2BodyType type, const b2Shape *shape)
+GameObject::GameObject(b2World* world, float x, float y, b2BodyType type, const b2Shape* shape)
     : _world(world)
 {
     b2BodyDef bodyDef;

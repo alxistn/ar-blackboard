@@ -14,8 +14,8 @@ int main ()
         throw std::logic_error(SDL_GetError());
 
     Window mainWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
-    GameScene scene1(mainWindow.getViewPort());
-    mainWindow.setScene(&scene1);
+    GameScene gameScene(mainWindow.getViewPort());
+    mainWindow.setScene(&gameScene);
 
     FPSTimer fpsTimer;
     fpsTimer.start();
