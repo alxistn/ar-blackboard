@@ -84,19 +84,19 @@ void Window::handleEvent(const SDL_Event& event)
             break;
 
             case SDLK_DOWN:
-                std::cout << "Key up pressed on Window " << _id << std::endl;
+                std::cout << "Key down pressed on Window " << _id << std::endl;
             break;
 
             case SDLK_LEFT:
-                std::cout << "Key up pressed on Window " << _id << std::endl;
+                std::cout << "Key left pressed on Window " << _id << std::endl;
             break;
 
             case SDLK_RIGHT:
-                std::cout << "Key up pressed on Window " << _id << std::endl;
+                std::cout << "Key right pressed on Window " << _id << std::endl;
             break;
 
             default:
-                std::cout << "Key up pressed on Window " << _id << std::endl;
+                std::cout << "A key was pressed on Window " << _id << std::endl;
             break;
         }
     }
