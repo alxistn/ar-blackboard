@@ -4,17 +4,18 @@
 #include "gamescene.h"
 #include "fpstimer.h"
 
+#define WINDOW_WIDTH    1280
+#define WINDOW_HEIGHT   768
+#define WINDOW_TITLE    "Box2D Scene"
+
 int main ()
 {
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
         throw std::logic_error(SDL_GetError());
 
-    Window window1(640, 480, "Box2D Scene");
-    GameScene scene1(window1.getViewPort());
-    window1.setScene(&scene1);
-
-    Window window2(640, 480, "Box2D Scene");
-    window2.setScene(new GameScene(window2.getViewPort()));
+    Window mainWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
+    GameScene scene1(mainWindow.getViewPort());
+    mainWindow.setScene(&scene1);
 
     FPSTimer fpsTimer;
     fpsTimer.start();
@@ -30,25 +31,20 @@ int main ()
             if (event.type == SDL_QUIT)
                 quit = true;
             else {
-                window1.handleEvent(event);
-                window2.handleEvent(event);
+                mainWindow.handleEvent(event);
             }
         }
-        if (window1.hidden() && window2.hidden())
-            quit = true;
 
         //Logic
-        window1.update(fpsTimer.getFrameTime());
-        window2.update(fpsTimer.getFrameTime());
+        mainWindow.update(fpsTimer.getFrameTime());
 
 
         //Rendering
-        window1.draw();
-        window2.draw();
+        mainWindow.draw();
 
 
         //Logic & Rendering
-        //window1.update(fpsTimer.getFrameTime());
+        //mainWindow.update(fpsTimer.getFrameTime());
 
 
         //Update FPSTimer (& Cap FPS)

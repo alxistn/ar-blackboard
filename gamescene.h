@@ -18,8 +18,8 @@ public:
     virtual void update(float deltaTime);
     virtual void handleEvent(const SDL_Event& event);
 
-    void createGround(float X, float Y);
-    void createBox(int X, int Y);
+    void createGround(float x, float y, float w, float h);
+    void createBox(int x, int y);
 
 
 

@@ -1,14 +1,10 @@
-#include "gamescene.h"
 #include <iostream>
+#include "gamescene.h"
 
 GameScene::GameScene(const SDL_Rect& viewPort)
     : Scene(viewPort), _gravity(0.f, 9.8f), _world(_gravity)
 {
-    createGround(320, 360);
-    createBox(52.0f, 43.0f);
-    createBox(41.0f, 46.0f);
-    createBox(47.0f, 58.0f);
-    createBox(54.0f, 55.0f);
+    createGround(_width / 2, _height / 2, _width / 2, 16.0f);
 }
 
 void GameScene::draw(SDL_Renderer* renderer) const
@@ -29,10 +25,12 @@ void GameScene::draw(SDL_Renderer* renderer) const
         {
             SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
             SDL_Rect groundRect;
-            groundRect.x = bodyIterator->GetPosition().x * 30.0f - 320.0f / 2;
-            groundRect.y = bodyIterator->GetPosition().y * 30.0f - 4.0f;
-            groundRect.w = 320.0f;
-            groundRect.h = 8.0f;
+            std::cout << "x: " << bodyIterator->GetPosition().x * 30.0f << std::endl;
+            std::cout << "y: " << bodyIterator->GetPosition().y * 30.0f << std::endl;
+            groundRect.x = bodyIterator->GetPosition().x * 30.0f - (_width / 2) / 2;
+            groundRect.y = bodyIterator->GetPosition().y * 30.0f - 16.0f / 2;
+            groundRect.w = _width / 2;
+            groundRect.h = 16.0f;
             SDL_RenderDrawRect(renderer, &groundRect);
         }
     }
@@ -56,15 +54,16 @@ void GameScene::handleEvent(const SDL_Event& event)
     }
 }
 
-void GameScene::createGround(float x, float y)
+void GameScene::createGround(float x, float y, float w, float h)
 {
+    std::cout << "create ground: y: " << y << std::endl;
     b2BodyDef bodyDef;
     bodyDef.position = b2Vec2(x/30.f, y/30.f);
     bodyDef.type = b2_staticBody;
     b2Body* body = _world.CreateBody(&bodyDef);
 
     b2PolygonShape shape;
-    shape.SetAsBox(160.0f/30.f, 4.0f/30.f); // Creates a box shape. Divide your desired width and height by 2.
+    shape.SetAsBox((w / 2.0f) / 30.f, (h / 2.0f) /30.f); // Creates a box shape. Divide your desired width and height by 2.
     b2FixtureDef fixtureDef;
     fixtureDef.density = 0.f;  // Sets the density of the body
     fixtureDef.shape = &shape; // Sets the shape
