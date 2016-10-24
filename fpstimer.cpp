@@ -19,7 +19,7 @@ void FPSTimer::sleep()
     _frame_time = (_current_time - _old_time);
     if (_frame_time < _min_frame_time) {
         sleep_time = _min_frame_time - _frame_time;
-        SDL_Delay(sleep_time);
+        //SDL_Delay(sleep_time);
         _frame_time += sleep_time;
         _current_time += sleep_time;
     }
