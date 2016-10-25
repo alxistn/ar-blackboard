@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "window.h"
-#include "gamescene.h"
+#include "opencvscene.h"
 #include "fpstimer.h"
 
 #define WINDOW_WIDTH    1280
@@ -14,7 +14,7 @@ int main ()
         throw std::logic_error(SDL_GetError());
 
     Window mainWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
-    GameScene gameScene(mainWindow);
+    OpenCVScene openCVScene(mainWindow);
 
     FPSTimer fpsTimer;
     fpsTimer.start();
