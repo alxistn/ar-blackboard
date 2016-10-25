@@ -4,7 +4,7 @@
 #include "opencvscene.h"
 #include "fpstimer.h"
 
-#define WINDOW_WIDTH    1280
+#define WINDOW_WIDTH    768
 #define WINDOW_HEIGHT   768
 #define WINDOW_TITLE    "Box2D Scene"
 
