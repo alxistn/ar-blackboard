@@ -10,7 +10,9 @@
 #define GameObject_hpp
 
 #include <stdio.h>
+#include <stdexcept>
 #include <Box2D/Box2D.h>
+#include <SDL.h>
 
 #define BOX2D_SCALE     30.0f
 
@@ -21,9 +23,11 @@ private:
     b2Body*     _body;
     b2Fixture*  _fixture;
     b2Shape*    _shape;
+    void (GameObject::* _drawShape)(SDL_Renderer*) const;
     
 public:
-    GameObject(b2World* world, float x, float y, b2BodyType type, const b2Shape* shape);
+    GameObject(b2World* world, float x, float y, b2BodyType type, const b2Shape* shape,
+               float density, float friction, float restitution);
     ~GameObject();
 
     void    setFriction(float friction);
@@ -33,11 +37,11 @@ public:
     float   getDensity() const;
     float   getRestitution() const;
 
-    void    draw() const;
-    void    drawChain() const;
-    void    drawEdge() const;
-    void    drawCircle() const;
-    void    drawPolygon() const;
+    void    draw(SDL_Renderer* renderer) const;
+    void    drawChain(SDL_Renderer* renderer) const;
+    void    drawEdge(SDL_Renderer* renderer) const;
+    void    drawCircle(SDL_Renderer* renderer) const;
+    void    drawPolygon(SDL_Renderer* renderer) const;
     
 };
 

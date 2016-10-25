@@ -9,28 +9,9 @@ GameScene::GameScene(const SDL_Rect& viewPort)
 
 void GameScene::draw(SDL_Renderer* renderer) const
 {
-    for (const b2Body* bodyIterator = _world.GetBodyList(); bodyIterator != 0; bodyIterator = bodyIterator->GetNext())
+    for (GameObject* gameObject : _gameObjects)
     {
-        if (bodyIterator->GetType() == b2_dynamicBody)
-        {
-            SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
-            SDL_Rect boxRect;
-            boxRect.x = bodyIterator->GetPosition().x * 30.0f - 8.0f;
-            boxRect.y = bodyIterator->GetPosition().y * 30.0f - 8.0f;
-            boxRect.w = 16.0f;
-            boxRect.h = 16.0f;
-            SDL_RenderDrawRect(renderer, &boxRect);
-        }
-        else
-        {
-            SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
-            SDL_Rect groundRect;
-            groundRect.x = bodyIterator->GetPosition().x * 30.0f - (_width / 2) / 2;
-            groundRect.y = bodyIterator->GetPosition().y * 30.0f - 16.0f / 2;
-            groundRect.w = _width / 2;
-            groundRect.h = 16.0f;
-            SDL_RenderDrawRect(renderer, &groundRect);
-        }
+        gameObject->draw(renderer);
     }
 }
 
@@ -54,31 +35,17 @@ void GameScene::handleEvent(const SDL_Event& event)
 
 void GameScene::createGround(float x, float y, float w, float h)
 {
-    b2BodyDef bodyDef;
-    bodyDef.position = b2Vec2(x/30.f, y/30.f);
-    bodyDef.type = b2_staticBody;
-    b2Body* body = _world.CreateBody(&bodyDef);
-
     b2PolygonShape shape;
-    shape.SetAsBox((w / 2.0f) / 30.f, (h / 2.0f) /30.f); // Creates a box shape. Divide your desired width and height by 2.
-    b2FixtureDef fixtureDef;
-    fixtureDef.density = 0.f;  // Sets the density of the body
-    fixtureDef.shape = &shape; // Sets the shape
-    body->CreateFixture(&fixtureDef); // Apply the fixture definition
+    shape.SetAsBox((w / 2.0f) / BOX2D_SCALE, (h / 2.0f) / BOX2D_SCALE);
+    GameObject* gameObject = new GameObject(&_world, x, y, b2_staticBody, &shape, 0.0f, 1.0f, 0.0f);
+    _gameObjects.push_back(gameObject);
 }
 
 void GameScene::createBox(int x, int y)
 {
-    b2BodyDef bodyDef;
-    bodyDef.position = b2Vec2(x/30.f, y/30.f);
-    bodyDef.type = b2_dynamicBody;
-    b2Body* body = _world.CreateBody(&bodyDef);
-
     b2PolygonShape shape;
-    shape.SetAsBox(8.0f/30.f, 8.0f/30.f);
-    b2FixtureDef fixtureDef;
-    fixtureDef.density = 1.f;
-    fixtureDef.friction = 0.7f;
-    fixtureDef.shape = &shape;
-    body->CreateFixture(&fixtureDef);
+    shape.SetAsBox((16.0f / 2.0f) / BOX2D_SCALE, (16.0f / 2.0f) / BOX2D_SCALE);
+    GameObject* gameObject = new GameObject(&_world, x, y, b2_dynamicBody, &shape, 1.0f, 0.75f, 0.25f);
+    _gameObjects.push_back(gameObject);
+
 }
