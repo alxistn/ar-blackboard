@@ -2,9 +2,10 @@
 #include "window.h"
 #include <iostream>
 
-Scene::Scene(const SDL_Rect& viewPort)
-    : _width(viewPort.w - viewPort.x), _height(viewPort.h - viewPort.y), _viewPort(viewPort)
+Scene::Scene(Window& window)
+    : _window(&window)
 {
+    _window->setScene(this);
 }
 
 void Scene::setWindow(Window* window)

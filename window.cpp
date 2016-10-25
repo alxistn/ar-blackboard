@@ -75,8 +75,16 @@ Scene* Window::getScene() const
     return _scene;
 }
 
+int Window::getWidth() const
+{
+    return _width;
+}
 
-#include "gamescene.h"
+int Window::getHeight() const
+{
+    return _height;
+}
+
 void Window::handleEvent(const SDL_Event& event)
 {
     /*

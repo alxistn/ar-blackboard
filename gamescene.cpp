@@ -2,10 +2,10 @@
 #include "window.h"
 #include <iostream>
 
-GameScene::GameScene(const SDL_Rect& viewPort)
-    : Scene(viewPort), _gravity(0.f, 9.8f), _world(_gravity)
+GameScene::GameScene(Window& window)
+    : Scene(window), _gravity(0.f, 9.8f), _world(_gravity)
 {
-    createGround(_width / 2, _height / 2, _width / 2, 16.0f);
+    createGround(_window->getWidth() / 2, _window->getHeight() / 2, _window->getWidth() / 2, 16.0f);
 }
 
 void GameScene::draw() const

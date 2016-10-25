@@ -15,7 +15,7 @@ class GameScene : public Scene
     std::list<GameObject*> _gameObjects;
 
 public:
-    GameScene(const SDL_Rect& viewPort);
+    GameScene(Window& window);
 
     virtual void draw() const;
     virtual void update(float deltaTime);

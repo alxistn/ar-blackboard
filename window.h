@@ -29,10 +29,13 @@ public:
     void draw() const;
     void update(float deltaTime);
 
-    SDL_Renderer* getRenderer() const;
+    int             getHeight() const;
+    int             getWidth() const;
+    SDL_Renderer*   getRenderer() const;
     const SDL_Rect& getViewPort() const;
-    void setScene(Scene* scene);
-    Scene* getScene() const;
+    Scene*          getScene() const;
+    void            setScene(Scene* scene);
+
 
     void handleEvent(const SDL_Event& event);
     void hide();
