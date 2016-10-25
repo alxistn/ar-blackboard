@@ -12,11 +12,13 @@ SOURCES += main.cpp \
     fpstimer.cpp \
     scene.cpp \
     gamescene.cpp \
-    gameobject.cpp
+    gameobject.cpp \
+    player.cpp
 
 HEADERS += \
     window.h \
     fpstimer.h \
     scene.h \
     gamescene.h \
-    gameobject.hpp
+    gameobject.hpp \
+    player.h

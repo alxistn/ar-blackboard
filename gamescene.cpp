@@ -1,4 +1,5 @@
 #include "gamescene.h"
+#include "window.h"
 #include <iostream>
 
 GameScene::GameScene(const SDL_Rect& viewPort)
@@ -7,11 +8,11 @@ GameScene::GameScene(const SDL_Rect& viewPort)
     createGround(_width / 2, _height / 2, _width / 2, 16.0f);
 }
 
-void GameScene::draw(SDL_Renderer* renderer) const
+void GameScene::draw() const
 {
     for (GameObject* gameObject : _gameObjects)
     {
-        gameObject->draw(renderer);
+        gameObject->draw(_window->getRenderer());
     }
 }
 
@@ -29,7 +30,7 @@ void GameScene::handleEvent(const SDL_Event& event)
     {
         int x, y;
         SDL_GetMouseState(&x, &y);
-        createBox(x, y);
+        createBox(x, y, 16.0f, 16.0f);
     }
 }
 
@@ -41,11 +42,16 @@ void GameScene::createGround(float x, float y, float w, float h)
     _gameObjects.push_back(gameObject);
 }
 
-void GameScene::createBox(int x, int y)
+void GameScene::createBox(int x, int y, float w, float h)
 {
     b2PolygonShape shape;
-    shape.SetAsBox((16.0f / 2.0f) / BOX2D_SCALE, (16.0f / 2.0f) / BOX2D_SCALE);
+    shape.SetAsBox((w / 2.0f) / BOX2D_SCALE, (h / 2.0f) / BOX2D_SCALE);
     GameObject* gameObject = new GameObject(&_world, x, y, b2_dynamicBody, &shape, 1.0f, 0.75f, 0.25f);
     _gameObjects.push_back(gameObject);
 
+}
+
+void GameScene::createPlayer(int x, int y)
+{
+    return;
 }

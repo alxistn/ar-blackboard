@@ -18,7 +18,7 @@
 
 class GameObject {
     
-private:
+protected:
     b2World*    _world;
     b2Body*     _body;
     b2Fixture*  _fixture;
@@ -37,7 +37,7 @@ public:
     float   getDensity() const;
     float   getRestitution() const;
 
-    void    draw(SDL_Renderer* renderer) const;
+    virtual void    draw(SDL_Renderer* renderer) const;
     void    drawChain(SDL_Renderer* renderer) const;
     void    drawEdge(SDL_Renderer* renderer) const;
     void    drawCircle(SDL_Renderer* renderer) const;

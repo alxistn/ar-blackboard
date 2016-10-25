@@ -1,4 +1,5 @@
 #include "window.h"
+#include "scene.h"
 
 #include <stdexcept>
 #include <string>
@@ -36,7 +37,7 @@ void Window::draw() const
 
     //Draw scene
     if (_scene != NULL)
-        _scene->draw(_renderer);
+        _scene->draw();
 
     //Swap buffer
     SDL_RenderPresent(_renderer);
@@ -52,6 +53,11 @@ void Window::update(float deltaTime)
         _scene->update(deltaTime);
 }
 
+SDL_Renderer* Window::getRenderer() const
+{
+    return _renderer;
+}
+
 const SDL_Rect& Window::getViewPort() const
 {
     return _viewPort;
@@ -60,12 +66,15 @@ const SDL_Rect& Window::getViewPort() const
 void Window::setScene(Scene* scene)
 {
     _scene = scene;
+    if (_scene->getWindow() != this)
+        _scene->setWindow(this);
 }
 
-Scene* Window::getScene()
+Scene* Window::getScene() const
 {
     return _scene;
 }
+
 
 #include "gamescene.h"
 void Window::handleEvent(const SDL_Event& event)
