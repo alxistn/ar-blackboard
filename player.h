@@ -10,6 +10,7 @@ public:
 
     void moveLeft();
     void moveRight();
+    void stop();
     void jump();
 };
 

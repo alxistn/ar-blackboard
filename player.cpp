@@ -31,14 +31,25 @@ void Player::moveLeft()
 {
     //Apply Force
     //_body->ApplyForceToCenter(b2Vec2(-10.0f, 0.0f), true);
-    _body->SetLinearVelocity(b2Vec2(-2.0f, 0.0f));
+    b2Vec2 movement = _body->GetLinearVelocity();
+    movement.x = -3.0f;
+    _body->SetLinearVelocity(movement);
 }
 
 void Player::moveRight()
 {
     //Apply Froce
-    _body->SetLinearVelocity(b2Vec2(2.0f, 0.0f));
     //_body->ApplyForceToCenter(b2Vec2(10.0f, 0.0f), true);
+    b2Vec2 movement = _body->GetLinearVelocity();
+    movement.x = 3.0f;
+    _body->SetLinearVelocity(movement);
+}
+
+void Player::stop()
+{
+    b2Vec2 movement = _body->GetLinearVelocity();
+    movement.x = 0.0f;
+    _body->SetLinearVelocity(movement);
 }
 
 void Player::jump()

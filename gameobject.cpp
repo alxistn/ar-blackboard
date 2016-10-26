@@ -50,7 +50,27 @@ void    GameObject::draw() const
 
 void    GameObject::drawChain(const b2ChainShape* chainShape) const
 {
-    (void)chainShape;
+    SDL_SetRenderDrawColor(_renderer, 0x00, 0x00, 0x00, 0xFF);
+    int vertexCount = chainShape->m_count;
+    b2Vec2 position = _body->GetPosition();
+
+    float angle = _body->GetAngle();
+    float s = sinf(angle);
+    float c = cosf(angle);
+
+    b2Vec2 prevVec = chainShape->m_vertices[vertexCount - 1];
+    prevVec.Set(prevVec.x * c - prevVec.y * s,
+                prevVec.x * s + prevVec.y * c);
+    prevVec += position;
+    b2Vec2 nextVec;
+    for (int i = 0; i < vertexCount; ++i) {
+        nextVec = chainShape->m_vertices[i];
+        nextVec.Set(nextVec.x * c - nextVec.y * s,
+                    nextVec.x * s + nextVec.y * c);
+        nextVec += position;
+        SDL_RenderDrawLine(_renderer, prevVec.x * BOX2D_SCALE , prevVec.y * BOX2D_SCALE, nextVec.x * BOX2D_SCALE, nextVec.y * BOX2D_SCALE);
+        prevVec = nextVec;
+    }
 }
 
 void    GameObject::drawEdge(const b2EdgeShape* edgeShape) const
@@ -66,20 +86,20 @@ void    GameObject::drawCircle(const b2CircleShape* circleShape) const
 void    GameObject::drawPolygon(const b2PolygonShape* polygonShape) const
 {
     SDL_SetRenderDrawColor(_renderer, 0x00, 0x00, 0x00, 0xFF);
-    int vertexCount = polygonShape->GetVertexCount();
+    int vertexCount = polygonShape->m_count;
     b2Vec2 position = _body->GetPosition();
 
     float angle = _body->GetAngle();
     float s = sinf(angle);
     float c = cosf(angle);
 
-    b2Vec2 prevVec = polygonShape->GetVertex(vertexCount - 1);
+    b2Vec2 prevVec = polygonShape->m_vertices[vertexCount - 1];
     prevVec.Set(prevVec.x * c - prevVec.y * s,
                 prevVec.x * s + prevVec.y * c);
     prevVec += position;
     b2Vec2 nextVec;
     for (int i = 0; i < vertexCount; ++i) {
-        nextVec = polygonShape->GetVertex(i);
+        nextVec = polygonShape->m_vertices[i];
         nextVec.Set(nextVec.x * c - nextVec.y * s,
                     nextVec.x * s + nextVec.y * c);
         nextVec += position;
