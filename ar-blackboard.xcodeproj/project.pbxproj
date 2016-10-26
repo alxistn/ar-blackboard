@@ -10,14 +10,15 @@
 		7D1114C01DBE3C9100BBA772 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D1114BD1DBE3C9100BBA772 /* SDL2_image.framework */; };
 		7D1114C11DBE3C9100BBA772 /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D1114BE1DBE3C9100BBA772 /* SDL2_ttf.framework */; };
 		7D1114C21DBE3C9100BBA772 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D1114BF1DBE3C9100BBA772 /* SDL2.framework */; };
+		7D21E4031DC10A0D009986FB /* cubeobject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7D21E3FF1DC10A0D009986FB /* cubeobject.cpp */; };
+		7D21E4041DC10A0D009986FB /* destructibleobject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7D21E4011DC10A0D009986FB /* destructibleobject.cpp */; };
+		7D21E40B1DC13DD1009986FB /* PlayerContactListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7D21E4091DC13DD1009986FB /* PlayerContactListener.cpp */; };
 		7D8659E51DBE516E0035A935 /* libBox2D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D8659E41DBE516E0035A935 /* libBox2D.a */; };
 		7D8659EF1DBE51770035A935 /* fpstimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7D8659E61DBE51770035A935 /* fpstimer.cpp */; };
 		7D8659F01DBE51770035A935 /* gamescene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7D8659E81DBE51770035A935 /* gamescene.cpp */; };
 		7D8659F11DBE51770035A935 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7D8659EA1DBE51770035A935 /* main.cpp */; };
 		7D8659F21DBE51770035A935 /* scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7D8659EB1DBE51770035A935 /* scene.cpp */; };
 		7D8659F31DBE51770035A935 /* window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7D8659ED1DBE51770035A935 /* window.cpp */; };
-		7D8659F71DBE53610035A935 /* ar-blackboard-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D8659F61DBE53610035A935 /* ar-blackboard-Info.plist */; };
-		7D8659F91DBE53C50035A935 /* ar-blackboard.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D8659F81DBE53C50035A935 /* ar-blackboard.plist */; };
 		7D8659FC1DBE9CCC0035A935 /* GameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7D8659FA1DBE9CCC0035A935 /* GameObject.cpp */; };
 		7D9858911DBFC45D001BDDD8 /* opencvscene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7D98588D1DBFC45D001BDDD8 /* opencvscene.cpp */; };
 		7D9858921DBFC45D001BDDD8 /* player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7D98588F1DBFC45D001BDDD8 /* player.cpp */; };
@@ -27,6 +28,12 @@
 		7D1114BD1DBE3C9100BBA772 /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../../../../../Library/Frameworks/SDL2_image.framework; sourceTree = "<group>"; };
 		7D1114BE1DBE3C9100BBA772 /* SDL2_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_ttf.framework; path = ../../../../../../Library/Frameworks/SDL2_ttf.framework; sourceTree = "<group>"; };
 		7D1114BF1DBE3C9100BBA772 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
+		7D21E3FF1DC10A0D009986FB /* cubeobject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cubeobject.cpp; sourceTree = SOURCE_ROOT; };
+		7D21E4001DC10A0D009986FB /* cubeobject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cubeobject.h; sourceTree = SOURCE_ROOT; };
+		7D21E4011DC10A0D009986FB /* destructibleobject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = destructibleobject.cpp; sourceTree = SOURCE_ROOT; };
+		7D21E4021DC10A0D009986FB /* destructibleobject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = destructibleobject.h; sourceTree = SOURCE_ROOT; };
+		7D21E4091DC13DD1009986FB /* PlayerContactListener.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PlayerContactListener.cpp; sourceTree = SOURCE_ROOT; };
+		7D21E40A1DC13DD1009986FB /* PlayerContactListener.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PlayerContactListener.hpp; sourceTree = SOURCE_ROOT; };
 		7D8659E41DBE516E0035A935 /* libBox2D.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBox2D.a; sourceTree = "<group>"; };
 		7D8659E61DBE51770035A935 /* fpstimer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fpstimer.cpp; sourceTree = SOURCE_ROOT; };
 		7D8659E71DBE51770035A935 /* fpstimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fpstimer.h; sourceTree = SOURCE_ROOT; };
@@ -37,8 +44,6 @@
 		7D8659EC1DBE51770035A935 /* scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scene.h; sourceTree = SOURCE_ROOT; };
 		7D8659ED1DBE51770035A935 /* window.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = window.cpp; sourceTree = SOURCE_ROOT; };
 		7D8659EE1DBE51770035A935 /* window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = window.h; sourceTree = SOURCE_ROOT; };
-		7D8659F61DBE53610035A935 /* ar-blackboard-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ar-blackboard-Info.plist"; sourceTree = SOURCE_ROOT; };
-		7D8659F81DBE53C50035A935 /* ar-blackboard.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ar-blackboard.plist"; sourceTree = SOURCE_ROOT; };
 		7D8659FA1DBE9CCC0035A935 /* GameObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameObject.cpp; sourceTree = SOURCE_ROOT; };
 		7D8659FB1DBE9CCC0035A935 /* GameObject.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GameObject.hpp; sourceTree = SOURCE_ROOT; };
 		7D98588D1DBFC45D001BDDD8 /* opencvscene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = opencvscene.cpp; sourceTree = SOURCE_ROOT; };
@@ -75,9 +80,27 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		7D21E4051DC10A35009986FB /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				7D21E4001DC10A0D009986FB /* cubeobject.h */,
+				7D21E4021DC10A0D009986FB /* destructibleobject.h */,
+				7D8659E71DBE51770035A935 /* fpstimer.h */,
+				7D8659E91DBE51770035A935 /* gamescene.h */,
+				7D98588E1DBFC45D001BDDD8 /* opencvscene.h */,
+				7D9858901DBFC45D001BDDD8 /* player.h */,
+				7D8659EC1DBE51770035A935 /* scene.h */,
+				7D8659EE1DBE51770035A935 /* window.h */,
+				7D8659FB1DBE9CCC0035A935 /* GameObject.hpp */,
+				7D21E40A1DC13DD1009986FB /* PlayerContactListener.hpp */,
+			);
+			name = Headers;
+			sourceTree = "<group>";
+		};
 		7DF40AE71DBA6FFA001D5F27 = {
 			isa = PBXGroup;
 			children = (
+				7D21E4051DC10A35009986FB /* Headers */,
 				7DF40B091DBA7025001D5F27 /* Library */,
 				7DF40AF31DBA6FFA001D5F27 /* Sources */,
 				7DF40AF21DBA6FFA001D5F27 /* Products */,
@@ -96,23 +119,17 @@
 		7DF40AF31DBA6FFA001D5F27 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				7D98588D1DBFC45D001BDDD8 /* opencvscene.cpp */,
-				7D98588E1DBFC45D001BDDD8 /* opencvscene.h */,
-				7D98588F1DBFC45D001BDDD8 /* player.cpp */,
-				7D9858901DBFC45D001BDDD8 /* player.h */,
-				7D8659F61DBE53610035A935 /* ar-blackboard-Info.plist */,
+				7D21E3FF1DC10A0D009986FB /* cubeobject.cpp */,
+				7D21E4011DC10A0D009986FB /* destructibleobject.cpp */,
 				7D8659E61DBE51770035A935 /* fpstimer.cpp */,
-				7D8659E71DBE51770035A935 /* fpstimer.h */,
-				7D8659E81DBE51770035A935 /* gamescene.cpp */,
-				7D8659E91DBE51770035A935 /* gamescene.h */,
-				7D8659EA1DBE51770035A935 /* main.cpp */,
-				7D8659EB1DBE51770035A935 /* scene.cpp */,
-				7D8659EC1DBE51770035A935 /* scene.h */,
-				7D8659ED1DBE51770035A935 /* window.cpp */,
-				7D8659EE1DBE51770035A935 /* window.h */,
-				7D8659F81DBE53C50035A935 /* ar-blackboard.plist */,
 				7D8659FA1DBE9CCC0035A935 /* GameObject.cpp */,
-				7D8659FB1DBE9CCC0035A935 /* GameObject.hpp */,
+				7D8659E81DBE51770035A935 /* gamescene.cpp */,
+				7D8659EA1DBE51770035A935 /* main.cpp */,
+				7D98588D1DBFC45D001BDDD8 /* opencvscene.cpp */,
+				7D98588F1DBFC45D001BDDD8 /* player.cpp */,
+				7D8659EB1DBE51770035A935 /* scene.cpp */,
+				7D8659ED1DBE51770035A935 /* window.cpp */,
+				7D21E4091DC13DD1009986FB /* PlayerContactListener.cpp */,
 			);
 			name = Sources;
 			path = SFML_B2D;
@@ -185,8 +202,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7D8659F91DBE53C50035A935 /* ar-blackboard.plist in Resources */,
-				7D8659F71DBE53610035A935 /* ar-blackboard-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,6 +232,9 @@
 				7D8659F21DBE51770035A935 /* scene.cpp in Sources */,
 				7D8659F01DBE51770035A935 /* gamescene.cpp in Sources */,
 				7D8659FC1DBE9CCC0035A935 /* GameObject.cpp in Sources */,
+				7D21E4041DC10A0D009986FB /* destructibleobject.cpp in Sources */,
+				7D21E40B1DC13DD1009986FB /* PlayerContactListener.cpp in Sources */,
+				7D21E4031DC10A0D009986FB /* cubeobject.cpp in Sources */,
 				7D8659F31DBE51770035A935 /* window.cpp in Sources */,
 				7D9858911DBFC45D001BDDD8 /* opencvscene.cpp in Sources */,
 				7D8659EF1DBE51770035A935 /* fpstimer.cpp in Sources */,
@@ -328,13 +346,13 @@
 					/usr/local/include/,
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "ar-blackboard.plist";
+				INFOPLIST_FILE = "";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/ar-blackboard",
 					"$(PROJECT_DIR)",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = "ar-blackbord.ar-blackboard";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SFML_LINK_DYLIBS_PREFIX = "-l";
@@ -355,13 +373,13 @@
 					/usr/local/include/,
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "ar-blackboard.plist";
+				INFOPLIST_FILE = "";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/ar-blackboard",
 					"$(PROJECT_DIR)",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = "ar-blackbord.ar-blackboard";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SFML_LINK_DYLIBS_PREFIX = "-l";

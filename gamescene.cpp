@@ -3,6 +3,7 @@
 #include <iostream>
 #include "cubeobject.h"
 #include "destructibleobject.h"
+#include "player.h"
 
 GameScene::GameScene(Window& window)
     : Scene(window), _gravity(0.f, 9.8f), _world(_gravity)
@@ -88,7 +89,5 @@ void GameScene::createPlayer(float x, float y)
 {
     _player = new Player(&_world, _window->getRenderer(), x, y);
     _gameObjects.push_back(_player);
-    (void)x;
-    (void)y;
     return;
 }
