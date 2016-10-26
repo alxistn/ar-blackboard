@@ -19,6 +19,8 @@
 		7D8659F71DBE53610035A935 /* ar-blackboard-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D8659F61DBE53610035A935 /* ar-blackboard-Info.plist */; };
 		7D8659F91DBE53C50035A935 /* ar-blackboard.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D8659F81DBE53C50035A935 /* ar-blackboard.plist */; };
 		7D8659FC1DBE9CCC0035A935 /* GameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7D8659FA1DBE9CCC0035A935 /* GameObject.cpp */; };
+		7D9858911DBFC45D001BDDD8 /* opencvscene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7D98588D1DBFC45D001BDDD8 /* opencvscene.cpp */; };
+		7D9858921DBFC45D001BDDD8 /* player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7D98588F1DBFC45D001BDDD8 /* player.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +41,11 @@
 		7D8659F81DBE53C50035A935 /* ar-blackboard.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ar-blackboard.plist"; sourceTree = SOURCE_ROOT; };
 		7D8659FA1DBE9CCC0035A935 /* GameObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameObject.cpp; sourceTree = SOURCE_ROOT; };
 		7D8659FB1DBE9CCC0035A935 /* GameObject.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GameObject.hpp; sourceTree = SOURCE_ROOT; };
+		7D98588D1DBFC45D001BDDD8 /* opencvscene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = opencvscene.cpp; sourceTree = SOURCE_ROOT; };
+		7D98588E1DBFC45D001BDDD8 /* opencvscene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opencvscene.h; sourceTree = SOURCE_ROOT; };
+		7D98588F1DBFC45D001BDDD8 /* player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = player.cpp; sourceTree = SOURCE_ROOT; };
+		7D9858901DBFC45D001BDDD8 /* player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = player.h; sourceTree = SOURCE_ROOT; };
+		7D9858931DBFC83D001BDDD8 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = ../../../../../Library/Frameworks/opencv2.framework; sourceTree = "<group>"; };
 		7DF40AF11DBA6FFA001D5F27 /* ar-blackboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ar-blackboard.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -60,6 +67,7 @@
 		7D1114BC1DBE3C9100BBA772 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7D9858931DBFC83D001BDDD8 /* opencv2.framework */,
 				7D1114BD1DBE3C9100BBA772 /* SDL2_image.framework */,
 				7D1114BE1DBE3C9100BBA772 /* SDL2_ttf.framework */,
 				7D1114BF1DBE3C9100BBA772 /* SDL2.framework */,
@@ -88,6 +96,10 @@
 		7DF40AF31DBA6FFA001D5F27 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				7D98588D1DBFC45D001BDDD8 /* opencvscene.cpp */,
+				7D98588E1DBFC45D001BDDD8 /* opencvscene.h */,
+				7D98588F1DBFC45D001BDDD8 /* player.cpp */,
+				7D9858901DBFC45D001BDDD8 /* player.h */,
 				7D8659F61DBE53610035A935 /* ar-blackboard-Info.plist */,
 				7D8659E61DBE51770035A935 /* fpstimer.cpp */,
 				7D8659E71DBE51770035A935 /* fpstimer.h */,
@@ -201,10 +213,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D9858921DBFC45D001BDDD8 /* player.cpp in Sources */,
 				7D8659F21DBE51770035A935 /* scene.cpp in Sources */,
 				7D8659F01DBE51770035A935 /* gamescene.cpp in Sources */,
 				7D8659FC1DBE9CCC0035A935 /* GameObject.cpp in Sources */,
 				7D8659F31DBE51770035A935 /* window.cpp in Sources */,
+				7D9858911DBFC45D001BDDD8 /* opencvscene.cpp in Sources */,
 				7D8659EF1DBE51770035A935 /* fpstimer.cpp in Sources */,
 				7D8659F11DBE51770035A935 /* main.cpp in Sources */,
 			);

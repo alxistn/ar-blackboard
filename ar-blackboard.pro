@@ -13,7 +13,8 @@ SOURCES += main.cpp \
     scene.cpp \
     gamescene.cpp \
     gameobject.cpp \
-    player.cpp
+    player.cpp \
+    opencvscene.cpp
 
 HEADERS += \
     window.h \
@@ -21,4 +22,5 @@ HEADERS += \
     scene.h \
     gamescene.h \
     gameobject.hpp \
-    player.h
+    player.h \
+    opencvscene.h
