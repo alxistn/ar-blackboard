@@ -5,7 +5,7 @@
 #include <list>
 #include <Box2D/Box2D.h>
 #include <gameobject.hpp>
-
+#include "player.h"
 
 class GameScene : public Scene
 {
@@ -13,6 +13,7 @@ class GameScene : public Scene
     b2Vec2 _gravity;
     b2World _world;
     std::list<GameObject*> _gameObjects;
+    Player* _player = NULL;
 
 public:
     GameScene(Window& window);
@@ -22,8 +23,8 @@ public:
     virtual void handleEvent(const SDL_Event& event);
 
     void createGround(float x, float y, float w, float h);
-    void createBox(int x, int y, float w, float h);
-    void createPlayer(int x, int y);
+    void createBox(float x, float y, float w, float h);
+    void createPlayer(float x, float y);
 
 };
 
