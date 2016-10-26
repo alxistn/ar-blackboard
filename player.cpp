@@ -1,19 +1,30 @@
 #include "player.h"
 #include <iostream>
 
-Player::Player(b2World* world, float x, float y, const b2Shape* shape)
-    : GameObject(world, x, y, b2_dynamicBody, shape, 10.0f, 0, 0)
+Player::Player(b2World* world, SDL_Renderer* renderer, float x, float y)
+    : GameObject(world, renderer)
 {
-    _body->SetFixedRotation(true);
+    float width = 8.0f;
+    float height = 24.0f;
 
-    //add foot sensor fixture
-    /*b2PolygonShape polygonShape;
-    polygonShape.SetAsBox(0.3, 0.3, b2Vec2(0,-2), 0);
-    b2FixtureDef myFixtureDef;
-    myFixtureDef.shape = &polygonShape;
-    myFixtureDef.isSensor = true;
-    b2Fixture* footSensorFixture = m_body->CreateFixture(&myFixtureDef);
-    footSensorFixture->SetUserData((void*)3);*/
+    // Creation of the body
+    b2BodyDef bodyDef;
+    bodyDef.position = b2Vec2(x / BOX2D_SCALE, y / BOX2D_SCALE);
+    bodyDef.type = b2_dynamicBody;
+    bodyDef.fixedRotation = true;
+    _body = _world->CreateBody(&bodyDef);
+
+    // Definition of the shape
+    b2PolygonShape shape;
+    shape.SetAsBox(width / BOX2D_SCALE, height / BOX2D_SCALE);
+
+    // Create body fixture
+    b2FixtureDef fixtureDef;
+    fixtureDef.shape = &shape;
+    fixtureDef.density = (width * height) / BOX2D_SCALE;
+    fixtureDef.friction = 0.0f;
+    fixtureDef.restitution = 0.0f;
+    _body->CreateFixture(&fixtureDef);
 }
 
 void Player::moveLeft()
@@ -35,5 +46,5 @@ void Player::jump()
    // _body->ApplyForceToCenter(b2Vec2(0.0f, -1000.0f), true);
    //float impulse = _body->GetMass() * 10;
    //_body->ApplyLinearImpulse(b2Vec2(0, impulse), _body->GetWorldCenter(), true);
-   _body->ApplyLinearImpulse(b2Vec2(0, -100.0f), _body->GetWorldCenter(), true);
+   _body->ApplyLinearImpulse(b2Vec2(0, -_body->GetMass() * 6.0f), _body->GetWorldCenter(), true);
 }

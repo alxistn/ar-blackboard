@@ -6,7 +6,7 @@
 class Player : public GameObject
 {
 public:
-    Player(b2World* world, float x, float y, const b2Shape* shape);
+    Player(b2World* world, SDL_Renderer* renderer, float x, float y);
 
     void moveLeft();
     void moveRight();

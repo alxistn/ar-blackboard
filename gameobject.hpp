@@ -19,29 +19,19 @@
 class GameObject {
     
 protected:
-    b2World*    _world;
-    b2Body*     _body;
-    b2Fixture*  _fixture;
-    b2Shape*    _shape;
-    void (GameObject::* _drawShape)(SDL_Renderer*) const;
+    b2World*    _world = NULL;
+    SDL_Renderer* _renderer = NULL;
+    b2Body*     _body = NULL;
     
 public:
-    GameObject(b2World* world, float x, float y, b2BodyType type, const b2Shape* shape,
-               float density, float friction, float restitution);
-    ~GameObject();
+    GameObject(b2World* world, SDL_Renderer* renderer);
+    virtual ~GameObject();
 
-    void    setFriction(float friction);
-    void    setDensity(float density);
-    void    setRestitution(float restitution);
-    float   getFriction() const;
-    float   getDensity() const;
-    float   getRestitution() const;
-
-    virtual void    draw(SDL_Renderer* renderer) const;
-    void    drawChain(SDL_Renderer* renderer) const;
-    void    drawEdge(SDL_Renderer* renderer) const;
-    void    drawCircle(SDL_Renderer* renderer) const;
-    void    drawPolygon(SDL_Renderer* renderer) const;
+    void    draw() const;
+    void    drawChain(const b2ChainShape* chainShape) const;
+    void    drawEdge(const b2EdgeShape* edgeShape) const;
+    void    drawCircle(const b2CircleShape* circleShape) const;
+    void    drawPolygon(const b2PolygonShape* polygonShape) const;
     
 };
 
