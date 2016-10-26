@@ -14,7 +14,8 @@ SOURCES += main.cpp \
     gamescene.cpp \
     gameobject.cpp \
     player.cpp \
-    opencvscene.cpp
+    opencvscene.cpp \
+    vertexextractor.cpp
 
 HEADERS += \
     window.h \
@@ -23,4 +24,5 @@ HEADERS += \
     gamescene.h \
     gameobject.hpp \
     player.h \
-    opencvscene.h
+    opencvscene.h \
+    vertexextractor.h

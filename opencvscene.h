@@ -5,13 +5,13 @@
 #include <iostream>
 #include <window.h>
 #include <opencv2/opencv.hpp>
+
 class OpenCVScene : public Scene
 {
-    cv::VideoCapture *_cap;
+    cv::VideoCapture _cap;
 
-    SDL_Texture* _chessBoardTexture;
+    SDL_Texture* _cameraTexture;
     int _mode;
-
 public:
     OpenCVScene(Window& window);
     ~OpenCVScene();

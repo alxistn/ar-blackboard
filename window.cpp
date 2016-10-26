@@ -6,10 +6,10 @@
 #include <random>
 #include <iostream>
 
-Window::Window(int width, int height, const std::string& title)
-    : _width(width), _height(height), _title(title)
+Window::Window(int x, int y, int w, int h, uint32 flags, const std::string& title)
+    : _width(w), _height(h),_posx(x),_posy(y), _title(title)
 {
-    _window = SDL_CreateWindow(_title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, _width, _height, SDL_WINDOW_SHOWN);
+    _window = SDL_CreateWindow(_title.c_str(), _posx, _posy, _width, _height, flags);
     if (_window == NULL)
        throw std::logic_error(SDL_GetError());
     _renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);

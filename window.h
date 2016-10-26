@@ -3,7 +3,7 @@
 
 #include <SDL2/SDL.h>
 #include <string>
-
+#include <cstddef>
 class Scene;
 
 class Window
@@ -11,6 +11,8 @@ class Window
 private:
     int _width;
     int _height;
+    int _posx;
+    int _posy;
     std::string _title;
 
     SDL_Window* _window = NULL;
@@ -23,7 +25,7 @@ private:
     bool _hidden = false;
 
 public:
-    Window(int width, int height, const std::string& title);
+    Window(int x, int y, int w, int h, uint32_t flags, const std::string& title);
     ~Window();
 
     void draw() const;
