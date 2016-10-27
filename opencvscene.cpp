@@ -38,6 +38,7 @@ void OpenCVScene::draw() const
 
 void OpenCVScene::update(float deltaTime)
 {
+    (void)deltaTime;
     cv::Mat dst = cv::Mat::zeros(_window->getHeight(), _window->getWidth(), CV_8UC3);
     _vertexExtractor->updateFrame();
     if (_mode == 0){
@@ -56,19 +57,21 @@ void OpenCVScene::update(float deltaTime)
                    cv::Size(_gameWindow.getWidth()/2, _gameWindow.getHeight()/2));
 
         cv::Mat tmp = _vertexExtractor->getCorrectedRegion();
+
         std::vector<std::vector<cv::Point>> shapes = _vertexExtractor->getShapes();
         for (std::vector<cv::Point>& shape : shapes){
              cv::Scalar color( rand()&255, rand()&255, rand()&255 );
-             int size = shape.size() - 1;
-             cv::line(dst, shape[0], shape[size], color);
-             while (size - 1 >= 0){
-                 cv::line(tmp, shape[size], shape[size - 1], color);
-                 size--;
+             int size = 0;
+             while (size < shape.size() - 1){
+                cv::line(tmp, shape[size], shape[(size + 1)], color);
+                size++;
              }
+            cv::line(tmp, shape[0], shape[size ], color);
         }
+
         cv::resize(tmp,
-                   dst(cv::Rect(_gameWindow.getWidth()/2,0,_gameWindow.getWidth()/3, _gameWindow.getHeight()/3)),
-                   cv::Size(_gameWindow.getWidth()/3, _gameWindow.getHeight()/3));
+                   dst(cv::Rect(_gameWindow.getWidth()/2,10,_gameWindow.getWidth()/2, _gameWindow.getHeight()/2)),
+                   cv::Size(_gameWindow.getWidth()/2, _gameWindow.getHeight()/2));
 
 
     }
@@ -104,7 +107,7 @@ void OpenCVScene::handleEvent(const SDL_Event& event)
         {
             case SDL_BUTTON_LEFT:
                 _vertexExtractor->updateHumographyPoints(_hPointIndex, cv::Point2f(event.motion.x,event.motion.y));
-                //_vertexExtractor->updateHomography();
+                _vertexExtractor->updateHomography();
                 break;
         }
         break;

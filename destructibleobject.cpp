@@ -3,7 +3,7 @@
 #include <stack>
 
 
-DestructibleObject::DestructibleObject(b2World* world, SDL_Renderer* renderer, float x, float y)
+DestructibleObject::DestructibleObject(b2World* world, SDL_Renderer* renderer, float x, float y, std::vector<cv::Point>& points)
     : GameObject(world, renderer)
 {
     x /= BOX2D_SCALE;
@@ -16,21 +16,19 @@ DestructibleObject::DestructibleObject(b2World* world, SDL_Renderer* renderer, f
     _body = _world->CreateBody(&bodyDef);
 
     // Definition of the ape
-    b2Vec2 points[9] = {
-        {2*4, 2},
-        {3*4, 0},
-        {2*4, -1},
-        {0*4, 0},
-        {-2*4, -1},
-        {-3*4, 0},
-        {-2*4, 2},
-        {0*4, 3},
-        {2*4, 2}
-    };
+    int b2Vec2Size = points.size() + 1;
+    b2Vec2 *b2Vec2Points = new b2Vec2[b2Vec2Size];
+    for (unsigned int i = 0; i < points.size(); ++i)
+    {
+        b2Vec2Points[i].x = points[i].x / BOX2D_SCALE;
+        b2Vec2Points[i].y = points[i].y / BOX2D_SCALE;
+    }
+    b2Vec2Points[b2Vec2Size -1].x = points[0].x / BOX2D_SCALE;
+    b2Vec2Points[b2Vec2Size -1].y = points[0].y / BOX2D_SCALE;
     //b2PolygonShape shape;
     b2ChainShape shape;
     //shape.CreateChain(points, 8);
-    shape.CreateChain(points, 9);
+    shape.CreateChain(b2Vec2Points, b2Vec2Size);
 
     // Create body fixture
     _fixtureDef.shape = &shape;
@@ -201,6 +199,6 @@ void DestructibleObject::handleEvent(const SDL_Event& event)
     {
         int x, y;
         SDL_GetMouseState(&x, &y);
-        destroy(x, y, 1.0f);
+        //destroy(x, y, 1.0f);
     }
 }

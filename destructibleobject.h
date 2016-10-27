@@ -3,7 +3,9 @@
 
 #include "gameobject.hpp"
 
+#include <vector>
 #include <list>
+#include <opencv2/opencv.hpp>
 #include <boost/geometry.hpp>
 #include <boost/geometry/geometries/point_xy.hpp>
 #include <boost/geometry/geometries/polygon.hpp>
@@ -15,7 +17,7 @@ class DestructibleObject : public GameObject
     b2FixtureDef _fixtureDef;
 
 public:
-    DestructibleObject(b2World* world, SDL_Renderer* renderer, float x, float y);
+    DestructibleObject(b2World* world, SDL_Renderer* renderer, float x, float y, std::vector<cv::Point>& points);
 
     void destroy(float x, float y, float r);
     void handleEvent(const SDL_Event& event);

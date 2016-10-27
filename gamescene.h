@@ -25,8 +25,10 @@ public:
 
     void createGround(float x, float y, float w, float h);
     void createBox(float x, float y, float w, float h);
+    void createDestructibleObject(float x, float y, std::vector<cv::Point>& points);
     void createPlayer(float x, float y);
 
+    void reset();
 };
 
 #endif // GAMESCENE_H
