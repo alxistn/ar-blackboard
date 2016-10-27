@@ -37,43 +37,6 @@ void GameScene::handleEvent(const SDL_Event& event)
         SDL_GetMouseState(&x, &y);
         createBox(x, y, 16.0f, 16.0f);
     }
-    if (event.type == SDL_KEYDOWN)
-    {
-        switch(event.key.keysym.sym)
-        {
-            case SDLK_UP:
-                if (_player != NULL) _player->jump();
-            break;
-
-            case SDLK_LEFT:
-                if (_player != NULL) _player->moveLeft();
-            break;
-
-            case SDLK_RIGHT:
-                if (_player != NULL) _player->moveRight();
-            break;
-
-            default:
-            break;
-        }
-    }
-    if (event.type == SDL_KEYUP)
-    {
-        switch(event.key.keysym.sym)
-        {
-            case SDLK_RIGHT:
-                if (_player != NULL) _player->stop();
-            break;
-
-            case SDLK_LEFT:
-                if (_player != NULL) _player->stop();
-            break;
-
-            default:
-            break;
-        }
-    }
-
     for (GameObject* gameObject : _gameObjects) {
         gameObject->handleEvent(event);
     }

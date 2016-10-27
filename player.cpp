@@ -42,6 +42,47 @@ Player::Player(b2World* world, SDL_Renderer* renderer, float x, float y)
 
 }
 
+void Player::handleEvent(const SDL_Event &event)
+{
+    if (event.type == SDL_KEYDOWN)
+    {
+        switch(event.key.keysym.sym)
+        {
+            case SDLK_UP:
+                jump();
+            break;
+
+            case SDLK_LEFT:
+                moveLeft();
+            break;
+
+            case SDLK_RIGHT:
+                moveRight();
+            break;
+
+            default:
+            break;
+        }
+    }
+    if (event.type == SDL_KEYUP)
+    {
+        switch(event.key.keysym.sym)
+        {
+            case SDLK_RIGHT:
+                stop();
+            break;
+
+            case SDLK_LEFT:
+                stop();
+            break;
+
+            default:
+            break;
+        }
+    }
+}
+
+
 void Player::moveLeft()
 {
     //Apply Force
