@@ -31,12 +31,12 @@ void GameScene::update(float deltaTime)
 
 void GameScene::handleEvent(const SDL_Event& event)
 {
-    if (event.type == SDL_MOUSEBUTTONUP)
+    /*if (event.type == SDL_MOUSEBUTTONUP)
     {
         int x, y;
         SDL_GetMouseState(&x, &y);
         createBox(x, y, 16.0f, 16.0f);
-    }
+    }*/
     for (GameObject* gameObject : _gameObjects) {
         gameObject->handleEvent(event);
     }

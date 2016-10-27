@@ -58,13 +58,13 @@ void    GameObject::drawChain(const b2ChainShape* chainShape) const
     float s = sinf(angle);
     float c = cosf(angle);
 
-    b2Vec2 prevVec = chainShape->m_vertices[vertexCount - 1];
+    b2Vec2 prevVec = chainShape->m_vertices[0];
     prevVec.Set(prevVec.x * c - prevVec.y * s,
                 prevVec.x * s + prevVec.y * c);
     prevVec += position;
     b2Vec2 nextVec;
-    for (int i = 0; i < vertexCount; ++i) {
-        nextVec = chainShape->m_vertices[i];
+    for (int i = 0; i < (vertexCount - 1); ++i) {
+        nextVec = chainShape->m_vertices[i + 1];
         nextVec.Set(nextVec.x * c - nextVec.y * s,
                     nextVec.x * s + nextVec.y * c);
         nextVec += position;

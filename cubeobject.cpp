@@ -3,8 +3,6 @@
 CubeObject::CubeObject(b2World* world, SDL_Renderer* renderer, float x, float y, float width, float height, bool dynamic)
     : GameObject(world, renderer)
 {
-    std::cout << width << std::endl;
-
     x /= BOX2D_SCALE;
     y /= BOX2D_SCALE;
     width /= 2.0f * BOX2D_SCALE;
