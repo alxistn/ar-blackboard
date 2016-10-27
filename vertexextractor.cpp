@@ -17,6 +17,9 @@ VertexExtractor::VertexExtractor(int cameraId, Window& openCVWindow, Window& gam
     _gameProjectionPoints.push_back(cv::Point2f(469,937));
     _gameProjectionPoints.push_back(cv::Point2f(1561,968));
     _gameProjectionPoints.push_back(cv::Point2f(1527,203));
+
+    _threshold_upper = 255;
+    _threshold_lower = 200;
     updateFrame();
     updateHomography();
 }
@@ -82,14 +85,13 @@ void VertexExtractor::updateCorrectedRegion()
 void VertexExtractor::updateShapesOutlines()
 {
     cv::Mat gray;
-    cv::Mat threshold;
     cv::cvtColor(_correctedRegion, gray, cv::COLOR_BGR2GRAY);
-    cv::threshold(gray, threshold, 140,150,cv::THRESH_BINARY_INV);
-
-    cv::Mat dst = cv::Mat::zeros(threshold.rows, threshold.cols, CV_8UC3);
+    cv::threshold(gray, _threshold, _threshold_lower,_threshold_upper,cv::THRESH_BINARY_INV);
+    std::cout << "low: "<< _threshold_lower << " up: " << _threshold_upper << std::endl;
+    //cv::Mat dst = cv::Mat::zeros(_threshold.rows, _threshold.cols, CV_8UC3);
     _contours.clear();
     _hierarchy.clear();
-    cv::findContours( threshold, _contours, _hierarchy,
+    cv::findContours(_threshold, _contours, _hierarchy,
         CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE );
     std::vector<std::vector<cv::Point>> newList;
     std::vector<cv::Point> newShape;

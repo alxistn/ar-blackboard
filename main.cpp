@@ -8,8 +8,6 @@
 #define GAMEWINDOW_HEIGHT 1200
 int lowThreshold = 0;
 
-void on_trackbar( int, void* )
-{}
 int main(){
     cv::VideoCapture    cap(1);
     cap.set(cv::CAP_PROP_FRAME_WIDTH, 1920);
@@ -67,7 +65,7 @@ int main(){
                 cv::Mat gray;
                 cv::Mat threshold;
                 cv::cvtColor(_correctedRegion, gray, cv::COLOR_BGR2GRAY);
-                cv::threshold(gray, threshold, 140,150,cv::THRESH_BINARY_INV);
+                cv::threshold(gray, threshold,190,255,cv::THRESH_BINARY);
                 cv::imshow("gray", gray);
                 cv::imshow("threshold", threshold);
 

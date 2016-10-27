@@ -51,6 +51,7 @@ void OpenCVScene::update(float deltaTime)
     }
     if (_mode == 1){
         _vertexExtractor->updateCorrectedRegion();
+        _vertexExtractor->updateShapesOutlines();
 
         cv::resize(_vertexExtractor->getCorrectedRegion(),
                    dst(cv::Rect(0,0,_gameWindow.getWidth()/2, _gameWindow.getHeight()/2)),
@@ -58,10 +59,11 @@ void OpenCVScene::update(float deltaTime)
 
         cv::Mat tmp = _vertexExtractor->getCorrectedRegion();
 
+
         std::vector<std::vector<cv::Point>> shapes = _vertexExtractor->getShapes();
         for (std::vector<cv::Point>& shape : shapes){
              cv::Scalar color( rand()&255, rand()&255, rand()&255 );
-             int size = 0;
+             unsigned int size = 0;
              while (size < shape.size() - 1){
                 cv::line(tmp, shape[size], shape[(size + 1)], color);
                 size++;
@@ -70,7 +72,7 @@ void OpenCVScene::update(float deltaTime)
         }
 
         cv::resize(tmp,
-                   dst(cv::Rect(_gameWindow.getWidth()/2,10,_gameWindow.getWidth()/2, _gameWindow.getHeight()/2)),
+                   dst(cv::Rect(_gameWindow.getWidth()/2,0,_gameWindow.getWidth()/2, _gameWindow.getHeight()/2)),
                    cv::Size(_gameWindow.getWidth()/2, _gameWindow.getHeight()/2));
 
 
@@ -100,14 +102,32 @@ void OpenCVScene::handleEvent(const SDL_Event& event)
                 _vertexExtractor->updateShapesOutlines();
             }
             break;
+            case SDLK_p:
+            if (_vertexExtractor->_threshold_upper < 255)
+                _vertexExtractor->_threshold_upper += 1;
+                break;
+            case SDLK_m:
+            if (_vertexExtractor->_threshold_upper > _vertexExtractor->_threshold_lower)
+                 _vertexExtractor->_threshold_upper -= 1;
+                break;
+            case SDLK_o:
+            if (_vertexExtractor->_threshold_lower < _vertexExtractor->_threshold_upper)
+                _vertexExtractor->_threshold_lower+= 1;
+                break;
+            case SDLK_l:
+            if (_vertexExtractor->_threshold_lower > 0)
+                _vertexExtractor->_threshold_lower -= 1;
+                break;
         }
         break;
     case SDL_MOUSEBUTTONDOWN:
         switch (event.button.button)
         {
             case SDL_BUTTON_LEFT:
-                _vertexExtractor->updateHumographyPoints(_hPointIndex, cv::Point2f(event.motion.x,event.motion.y));
-                _vertexExtractor->updateHomography();
+                if (_mode == 0){
+                    _vertexExtractor->updateHumographyPoints(_hPointIndex, cv::Point2f(event.motion.x,event.motion.y));
+                    _vertexExtractor->updateHomography();
+                }
                 break;
         }
         break;

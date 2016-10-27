@@ -14,6 +14,10 @@ class VertexExtractor
     cv::Mat                             _correctedRegion;
     cv::Mat                             _homographyMatrix;
     cv::Mat                             _threshold;
+public:
+    int                                 _threshold_upper;
+    int                                 _threshold_lower;
+private:
     std::vector<cv::Point2f>            _theoricalPoint;
     std::vector<cv::Point2f>            _gameProjectionPoints;
     std::vector<std::vector<cv::Point>> _contours;
