@@ -11,6 +11,14 @@ GameScene::GameScene(Window& window, VertexExtractor *vertexExtractor)
     if (_vertexExtractor == NULL) {
         createGround(_window->getWidth() / 2, _window->getHeight() / 2, _window->getWidth() / 2, 16.0f);
         createPlayer(_window->getWidth() / 2, 0);
+        std::vector<cv::Point> pts;
+        pts.push_back(cv::Point(0,0));
+        pts.push_back(cv::Point(0,100));
+        pts.push_back(cv::Point(30,150));
+        pts.push_back(cv::Point(70,120));
+        pts.push_back(cv::Point(100,20));
+        pts.push_back(cv::Point(40,0));
+        createDestructibleObject(0,0,pts);
     }
 }
 
