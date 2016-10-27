@@ -2,8 +2,8 @@
 #include "window.h"
 #include <iostream>
 
-GameScene::GameScene(Window& window)
-    : Scene(window), _gravity(0.f, 9.8f), _world(_gravity)
+GameScene::GameScene(Window& window, VertexExtractor *vertexExtractor)
+    : Scene(window), _vertexExtractor(vertexExtractor), _gravity(0.f, 9.8f), _world(_gravity)
 {
     createGround(_window->getWidth() / 2, _window->getHeight() / 2, _window->getWidth() / 2, 16.0f);
 }

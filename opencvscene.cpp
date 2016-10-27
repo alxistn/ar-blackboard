@@ -12,10 +12,9 @@ static void fillTexture(SDL_Texture * texture, cv::Mat const &mat)
 }
 
 
-OpenCVScene::OpenCVScene(Window& window, Window& gameWindow)
-    : Scene(window), _gameWindow(gameWindow), _mode(0), _hPointIndex(0)
+OpenCVScene::OpenCVScene(Window& window, Window& gameWindow, VertexExtractor *vertexExtractor)
+    : Scene(window), _gameWindow(gameWindow), _vertexExtractor(vertexExtractor), _mode(0), _hPointIndex(0)
 {
-    _vertexExtractor = new VertexExtractor(1,window, gameWindow);
     _cameraTexture = SDL_CreateTexture(
             _window->getRenderer(),
             SDL_PIXELFORMAT_BGR24,

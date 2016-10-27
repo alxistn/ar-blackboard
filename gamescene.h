@@ -2,6 +2,7 @@
 #define GAMESCENE_H
 
 #include "scene.h"
+#include "vertexextractor.h"
 #include <list>
 #include <Box2D/Box2D.h>
 #include <gameobject.hpp>
@@ -9,13 +10,13 @@
 
 class GameScene : public Scene
 {
-
+    VertexExtractor *_vertexExtractor;
     b2Vec2 _gravity;
     b2World _world;
     std::list<GameObject*> _gameObjects;
 
 public:
-    GameScene(Window& window);
+    GameScene(Window& window, VertexExtractor *vertexExtractor);
 
     virtual void draw() const;
     virtual void update(float deltaTime);

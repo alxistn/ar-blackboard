@@ -16,7 +16,7 @@ class OpenCVScene : public Scene
     int _mode;
     int _hPointIndex;
 public:
-    OpenCVScene(Window& window, Window& gameWindow);
+    OpenCVScene(Window& window, Window& gameWindow, VertexExtractor *vertexExtractor);
     ~OpenCVScene();
 
     virtual void draw() const;

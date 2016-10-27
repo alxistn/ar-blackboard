@@ -99,7 +99,6 @@ void VertexExtractor::updateShapesOutlines()
         cv::Point& pa = shape[0];
         newShape.push_back(shape[0]);
         for (cv::Point &pts : shape){
-            std::cout << "pa:"<<pa << " pb:"<<pts << cv::norm(pa-pts) << std::endl;
             if (cv::norm(pa-pts) > 10){
                 newShape.push_back(pts);
                 pa = pts;
