@@ -48,7 +48,7 @@ float distanceSquare(const model::d2::point_xy<float>& point1, const model::d2::
 void DestructibleObject::destroy(float x, float y, float r)
 {
     //static const float minDistSquare = 0.005f * 0.005f; //BOX2D MINIMUM
-    static const float minDistSquare = 0.1f * 0.1f; // OPTIMISED MINIMUM
+    static const float minDistSquare = 0.01f * 0.01f; // OPTIMISED MINIMUM
 
     std::cout << "------ DestructibleObject::destroy() ------" << std::endl;
 
@@ -138,7 +138,12 @@ void DestructibleObject::destroy(float x, float y, float r)
                 ++fragmentB2Vec2sCount;
                 // std::cout << "after x=" << fragmentB2Vec2s[fpi].x << " " << "y=" << fragmentB2Vec2s[fpi].y << std::endl;
             }
+            //The last point must be the same as the first point (as given by the model::polygon and the vector or points)
+            //If the filter above removed the last point it was because the previous was too close to the last and the previous be removed instead
+            //Therefore we make sure the last is the same as the first
+            fragmentB2Vec2s[fragmentB2Vec2sCount - 1] = fragmentB2Vec2s[0];
 
+            //Make sure the shape is a least a triangle which is at least 4 point (4th point necessary to close the shape)
             if (fragmentB2Vec2sCount >= 4) {
                 b2ChainShape fragmentShape;
                 fragmentShape.CreateChain(fragmentB2Vec2s, fragmentB2Vec2sCount);
