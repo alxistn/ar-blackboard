@@ -42,10 +42,6 @@ int main ()
         mainWindow.draw();
 
 
-        //Logic & Rendering
-        //mainWindow.update(fpsTimer.getFrameTime());
-
-
         //Update FPSTimer (& Cap FPS)
         fpsTimer.update();
     }

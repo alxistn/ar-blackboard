@@ -102,17 +102,6 @@ void DestructibleObject::destroy(float x, float y, float r)
             std::cout << "after x=" << b2Vec2Points[i].x << " " << "y=" << b2Vec2Points[i].y << std::endl;
         }
 
-        /*b2Vec2 pointsTEST[8] = {
-            {2*4, 2},
-            {3*4, 0},
-            {2*4, -1},
-            {0*4, 0},
-            {-2*4, -1},
-            {-3*4, 0},
-            {-2*4, 2},
-            {0*4, 3}
-        };*/
-
         newShape.CreateChain(b2Vec2Points, outerPoints.size());
 
         fixtureDef.shape = &newShape;
