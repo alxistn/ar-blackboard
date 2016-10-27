@@ -3,15 +3,20 @@
 
 #include <iostream>
 #include "window.h"
-#include <opencv2/opencv.hpp>
 #include "scene.h"
+#include <opencv2/opencv.hpp>
+#include "vertexextractor.h"
+
+
 class OpenCVScene : public Scene
 {
-    cv::VideoCapture _cap;
+    Window& _gameWindow;
+    VertexExtractor *_vertexExtractor;
     SDL_Texture* _cameraTexture;
     int _mode;
+    int _hPointIndex;
 public:
-    OpenCVScene(Window& window);
+    OpenCVScene(Window& window, Window& gameWindow, VertexExtractor *vertexExtractor);
     ~OpenCVScene();
 
     virtual void draw() const;
