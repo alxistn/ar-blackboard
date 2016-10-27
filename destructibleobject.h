@@ -13,7 +13,9 @@
 using namespace boost::geometry;
 
 class DestructibleObject : public GameObject
-{    
+{
+    b2FixtureDef _fixtureDef;
+
 public:
     DestructibleObject(b2World* world, SDL_Renderer* renderer, float x, float y, std::vector<cv::Point>& points);
 
