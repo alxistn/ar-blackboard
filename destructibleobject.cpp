@@ -38,9 +38,17 @@ DestructibleObject::DestructibleObject(b2World* world, SDL_Renderer* renderer, f
     _body->CreateFixture(&_fixtureDef);
 }
 
+float distanceSquare(const model::d2::point_xy<float>& point1, const model::d2::point_xy<float>& point2)
+{
+    float dx = point2.x() - point1.x();
+    float dy = point2.y() - point1.y();
+    return dx*dx + dy*dy;
+}
+
 void DestructibleObject::destroy(float x, float y, float r)
 {
-    static const float minDistSquare = 0.01f * 0.01f;
+    //static const float minDistSquare = 0.005f * 0.005f; //BOX2D MINIMUM
+    static const float minDistSquare = 0.1f * 0.1f; // OPTIMISED MINIMUM
 
     std::cout << "------ DestructibleObject::destroy() ------" << std::endl;
 
@@ -114,19 +122,29 @@ void DestructibleObject::destroy(float x, float y, float r)
         //
         for (model::polygon<model::d2::point_xy<float>>& fragmentPolygon : collection) {
             // std::cout << "NEW FRAGMENT" << std::endl;
-            b2ChainShape fragmentShape;
 
             std::vector<model::d2::point_xy<float>>& fragmentPoints = fragmentPolygon.outer();
             b2Vec2* fragmentB2Vec2s = new b2Vec2[fragmentPoints.size()];
-            for (unsigned int fpi = 0; fpi < (fragmentPoints.size()); ++fpi) {
-                fragmentB2Vec2s[fpi].x = fragmentPoints[fpi].x() - terrainPosition.x;
-                fragmentB2Vec2s[fpi].y = fragmentPoints[fpi].y() - terrainPosition.y;
+            unsigned int fragmentB2Vec2sCount = 0;
+            unsigned int lastStoredFpi;
+            for (unsigned int fpi = 0; fpi < fragmentPoints.size(); ++fpi) {
+                if (fragmentB2Vec2sCount > 0 && distanceSquare(fragmentPoints[lastStoredFpi], fragmentPoints[fpi]) <= minDistSquare) {
+                    std::cout << "Point too close to last stored point : SKIPPED" << std::endl;
+                    continue;
+                }
+                lastStoredFpi = fpi;
+                fragmentB2Vec2s[fragmentB2Vec2sCount].x = fragmentPoints[fpi].x() - terrainPosition.x;
+                fragmentB2Vec2s[fragmentB2Vec2sCount].y = fragmentPoints[fpi].y() - terrainPosition.y;
+                ++fragmentB2Vec2sCount;
                 // std::cout << "after x=" << fragmentB2Vec2s[fpi].x << " " << "y=" << fragmentB2Vec2s[fpi].y << std::endl;
             }
 
-            fragmentShape.CreateChain(fragmentB2Vec2s, fragmentPoints.size());
-            _fixtureDef.shape = &fragmentShape;
-            _body->CreateFixture(&_fixtureDef);
+            if (fragmentB2Vec2sCount >= 4) {
+                b2ChainShape fragmentShape;
+                fragmentShape.CreateChain(fragmentB2Vec2s, fragmentB2Vec2sCount);
+                _fixtureDef.shape = &fragmentShape;
+                _body->CreateFixture(&_fixtureDef);
+            }
 
             delete fragmentB2Vec2s;
         }
@@ -199,6 +217,6 @@ void DestructibleObject::handleEvent(const SDL_Event& event)
     {
         int x, y;
         SDL_GetMouseState(&x, &y);
-        //destroy(x, y, 1.0f);
+        destroy(x, y, 1.0f);
     }
 }
