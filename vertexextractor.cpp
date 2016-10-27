@@ -9,9 +9,9 @@ VertexExtractor::VertexExtractor(int cameraId, Window& openCVWindow, Window& gam
     _cap.set(cv::CAP_PROP_FRAME_HEIGHT, 1080);
 
     _theoricalPoint.push_back(cv::Point2f(0,0));
-    _theoricalPoint.push_back(cv::Point2f(0,_gameWindow.getWidth()));
-    _theoricalPoint.push_back(cv::Point2f(_gameWindow.getHeight(),_gameWindow.getWidth()));
-    _theoricalPoint.push_back(cv::Point2f(_gameWindow.getHeight(),0));
+    _theoricalPoint.push_back(cv::Point2f(0,_gameWindow.getHeight()));
+    _theoricalPoint.push_back(cv::Point2f(_gameWindow.getWidth(),_gameWindow.getHeight()));
+    _theoricalPoint.push_back(cv::Point2f(_gameWindow.getWidth(),0));
 
     _gameProjectionPoints.push_back(cv::Point2f(535,185));
     _gameProjectionPoints.push_back(cv::Point2f(469,937));
@@ -76,7 +76,7 @@ void VertexExtractor::updateCorrectedRegion()
     cv::warpPerspective(_frame,
                         _correctedRegion,
                         _homographyMatrix,
-                        cv::Size(_gameWindow.getHeight(), _gameWindow.getWidth()));
+                        cv::Size(_gameWindow.getWidth(), _gameWindow.getHeight()));
 }
 
 void VertexExtractor::updateShapesOutlines()
@@ -104,6 +104,8 @@ void VertexExtractor::updateShapesOutlines()
                 pa = pts;
             }
         }
+        if (newShape.size() < 10)
+            continue;
         newList.push_back(newShape);
     }
     _contours = newList;

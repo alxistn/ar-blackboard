@@ -112,8 +112,6 @@ int main(){
 #include "gamescene.h"
 #include "fpstimer.h"
 #include <cstddef>
-#define WINDOW_WIDTH    1280
-#define WINDOW_HEIGHT   768
 #define WINDOW_TITLE    "Box2D Scene"
 
 int main ()

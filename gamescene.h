@@ -27,6 +27,7 @@ public:
     void createBox(float x, float y, float w, float h);
     void createPlayer(float x, float y);
 
+    void reset();
 };
 
 #endif // GAMESCENE_H
