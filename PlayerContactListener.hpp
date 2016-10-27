@@ -17,15 +17,12 @@ class Player;
 class PlayerContactListener : public b2ContactListener
 {
 private:
-    Player*  _contactListenerPlayer;
+    Player*  _player;
     
 public:
     PlayerContactListener(Player* player);
     void BeginContact(b2Contact* contact);
     void EndContact(b2Contact* contact);
-    
-    void setPlayer(Player* player);
-
 };
 
 

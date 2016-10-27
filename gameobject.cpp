@@ -107,3 +107,9 @@ void    GameObject::drawPolygon(const b2PolygonShape* polygonShape) const
         prevVec = nextVec;
     }
 }
+
+void    GameObject::handleEvent(const SDL_Event& event)
+{
+    //Not implemented
+    (void)event;
+}

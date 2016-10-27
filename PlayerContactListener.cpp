@@ -10,7 +10,7 @@
 #include "PlayerContactListener.hpp"
 
 PlayerContactListener::PlayerContactListener(Player* player)
-: _contactListenerPlayer(player)
+    : _player(player)
 {}
 
 void PlayerContactListener::BeginContact(b2Contact* contact)
@@ -20,14 +20,14 @@ void PlayerContactListener::BeginContact(b2Contact* contact)
         
         if ( *((int *)(&fixtureUserData)) == 3 )
         {
-            _contactListenerPlayer->incrFootContacts();
+            _player->incrFootContacts();
         }
         
         //check if fixture B was the foot sensor
         fixtureUserData = contact->GetFixtureB()->GetUserData();
         if ( *((int *)(&fixtureUserData)) == 3 )
         {
-            _contactListenerPlayer->incrFootContacts();
+            _player->incrFootContacts();
         }
 }
     
@@ -37,13 +37,13 @@ void PlayerContactListener::EndContact(b2Contact* contact)
             void* fixtureUserData = contact->GetFixtureA()->GetUserData();
          if ( *((int *)(&fixtureUserData)) == 3 )
          {
-             _contactListenerPlayer->decrFootContacts();
+             _player->decrFootContacts();
          }
         
          //check if fixture B was the foot sensor
          fixtureUserData = contact->GetFixtureB()->GetUserData();
          if ( *((int *)(&fixtureUserData)) == 3 )
          {
-             _contactListenerPlayer->decrFootContacts();
+             _player->decrFootContacts();
          }
 }

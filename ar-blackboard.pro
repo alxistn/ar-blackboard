@@ -16,7 +16,8 @@ SOURCES += main.cpp \
     player.cpp \
     opencvscene.cpp \
     cubeobject.cpp \
-    destructibleobject.cpp
+    destructibleobject.cpp \
+    PlayerContactListener.cpp
 
 HEADERS += \
     window.h \
@@ -27,4 +28,5 @@ HEADERS += \
     player.h \
     opencvscene.h \
     cubeobject.h \
-    destructibleobject.h
+    destructibleobject.h \
+    PlayerContactListener.hpp

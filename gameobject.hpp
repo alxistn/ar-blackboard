@@ -32,6 +32,8 @@ public:
     void    drawEdge(const b2EdgeShape* edgeShape) const;
     void    drawCircle(const b2CircleShape* circleShape) const;
     void    drawPolygon(const b2PolygonShape* polygonShape) const;
+
+    virtual void handleEvent(const SDL_Event& event);
     
 };
 

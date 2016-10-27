@@ -73,6 +73,10 @@ void GameScene::handleEvent(const SDL_Event& event)
             break;
         }
     }
+
+    for (GameObject* gameObject : _gameObjects) {
+        gameObject->handleEvent(event);
+    }
 }
 
 void GameScene::createGround(float x, float y, float w, float h)
