@@ -15,7 +15,10 @@ SOURCES += main.cpp \
     gameobject.cpp \
     player.cpp \
     opencvscene.cpp \
-    vertexextractor.cpp
+    vertexextractor.cpp\
+    cubeobject.cpp \
+    destructibleobject.cpp \
+    PlayerContactListener.cpp
 
 HEADERS += \
     window.h \
@@ -25,4 +28,8 @@ HEADERS += \
     gameobject.hpp \
     player.h \
     opencvscene.h \
-    vertexextractor.h
+    vertexextractor.h\
+    cubeobject.h \
+    destructibleobject.h \
+    PlayerContactListener.hpp
+

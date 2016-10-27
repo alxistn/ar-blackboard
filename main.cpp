@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "window.h"
+#include "scene.h"
 #include "opencvscene.h"
 #include "gamescene.h"
 #include "fpstimer.h"
@@ -13,7 +14,6 @@ int main ()
 {
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
         throw std::logic_error(SDL_GetError());
-
     //detect numbers of monitors
     SDL_DisplayMode monitorA;
     SDL_DisplayMode monitorB;

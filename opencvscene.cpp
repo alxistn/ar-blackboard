@@ -51,4 +51,5 @@ void OpenCVScene::update(float deltaTime)
 
 void OpenCVScene::handleEvent(const SDL_Event& event)
 {
+    
 }

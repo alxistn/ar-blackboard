@@ -1,15 +1,13 @@
 #ifndef OPENCVSCENE_H
 #define OPENCVSCENE_H
 
-#include "scene.h"
 #include <iostream>
-#include <window.h>
+#include "window.h"
 #include <opencv2/opencv.hpp>
-
+#include "scene.h"
 class OpenCVScene : public Scene
 {
     cv::VideoCapture _cap;
-
     SDL_Texture* _cameraTexture;
     int _mode;
 public:

@@ -90,35 +90,8 @@ void Window::handleEvent(const SDL_Event& event)
     /*
     ** Window Events
     */
-
-    //Here the window handle some key events
-    if(event.type == SDL_KEYDOWN && SDL_GetWindowFlags(_window) & SDL_WINDOW_INPUT_FOCUS)
-    {
-        switch(event.key.keysym.sym)
-        {
-            case SDLK_UP:
-                std::cout << "Key up pressed on Window " << _id << std::endl;
-            break;
-
-            case SDLK_DOWN:
-                std::cout << "Key down pressed on Window " << _id << std::endl;
-            break;
-
-            case SDLK_LEFT:
-                std::cout << "Key left pressed on Window " << _id << std::endl;
-            break;
-
-            case SDLK_RIGHT:
-                std::cout << "Key right pressed on Window " << _id << std::endl;
-            break;
-
-            default:
-                std::cout << "A key was pressed on Window " << _id << std::endl;
-            break;
-        }
-    }
     //Here the window handles window specific events
-    else if(event.type == SDL_WINDOWEVENT && event.window.windowID == _id)
+    if(event.type == SDL_WINDOWEVENT && event.window.windowID == _id)
     {
         switch(event.window.event)
         {
