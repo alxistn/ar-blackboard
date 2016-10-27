@@ -9,16 +9,18 @@ GameScene::GameScene(Window& window, VertexExtractor *vertexExtractor)
     : Scene(window), _vertexExtractor(vertexExtractor), _gravity(0.f, 9.8f), _world(_gravity)
 {
     if (_vertexExtractor == NULL) {
-        createGround(_window->getWidth() / 2, _window->getHeight() / 2, _window->getWidth() / 2, 16.0f);
+        //createGround(_window->getWidth() / 2, _window->getHeight() / 2, _window->getWidth() / 2, 16.0f);
         createPlayer(_window->getWidth() / 2, 0);
         std::vector<cv::Point> pts;
-        pts.push_back(cv::Point(0,0));
+        pts.push_back(cv::Point(-100,0));
+        pts.push_back(cv::Point(-150,150));
         pts.push_back(cv::Point(0,100));
-        pts.push_back(cv::Point(30,150));
-        pts.push_back(cv::Point(70,120));
-        pts.push_back(cv::Point(100,20));
-        pts.push_back(cv::Point(40,0));
-        createDestructibleObject(0,0,pts);
+        pts.push_back(cv::Point(150,150));
+        pts.push_back(cv::Point(100,0));
+        pts.push_back(cv::Point(150,-150));
+        pts.push_back(cv::Point(0,-100));
+        pts.push_back(cv::Point(-150,-150));
+        createDestructibleObject(_window->getWidth() / 2, _window->getHeight() / 2, pts);
     }
 }
 
@@ -45,7 +47,7 @@ void GameScene::handleEvent(const SDL_Event& event)
         int x, y;
         SDL_GetMouseState(&x, &y);
         //createBox(x, y, 16.0f, 16.0f);
-        createPlayer(x, y);
+        //createPlayer(x, y);
     }
     for (GameObject* gameObject : _gameObjects) {
         gameObject->handleEvent(event);

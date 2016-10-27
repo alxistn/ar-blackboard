@@ -38,11 +38,18 @@ DestructibleObject::DestructibleObject(b2World* world, SDL_Renderer* renderer, f
     _body->CreateFixture(&_fixtureDef);
 }
 
+float distanceSquare(const model::d2::point_xy<float>& point1, const model::d2::point_xy<float>& point2)
+{
+    float dx = point2.x() - point1.x();
+    float dy = point2.y() - point1.y();
+    return dx*dx + dy*dy;
+}
+
 void DestructibleObject::destroy(float x, float y, float r)
 {
-    static const float minDistSquare = 0.01f * 0.01f;
+    //static const float minDistSquare = 0.005f * 0.005f; //BOX2D MINIMUM
+    static const float minDistSquare = 0.01f * 0.01f; // OPTIMISED MINIMUM
 
-    std::cout << "------ DestructibleObject::destroy() ------" << std::endl;
 
     r /= BOX2D_SCALE * 2.0f;
     x /= BOX2D_SCALE;
@@ -53,7 +60,6 @@ void DestructibleObject::destroy(float x, float y, float r)
     ** Create Circle Polygon
     */
     model::d2::point_xy<float>                      circlePosition(x, y);
-    //std::cout << "circle position = " << "x:" << circlePosition.x() << " y:" << circlePosition.y() << std::endl;
     std::vector<model::d2::point_xy<float>>         circlePoints = {{1.0f + circlePosition.x(), 1.0f + circlePosition.y()}, {1.5f + circlePosition.x(), 0.0f + circlePosition.y()}, {1.0f + circlePosition.x(), -1.0f + circlePosition.y()}, {0.0f + circlePosition.x(), -1.5f + circlePosition.y()}, {-1.0f + circlePosition.x(), -1.0f + circlePosition.y()}, {-1.5f + circlePosition.x(), 0.0f + circlePosition.y()},{-1.0f + circlePosition.x(), 1.0f + circlePosition.y()}, {0.0f + circlePosition.x(), 1.5f + circlePosition.y()}, {1.0f + circlePosition.x(), 1.0f + circlePosition.y()}};
     model::polygon<model::d2::point_xy<float>>      circlePolygon;
     append(circlePolygon, circlePoints);
@@ -63,7 +69,6 @@ void DestructibleObject::destroy(float x, float y, float r)
     // Get all Terrain Fixtures to a stack
     //
     b2Vec2                                          terrainPosition = _body->GetPosition();
-    //std::cout << "terrain position = " << "x:" << terrainPosition.x << " y:" << terrainPosition.y << std::endl;
     b2Fixture*                                      terrainFixture = _body->GetFixtureList();
     std::stack<b2Fixture*>                          terrainFixtureStack;
     while (terrainFixture != NULL) {
@@ -75,7 +80,6 @@ void DestructibleObject::destroy(float x, float y, float r)
     //
     // Loop over all terrian fixtures from stack
     //
-    //std::cout << "Number of terrain fixtures = " << terrainFixtureStack.size() << std::endl;
     while (terrainFixtureStack.size() > 0) {
         terrainFixture = terrainFixtureStack.top();
         terrainFixtureStack.pop();
@@ -89,11 +93,10 @@ void DestructibleObject::destroy(float x, float y, float r)
         for (unsigned int i = 0; i < terrainPoints.size(); ++i) {
                 terrainPoints[i].x(terrainShape->m_vertices[i].x + terrainPosition.x);
                 terrainPoints[i].y(terrainShape->m_vertices[i].y + terrainPosition.y);
-                //std::cout << "before x=" << terrainShape->m_vertices[i].x << " " << "y=" << terrainShape->m_vertices[i].y << std::endl;
         }
         model::polygon<model::d2::point_xy<float>>      terrainPolygon;
         append(terrainPolygon, terrainPoints);
-        // std::cout << "circle center is in terrian? " << std::boolalpha << within(circlePosition, terrainPolygon) << std::endl;
+        // std::cout << "Circle center is in terrian? " << std::boolalpha << within(circlePosition, terrainPolygon) << std::endl;
 
 
         //
@@ -113,83 +116,47 @@ void DestructibleObject::destroy(float x, float y, float r)
         // Create terrain fragment fixtures
         //
         for (model::polygon<model::d2::point_xy<float>>& fragmentPolygon : collection) {
-            // std::cout << "NEW FRAGMENT" << std::endl;
-            b2ChainShape fragmentShape;
 
+
+            //
+            // From fragmentPoints create fragmentB2Vec2s necessary for the shape filtering points too close to each other
+            //
             std::vector<model::d2::point_xy<float>>& fragmentPoints = fragmentPolygon.outer();
             b2Vec2* fragmentB2Vec2s = new b2Vec2[fragmentPoints.size()];
-            for (unsigned int fpi = 0; fpi < (fragmentPoints.size()); ++fpi) {
-                fragmentB2Vec2s[fpi].x = fragmentPoints[fpi].x() - terrainPosition.x;
-                fragmentB2Vec2s[fpi].y = fragmentPoints[fpi].y() - terrainPosition.y;
-                // std::cout << "after x=" << fragmentB2Vec2s[fpi].x << " " << "y=" << fragmentB2Vec2s[fpi].y << std::endl;
+            unsigned int fragmentB2Vec2sCount = 0;
+            unsigned int lastStoredFpi;
+            for (unsigned int fpi = 0; fpi < fragmentPoints.size(); ++fpi) {
+                if (fragmentB2Vec2sCount > 0 && distanceSquare(fragmentPoints[lastStoredFpi], fragmentPoints[fpi]) <= minDistSquare) {
+                    std::cout << "Point too close to last stored point : SKIPPED" << std::endl;
+                    continue;
+                }
+                lastStoredFpi = fpi;
+                fragmentB2Vec2s[fragmentB2Vec2sCount].x = fragmentPoints[fpi].x() - terrainPosition.x;
+                fragmentB2Vec2s[fragmentB2Vec2sCount].y = fragmentPoints[fpi].y() - terrainPosition.y;
+                ++fragmentB2Vec2sCount;
             }
+            //The last point must be the same as the first point for the shape connection
+            //If the filter above removed the last point it was because the previous was too close to the last and the previous must be removed instead
+            //Therefore we make sure the last is the same as the first
+            fragmentB2Vec2s[fragmentB2Vec2sCount - 1] = fragmentB2Vec2s[0];
 
-            fragmentShape.CreateChain(fragmentB2Vec2s, fragmentPoints.size());
-            _fixtureDef.shape = &fragmentShape;
-            _body->CreateFixture(&_fixtureDef);
 
+            //
+            // Create the new fixture and shape using the fragmentB2Vec2s on the condition that the shape is closed (at least a triangle therefore 4 point including the closing point)
+            //
+            if (fragmentB2Vec2sCount >= 4) {
+                b2ChainShape fragmentShape;
+                fragmentShape.CreateChain(fragmentB2Vec2s, fragmentB2Vec2sCount);
+                _fixtureDef.shape = &fragmentShape;
+                _body->CreateFixture(&_fixtureDef);
+            }
             delete fragmentB2Vec2s;
+
+
         }
 
 
     }
-
-
-/*
-    //
-    // Create Terrain Polygon
-    //
-    b2Vec2                                          terrainPosition = _body->GetPosition();
-    // std::cout << "terrain position = " << "x:" << terrainPosition.x << " y:" << terrainPosition.y << std::endl;
-    b2Fixture*                                      terrainFixture = _body->GetFixtureList();
-    b2ChainShape*                                   terrainShape = static_cast<b2ChainShape*>(terrainFixture->GetShape());
-    std::vector<model::d2::point_xy<float>>         terrainPoints(terrainShape->m_count);
-    for (unsigned int i = 0; i < terrainPoints.size(); ++i) {
-            terrainPoints[i].x(terrainShape->m_vertices[i].x + terrainPosition.x);
-            terrainPoints[i].y(terrainShape->m_vertices[i].y + terrainPosition.y);
-            std::cout << "before x=" << terrainShape->m_vertices[i].x << " " << "y=" << terrainShape->m_vertices[i].y << std::endl;
-    }
-    model::polygon<model::d2::point_xy<float>>      terrainPolygon;
-    append(terrainPolygon, terrainPoints);
-    // std::cout << "circle center is in terrian? " << std::boolalpha << within(circlePosition, terrainPolygon) << std::endl;
-
-
-
-    //
-    // Get Result Terrain Collection Polygons
-    //
-    std::vector<model::polygon<model::d2::point_xy<float>>> collection;
-    difference(terrainPolygon, circlePolygon, collection);
-
-
-    //
-    // Remove terrain fixture
-    //
-    _body->DestroyFixture(terrainFixture);
-
-
-    //
-    // Create terrain fragment fixtures
-    //
-    for (model::polygon<model::d2::point_xy<float>>& fragmentPolygon : collection) {
-        // std::cout << "NEW FRAGMENT" << std::endl;
-        b2ChainShape fragmentShape;
-
-        std::vector<model::d2::point_xy<float>>& fragmentPoints = fragmentPolygon.outer();
-        b2Vec2* fragmentB2Vec2s = new b2Vec2[fragmentPoints.size()];
-        for (unsigned int fpi = 0; fpi < (fragmentPoints.size()); ++fpi) {
-            fragmentB2Vec2s[fpi].x = fragmentPoints[fpi].x() - terrainPosition.x;
-            fragmentB2Vec2s[fpi].y = fragmentPoints[fpi].y() - terrainPosition.y;
-            // std::cout << "after x=" << fragmentB2Vec2s[fpi].x << " " << "y=" << fragmentB2Vec2s[fpi].y << std::endl;
-        }
-
-        fragmentShape.CreateChain(fragmentB2Vec2s, fragmentPoints.size());
-        _fixtureDef.shape = &fragmentShape;
-        _body->CreateFixture(&_fixtureDef);
-
-        delete fragmentB2Vec2s;
-    }
-*/
 
 }
 
@@ -199,6 +166,6 @@ void DestructibleObject::handleEvent(const SDL_Event& event)
     {
         int x, y;
         SDL_GetMouseState(&x, &y);
-        //destroy(x, y, 1.0f);
+        destroy(x, y, 1.0f);
     }
 }
