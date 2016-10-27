@@ -5,31 +5,39 @@
 Player::Player(b2World* world, SDL_Renderer* renderer, float x, float y)
     : GameObject(world, renderer)
 {
-    _numFootContacts = 0;
-    float width = 8.0f;
-    float height = 24.0f;
+    // Player Position
+    x /= BOX2D_SCALE;
+    y /= BOX2D_SCALE;
+    // Player Size
+    float width = 16.0f / (2.0f * BOX2D_SCALE);
+    float height = 48.0f / (2.0f * BOX2D_SCALE);
+    // Foot position (relative to player)
+    b2Vec2 footOffest = b2Vec2(0, height);
+    // Foot size
+    float footWidth = 16.0f / (2.0f * BOX2D_SCALE);
+    float footHeight = 8.0f / (2.0f * BOX2D_SCALE);
 
     // Creation of the body
     b2BodyDef bodyDef;
-    bodyDef.position = b2Vec2(x / BOX2D_SCALE, y / BOX2D_SCALE);
+    bodyDef.position = b2Vec2(x, y);
     bodyDef.type = b2_dynamicBody;
     bodyDef.fixedRotation = true;
     _body = _world->CreateBody(&bodyDef);
 
     // Definition of the shape
     b2PolygonShape shape;
-    shape.SetAsBox(width / BOX2D_SCALE, height / BOX2D_SCALE);
+    shape.SetAsBox(width, height);
 
     // Create body fixture
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &shape;
-    fixtureDef.density = (width * height) / BOX2D_SCALE;
+    fixtureDef.density = (width * height);
     fixtureDef.friction = 0.0f;
     fixtureDef.restitution = 0.0f;
     _body->CreateFixture(&fixtureDef);
     
     //add foot sensor fixture
-    shape.SetAsBox(width / BOX2D_SCALE, 5 / BOX2D_SCALE, b2Vec2(0,0.75), 0);
+    shape.SetAsBox(footWidth, footHeight, footOffest, 0);
     fixtureDef.isSensor = true;
     b2Fixture* footSensorFixture = _body->CreateFixture(&fixtureDef);
     footSensorFixture->SetUserData( (void*)3 );

@@ -5,9 +5,12 @@
 DestructibleObject::DestructibleObject(b2World* world, SDL_Renderer* renderer, float x, float y)
     : GameObject(world, renderer)
 {
+    x /= BOX2D_SCALE;
+    y /= BOX2D_SCALE;
+
     // Creation of the body
     b2BodyDef bodyDef;
-    bodyDef.position = b2Vec2(x / BOX2D_SCALE, y / BOX2D_SCALE);
+    bodyDef.position = b2Vec2(x, y);
     bodyDef.type = b2_staticBody;
     _body = _world->CreateBody(&bodyDef);
 
@@ -38,10 +41,16 @@ DestructibleObject::DestructibleObject(b2World* world, SDL_Renderer* renderer, f
 
 void DestructibleObject::destroy(float x, float y, float r)
 {
+    x /= BOX2D_SCALE;
+    y /= BOX2D_SCALE;
+
     b2Vec2 position = _body->GetPosition();
 
     // Create Circle Polygon
-    std::vector<model::d2::point_xy<float>> circlePoints = {{1.0f + x, 1.0f + y}, {1.5f + x, 0.0f + y}, {1.0f + x, -1.0f + y}, {0.0f + x, -1.5f + y}, {-1.0f + x, -1.0f + y}, {-1.5f + x, 0.0f + y}, {-1.0f + x, 1.0f + y}, {0.0f + x, 1.5f + y}};
+    std::vector<model::d2::point_xy<float>> circlePoints = {{1.0f + x, 1.0f + y},   {1.5f + x, 0.0f + y},
+                                                            {1.0f + x, -1.0f + y},  {0.0f + x, -1.5f + y},
+                                                            {-1.0f + x, -1.0f + y}, {-1.5f + x, 0.0f + y},
+                                                            {-1.0f + x, 1.0f + y},  {0.0f + x, 1.5f + y}};
     model::polygon< model::d2::point_xy<float> > circlePolygon;
     append(circlePolygon, circlePoints);
 
@@ -53,7 +62,7 @@ void DestructibleObject::destroy(float x, float y, float r)
             terrainPoints[i].x(shape->m_vertices[i].x + position.x);
             terrainPoints[i].y(shape->m_vertices[i].y + position.y);
     }
-    model::polygon< model::d2::point_xy<float> > terrainPolygon;
+    model::polygon<model::d2::point_xy<float>> terrainPolygon;
     append(terrainPolygon, terrainPoints);
 
 
@@ -65,8 +74,10 @@ void DestructibleObject::destroy(float x, float y, float r)
     _body->DestroyFixture(fixture);
 
     // Create new fixtures and shapes
-    b2FixtureDef newFixtureDef;
-    newFixtureDef.friction = 0.75f;
+    b2FixtureDef fixtureDef;
+    fixtureDef.density = 0.0f;
+    fixtureDef.friction = 0.75f;
+    fixtureDef.restitution = 0.0f;
     for (auto& terrainFragment : collection) {
         b2ChainShape newShape;
 
@@ -79,8 +90,8 @@ void DestructibleObject::destroy(float x, float y, float r)
         }
         newShape.CreateLoop(b2Vec2Points, outerPoints.size());
 
-        newFixtureDef.shape = &newShape;
-        _body->CreateFixture(&newFixtureDef);
+        fixtureDef.shape = &newShape;
+        _body->CreateFixture(&fixtureDef);
 
         delete b2Vec2Points;
     }
