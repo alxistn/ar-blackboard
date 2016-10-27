@@ -192,8 +192,13 @@ int main ()
 
 
         //Rendering
+<<<<<<< HEAD
         mainWindow->draw();
         if (openCVWindow)openCVWindow->draw();
+=======
+        mainWindow.draw();
+
+>>>>>>> 3bd3485dd3f98c314d6ad351bfc6efcf3d5be859
 
         //Update FPSTimer (& Cap FPS)
         fpsTimer.update();
