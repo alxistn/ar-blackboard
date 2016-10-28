@@ -25,6 +25,12 @@ GameScene::GameScene(Window& window, VertexExtractor *vertexExtractor)
     }
 }
 
+GameScene::~GameScene()
+{
+    for (GameObject* gameObject :_gameObjects)
+        delete gameObject;
+}
+
 void GameScene::draw() const
 {
     for (GameObject* gameObject : _gameObjects)

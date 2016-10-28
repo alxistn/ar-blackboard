@@ -21,6 +21,7 @@ class GameScene : public Scene
 
 public:
     GameScene(Window& window, VertexExtractor *vertexExtractor);
+    ~GameScene();
 
     virtual void draw() const;
     virtual void update(float deltaTime);

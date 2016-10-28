@@ -10,7 +10,6 @@ class Player : public GameObject
 {
 private:
     int _numFootContacts = 0;
-    PlayerContactListener* _playerContactListener = NULL;
     
 public:
 
