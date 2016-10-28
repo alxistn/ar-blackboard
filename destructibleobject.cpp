@@ -194,10 +194,10 @@ void DestructibleObject::destroy(float x, float y, float r)
 
 void DestructibleObject::handleEvent(const SDL_Event& event)
 {
-    if (event.type == SDL_MOUSEBUTTONUP)
+    /*if (event.type == SDL_MOUSEBUTTONUP)
     {
         int x, y;
         SDL_GetMouseState(&x, &y);
         destroy(x, y, 1.0f);
-    }
+    }*/
 }

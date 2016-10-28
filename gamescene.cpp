@@ -65,7 +65,7 @@ void GameScene::handleEvent(const SDL_Event& event)
     {
         int x, y;
         SDL_GetMouseState(&x, &y);
-        //createMissile(x, y, 0.8f);
+        createMissile(x, y, 0.8f);
         //createPlayer(x, y);
     }
     for (GameObject* gameObject : _gameObjects) {
