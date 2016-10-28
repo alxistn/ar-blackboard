@@ -56,7 +56,7 @@ void OpenCVScene::update(float deltaTime)
       }
       if (_vertexExtractor->getMode() == 1){
         _vertexExtractor->updateCorrectedRegion();
-        _vertexExtractor->updateShapesOutlines();
+        //_vertexExtractor->updateShapesOutlines();
 
         cv::resize(_vertexExtractor->getCorrectedRegion(),
                    dst(cv::Rect(0,0,_gameWindow.getWidth()/2, _gameWindow.getHeight()/2)),
@@ -97,17 +97,22 @@ void OpenCVScene::handleEvent(const SDL_Event& event)
 	case SDLK_z: _hPointIndex = 3; break;
 	case SDLK_q: _hPointIndex = 1; break;
 	case SDLK_s: _hPointIndex = 2; break;
-	case SDLK_w:
+    case SDLK_F1:
         _vertexExtractor->setMode(0);
         _gameWindow.deleteScene();
         break;
-	case SDLK_x:
+    case SDLK_F2:
         _vertexExtractor->setMode(1);
         _gameWindow.deleteScene();
         break;
-	case SDLK_c:
+      case SDLK_F3:
+        if (_vertexExtractor->getMode() == 1){
+          _vertexExtractor->updateShapesOutlines();
+        }
+          break;
+      case SDLK_F4:
 	  if (_vertexExtractor->getMode() == 1){
-	    _vertexExtractor->updateShapesOutlines();
+        //_vertexExtractor->updateShapesOutlines();
         _gameWindow.deleteScene();
         _gameWindow.setScene(new GameScene(_gameWindow, _vertexExtractor));
         static_cast<GameScene*>(_gameWindow.getScene())->addShapes(_vertexExtractor->getShapes());

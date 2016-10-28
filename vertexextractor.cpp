@@ -22,6 +22,7 @@ VertexExtractor::VertexExtractor(int cameraId, Window& openCVWindow, Window& gam
     _threshold_lower = 200;
     updateFrame();
     updateHomography();
+    setMode(0);
 }
 
 void VertexExtractor::updateFrame()
@@ -117,6 +118,11 @@ void VertexExtractor::updateShapesOutlines()
 void VertexExtractor::setMode(unsigned int mode)
 {
     _mode = mode;
+    if (_mode == 0 || _mode == 1)
+        _openCVWindow.focus();
+    else
+        _gameWindow.focus();
+
 }
 
 unsigned int VertexExtractor::getMode()

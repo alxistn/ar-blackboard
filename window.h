@@ -43,6 +43,8 @@ public:
     void handleEvent(const SDL_Event& event);
     void hide();
     void show();
+    void focus();
+
 
     bool hidden() const;
 };

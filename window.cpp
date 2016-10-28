@@ -133,3 +133,7 @@ bool Window::hidden() const
 {
     return _hidden;
 }
+
+void Window::focus(){
+    SDL_RaiseWindow(_window);
+}
