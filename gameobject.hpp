@@ -27,6 +27,8 @@ public:
     GameObject(b2World* world, SDL_Renderer* renderer);
     virtual ~GameObject();
 
+    SDL_Point getPosition();
+
     void    draw() const;
     void    drawChain(const b2ChainShape* chainShape) const;
     void    drawEdge(const b2EdgeShape* edgeShape) const;

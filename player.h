@@ -16,6 +16,7 @@ private:
 public:
 
     Player(b2World* world, SDL_Renderer* renderer, float x, float y);
+    ~Player();
     void HandleEvent();void handleEvent(const SDL_Event& event);
 
     void moveLeft();

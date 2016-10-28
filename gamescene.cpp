@@ -33,18 +33,29 @@ GameScene::~GameScene()
 
 void GameScene::draw() const
 {
-    for (GameObject* gameObject : _gameObjects)
-    {
+    for (GameObject* gameObject : _gameObjects) {
         gameObject->draw();
     }
 }
 
 void GameScene::update(float deltaTime)
 {
-    //Handle all events here
-
     //Game engine and physics here
     _world.Step(deltaTime, 8, 3);
+
+    //Delete objects outside of view
+    auto gameObjectIt = _gameObjects.begin();
+    while (gameObjectIt != _gameObjects.end())
+    {
+        SDL_Point position = (*gameObjectIt)->getPosition();
+        if (position.x < (-_worldBoundaryOffset) || position.x > (_window->getWidth() + _worldBoundaryOffset) ||
+                position.y < (-_worldBoundaryOffset) || position.y > (_window->getHeight() + _worldBoundaryOffset)) {
+            delete *gameObjectIt;
+            gameObjectIt = _gameObjects.erase(gameObjectIt);
+        }
+        else
+            ++gameObjectIt;
+    }
 }
 
 void GameScene::handleEvent(const SDL_Event& event)
@@ -66,7 +77,6 @@ void GameScene::clear()
     for (GameObject* gameObject :_gameObjects)
         delete gameObject;
     _gameObjects.clear();
-    _player = NULL;
 }
 
 void GameScene::createGround(float x, float y, float w, float h)
@@ -86,8 +96,8 @@ void GameScene::createDestructibleObject(float x, float y, const std::vector<cv:
 
 void GameScene::createPlayer(float x, float y)
 {
-    _player = new Player(&_world, _window->getRenderer(), x, y);
-    _gameObjects.push_back(_player);
+    Player* newPlayer = new Player(&_world, _window->getRenderer(), x, y);
+    _gameObjects.push_back(newPlayer);
     return;
 }
 

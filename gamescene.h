@@ -11,12 +11,14 @@
 
 class GameScene : public Scene
 {
+    //Distance off the screen a object can travel before being deleted
+    static const int _worldBoundaryOffset = 100;
+
     b2Vec2 _gravity;
     b2World _world;
     SceneContactListener _contactListener;
 
     std::list<GameObject*> _gameObjects;
-    Player* _player = NULL;
 
 public:
     GameScene(Window& window, bool clean=true);

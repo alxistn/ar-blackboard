@@ -42,6 +42,10 @@ Player::Player(b2World* world, SDL_Renderer* renderer, float x, float y)
     _body->CreateFixture(&fixtureDef);
 }
 
+Player::~Player() {
+    std::cout << "Player removed." << std::endl;
+}
+
 void Player::handleEvent(const SDL_Event &event)
 {
     if (event.type == SDL_KEYDOWN)
@@ -110,8 +114,6 @@ void Player::stop()
 
 void Player::jump()
 {
-
-
     if (_numFootContacts < 1)
         return;
 
