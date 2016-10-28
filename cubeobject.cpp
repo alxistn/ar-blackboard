@@ -1,7 +1,7 @@
 #include "cubeobject.h"
 #include <iostream>
 CubeObject::CubeObject(b2World* world, SDL_Renderer* renderer, float x, float y, float width, float height, bool dynamic)
-    : GameObject(world, renderer)
+    : GameObject(world, renderer, Type::CUBE)
 {
     x /= BOX2D_SCALE;
     y /= BOX2D_SCALE;

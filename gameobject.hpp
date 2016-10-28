@@ -18,18 +18,33 @@
 
 class GameObject {
     
+public:
+
+    enum Type {
+        CUBE,
+        DESTRUCTIBLE,
+        PLAYER,
+        MISSILE,
+    };
+    const Type type;
+
 protected:
+
     bool        _toDelete = false;
     b2World*    _world = NULL;
     SDL_Renderer* _renderer = NULL;
     b2Body*     _body = NULL;
     
 public:
-    GameObject(b2World* world, SDL_Renderer* renderer);
+    GameObject(b2World* world, SDL_Renderer* renderer, Type type);
     virtual ~GameObject();
 
     SDL_Point getPosition();
+    b2Vec2 getB2Position();
+
     bool toDelete();
+
+    virtual void update();
 
     void    draw() const;
     void    drawChain(const b2ChainShape* chainShape) const;

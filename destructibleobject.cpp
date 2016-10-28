@@ -4,7 +4,7 @@
 
 
 DestructibleObject::DestructibleObject(b2World* world, SDL_Renderer* renderer, float x, float y, const std::vector<cv::Point>& points)
-    : GameObject(world, renderer)
+    : GameObject(world, renderer, Type::DESTRUCTIBLE)
 {
     x /= BOX2D_SCALE;
     y /= BOX2D_SCALE;
@@ -15,7 +15,7 @@ DestructibleObject::DestructibleObject(b2World* world, SDL_Renderer* renderer, f
     bodyDef.type = b2_staticBody;
     _body = _world->CreateBody(&bodyDef);
 
-    // Definition of the ape
+    // Definition of the shape
     int b2Vec2Size = points.size() + 1;
     b2Vec2 *b2Vec2Points = new b2Vec2[b2Vec2Size];
     for (unsigned int i = 0; i < points.size(); ++i)
@@ -51,8 +51,24 @@ float distanceSquare(const model::d2::point_xy<float>& point1, const model::d2::
     return dx*dx + dy*dy;
 }
 
+void DestructibleObject::update()
+{
+    b2Vec2 position;
+    while (_destructions.size() > 0) {
+        position = _destructions.top();
+        _destructions.pop();
+        destroy(position.x, position.y, 1.0f);
+    }
+}
+
+void DestructibleObject::pushDestroy(float x, float y, float r)
+{
+    _destructions.push({x, y});
+}
+
 void DestructibleObject::destroy(float x, float y, float r)
 {
+    //std::cout << "Destroy: x=" << x << " y=" << y << std::endl;
     //static const float minDistSquare = 0.005f * 0.005f; //BOX2D MINIMUM
     static const float minDistSquare = 0.01f * 0.01f; // OPTIMISED MINIMUM
 
@@ -66,7 +82,11 @@ void DestructibleObject::destroy(float x, float y, float r)
     ** Create Circle Polygon
     */
     model::d2::point_xy<float>                      circlePosition(x, y);
-    std::vector<model::d2::point_xy<float>>         circlePoints = {{1.0f + circlePosition.x(), 1.0f + circlePosition.y()}, {1.5f + circlePosition.x(), 0.0f + circlePosition.y()}, {1.0f + circlePosition.x(), -1.0f + circlePosition.y()}, {0.0f + circlePosition.x(), -1.5f + circlePosition.y()}, {-1.0f + circlePosition.x(), -1.0f + circlePosition.y()}, {-1.5f + circlePosition.x(), 0.0f + circlePosition.y()},{-1.0f + circlePosition.x(), 1.0f + circlePosition.y()}, {0.0f + circlePosition.x(), 1.5f + circlePosition.y()}, {1.0f + circlePosition.x(), 1.0f + circlePosition.y()}};
+    std::vector<model::d2::point_xy<float>>         circlePoints = {{1.0f + circlePosition.x(), 1.0f + circlePosition.y()}, {1.5f + circlePosition.x(), 0.0f + circlePosition.y()},
+                                                                    {1.0f + circlePosition.x(), -1.0f + circlePosition.y()}, {0.0f + circlePosition.x(), -1.5f + circlePosition.y()},
+                                                                    {-1.0f + circlePosition.x(), -1.0f + circlePosition.y()}, {-1.5f + circlePosition.x(), 0.0f + circlePosition.y()},
+                                                                    {-1.0f + circlePosition.x(), 1.0f + circlePosition.y()}, {0.0f + circlePosition.x(), 1.5f + circlePosition.y()},
+                                                                    {1.0f + circlePosition.x(), 1.0f + circlePosition.y()}};
     model::polygon<model::d2::point_xy<float>>      circlePolygon;
     append(circlePolygon, circlePoints);
 
@@ -90,6 +110,7 @@ void DestructibleObject::destroy(float x, float y, float r)
     while (terrainFixtureStack.size() > 0) {
         terrainFixture = terrainFixtureStack.top();
         terrainFixtureStack.pop();
+        //std::cout << "Terrain fixture loaded" << std::endl;
 
 
         //
@@ -103,7 +124,7 @@ void DestructibleObject::destroy(float x, float y, float r)
         }
         model::polygon<model::d2::point_xy<float>>      terrainPolygon;
         append(terrainPolygon, terrainPoints);
-        // std::cout << "Circle center is in terrian? " << std::boolalpha << within(circlePosition, terrainPolygon) << std::endl;
+        //std::cout << "Circle center is in terrian? " << std::boolalpha << within(circlePosition, terrainPolygon) << std::endl;
 
 
         //
@@ -122,6 +143,7 @@ void DestructibleObject::destroy(float x, float y, float r)
         //
         // Create terrain fragment fixtures
         //
+        //std::cout << "collection size = " << collection.size() << std::endl;
         for (model::polygon<model::d2::point_xy<float>>& fragmentPolygon : collection) {
 
 
@@ -134,7 +156,7 @@ void DestructibleObject::destroy(float x, float y, float r)
             unsigned int lastStoredFpi;
             for (unsigned int fpi = 0; fpi < fragmentPoints.size(); ++fpi) {
                 if (fragmentB2Vec2sCount > 0 && distanceSquare(fragmentPoints[lastStoredFpi], fragmentPoints[fpi]) <= minDistSquare) {
-                    std::cout << "Point too close to last stored point : SKIPPED" << std::endl;
+                    //std::cout << "Point too close to last stored point : SKIPPED" << std::endl;
                     continue;
                 }
                 lastStoredFpi = fpi;

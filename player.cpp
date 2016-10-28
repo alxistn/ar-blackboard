@@ -2,7 +2,7 @@
 #include "player.h"
 
 Player::Player(b2World* world, SDL_Renderer* renderer, float x, float y)
-    : GameObject(world, renderer)
+    : GameObject(world, renderer, Type::PLAYER)
 {
     // Player Position
     x /= BOX2D_SCALE;

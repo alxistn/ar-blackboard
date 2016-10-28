@@ -18,7 +18,8 @@ SOURCES += main.cpp \
     vertexextractor.cpp\
     cubeobject.cpp \
     destructibleobject.cpp \
-    scenecontactlistener.cpp
+    scenecontactlistener.cpp \
+    missileobject.cpp
 
 HEADERS += \
     window.h \
@@ -31,5 +32,6 @@ HEADERS += \
     vertexextractor.h\
     cubeobject.h \
     destructibleobject.h \
-    scenecontactlistener.h
+    scenecontactlistener.h \
+    missileobject.h
 

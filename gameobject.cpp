@@ -10,8 +10,8 @@
 #include <iostream>
 #include "gameobject.hpp"
 
-GameObject::GameObject(b2World* world, SDL_Renderer* renderer)
-    : _world(world), _renderer(renderer)
+GameObject::GameObject(b2World* world, SDL_Renderer* renderer, Type type)
+    : type(type), _world(world), _renderer(renderer)
 {
 }
 
@@ -31,9 +31,18 @@ SDL_Point GameObject::getPosition()
     return position;
 }
 
+b2Vec2 GameObject::getB2Position() {
+    return _body->GetPosition();
+}
+
 bool GameObject::toDelete()
 {
     return _toDelete;
+}
+
+void GameObject::update()
+{
+    //Not Implemented
 }
 
 void    GameObject::draw() const
@@ -95,7 +104,24 @@ void    GameObject::drawEdge(const b2EdgeShape* edgeShape) const
 
 void    GameObject::drawCircle(const b2CircleShape* circleShape) const
 {
-    (void)circleShape;
+    SDL_SetRenderDrawColor(_renderer, 0x00, 0x00, 0x00, 0xFF);
+    int sides = 32;
+    b2Vec2 center = _body->GetPosition();
+    float radius = circleShape->m_radius;
+
+    float d_a = (2*M_PI)/sides;
+    float angle = d_a;
+    b2Vec2 start, end;
+    end.x = radius + center.x;
+    end.y = 0.0f + center.y;
+    for (int i = 0; i != sides; i++)
+    {
+        start = end;
+        end.x = cos(angle) * radius + center.x;
+        end.y = sin(angle) * radius + center.y;
+        angle += d_a;
+        SDL_RenderDrawLine(_renderer, start.x * BOX2D_SCALE , start.y * BOX2D_SCALE, end.x * BOX2D_SCALE, end.y * BOX2D_SCALE);
+    }
 }
 
 void    GameObject::drawPolygon(const b2PolygonShape* polygonShape) const
