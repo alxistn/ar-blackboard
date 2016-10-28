@@ -43,13 +43,14 @@ void GameScene::update(float deltaTime)
     //Game engine and physics here
     _world.Step(deltaTime, 8, 3);
 
-    //Delete objects outside of view
+    //Delete objects planned for deletion or outside of view
     auto gameObjectIt = _gameObjects.begin();
     while (gameObjectIt != _gameObjects.end())
     {
         SDL_Point position = (*gameObjectIt)->getPosition();
-        if (position.x < (-_worldBoundaryOffset) || position.x > (_window->getWidth() + _worldBoundaryOffset) ||
-                position.y < (-_worldBoundaryOffset) || position.y > (_window->getHeight() + _worldBoundaryOffset)) {
+        if ((*gameObjectIt)->toDelete() ||
+                position.x < (-_worldBoundaryOffset) || position.x > (_window->getWidth() + _worldBoundaryOffset) ||
+                position.y < (-_worldBoundaryOffset) || position.y > (_window->getHeight() + 100)) {
             delete *gameObjectIt;
             gameObjectIt = _gameObjects.erase(gameObjectIt);
         }

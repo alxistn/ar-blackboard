@@ -39,6 +39,11 @@ DestructibleObject::DestructibleObject(b2World* world, SDL_Renderer* renderer, f
     _body->CreateFixture(&_fixtureDef);
 }
 
+DestructibleObject::~DestructibleObject()
+{
+    std::cout << "Destructible Object removed." << std::endl;
+}
+
 float distanceSquare(const model::d2::point_xy<float>& point1, const model::d2::point_xy<float>& point2)
 {
     float dx = point2.x() - point1.x();
@@ -81,6 +86,7 @@ void DestructibleObject::destroy(float x, float y, float r)
     //
     // Loop over all terrian fixtures from stack
     //
+    int fixtureCount = 0;
     while (terrainFixtureStack.size() > 0) {
         terrainFixture = terrainFixtureStack.top();
         terrainFixtureStack.pop();
@@ -150,15 +156,18 @@ void DestructibleObject::destroy(float x, float y, float r)
                 fragmentShape.CreateChain(fragmentB2Vec2s, fragmentB2Vec2sCount);
                 _fixtureDef.shape = &fragmentShape;
                 _body->CreateFixture(&_fixtureDef);
+                fixtureCount += 1;
             }
             delete fragmentB2Vec2s;
 
 
         }
-
-
     }
 
+
+    // If body has no more fixtures, make the scene delete it
+    if (fixtureCount == 0)
+        _toDelete = true;
 }
 
 void DestructibleObject::handleEvent(const SDL_Event& event)

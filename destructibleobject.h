@@ -18,6 +18,7 @@ class DestructibleObject : public GameObject
 
 public:
     DestructibleObject(b2World* world, SDL_Renderer* renderer, float x, float y, const std::vector<cv::Point>& points);
+    ~DestructibleObject();
 
     void destroy(float x, float y, float r);
     void handleEvent(const SDL_Event& event);

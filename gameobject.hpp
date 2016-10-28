@@ -19,6 +19,7 @@
 class GameObject {
     
 protected:
+    bool        _toDelete = false;
     b2World*    _world = NULL;
     SDL_Renderer* _renderer = NULL;
     b2Body*     _body = NULL;
@@ -28,6 +29,7 @@ public:
     virtual ~GameObject();
 
     SDL_Point getPosition();
+    bool toDelete();
 
     void    draw() const;
     void    drawChain(const b2ChainShape* chainShape) const;

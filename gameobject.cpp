@@ -21,7 +21,7 @@ GameObject::~GameObject()
         _world->DestroyBody(_body);
 }
 
-SDL_Point   GameObject::getPosition()
+SDL_Point GameObject::getPosition()
 {
     b2Vec2 b2Position= _body->GetPosition();
     SDL_Point position;
@@ -29,6 +29,11 @@ SDL_Point   GameObject::getPosition()
     position.x = b2Position.x * BOX2D_SCALE;
     position.y = b2Position.y * BOX2D_SCALE;
     return position;
+}
+
+bool GameObject::toDelete()
+{
+    return _toDelete;
 }
 
 void    GameObject::draw() const
