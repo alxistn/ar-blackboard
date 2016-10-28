@@ -22,6 +22,7 @@ public:
     void HandleEvent();void handleEvent(const SDL_Event& event);
 
     void setSpeed(float speed);
+    void setBarrelRotation(float angle);
     void rotateBarrel(float deltaAngle);
     void jump(float height);
     void shoot();

@@ -72,7 +72,7 @@ void Player::handleEvent(const SDL_Event &event)
                 setSpeed(0.0f);
             break;
 
-            case SDLK_w:
+            case SDLK_z:
                 shoot();
             break;
 
@@ -99,7 +99,7 @@ void Player::handleEvent(const SDL_Event &event)
                 setSpeed(3.0f);
             break;
 
-            case SDLK_a:
+            case SDLK_q:
                 rotateBarrel(-0.1f);
             break;
 
@@ -142,6 +142,11 @@ void Player::rotateBarrel(float deltaAngle)
     shape->Set(points, shape->GetVertexCount());
 
     delete points;
+}
+
+void Player::setBarrelRotation(float angle)
+{
+    rotateBarrel(-_barrelDirection + angle);
 }
 
 void Player::shoot()
