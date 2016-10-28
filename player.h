@@ -10,7 +10,6 @@ class Player : public GameObject
 {
 private:
     int _numFootContacts = 0;
-    PlayerContactListener* _playerContactListener = NULL;
     
 public:
 
@@ -22,10 +21,8 @@ public:
     void stop();
     void jump();
     
-
-
-    void incrFootContacts();
-    void decrFootContacts();
+    void beginContactEvent(GameObject* contactObject);
+    void endContactEvent(GameObject* contactObject);
     
 };
 

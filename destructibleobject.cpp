@@ -35,6 +35,7 @@ DestructibleObject::DestructibleObject(b2World* world, SDL_Renderer* renderer, f
     _fixtureDef.density = 0.0f;
     _fixtureDef.friction = 0.75f;
     _fixtureDef.restitution = 0.0f;
+    _fixtureDef.userData = this;
     _body->CreateFixture(&_fixtureDef);
 }
 

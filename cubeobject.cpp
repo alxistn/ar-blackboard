@@ -24,6 +24,7 @@ CubeObject::CubeObject(b2World* world, SDL_Renderer* renderer, float x, float y,
     fixtureDef.density = width * height;
     fixtureDef.friction = 0.75f;
     fixtureDef.restitution = (dynamic == true) ? 0.1f : 0.0f;
+    fixtureDef.userData = this;
     _body->CreateFixture(&fixtureDef);
 }
 

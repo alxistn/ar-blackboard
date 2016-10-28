@@ -34,6 +34,8 @@ public:
     void    drawPolygon(const b2PolygonShape* polygonShape) const;
 
     virtual void handleEvent(const SDL_Event& event);
+    virtual void beginContactEvent(GameObject* contactObject);
+    virtual void endContactEvent(GameObject* contactObject);
     
 };
 

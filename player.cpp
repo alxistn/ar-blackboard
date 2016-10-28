@@ -1,5 +1,4 @@
 #include <iostream>
-#include "PlayerContactListener.hpp"
 #include "player.h"
 
 Player::Player(b2World* world, SDL_Renderer* renderer, float x, float y)
@@ -14,7 +13,7 @@ Player::Player(b2World* world, SDL_Renderer* renderer, float x, float y)
     // Foot position (relative to player)
     b2Vec2 footOffest = b2Vec2(0, height);
     // Foot size
-    float footWidth = 16.0f / (2.0f * BOX2D_SCALE);
+    float footWidth = 8.0f / (2.0f * BOX2D_SCALE);
     float footHeight = 8.0f / (2.0f * BOX2D_SCALE);
 
     // Creation of the body
@@ -39,15 +38,8 @@ Player::Player(b2World* world, SDL_Renderer* renderer, float x, float y)
     //add foot sensor fixture
     shape.SetAsBox(footWidth, footHeight, footOffest, 0);
     fixtureDef.isSensor = true;
-    b2Fixture* footSensorFixture = _body->CreateFixture(&fixtureDef);
-    footSensorFixture->SetUserData( (void*)3 );
-
-    //at global scope
-    _playerContactListener = new PlayerContactListener(this);
-    
-    //in FooTest constructor
-    _world->SetContactListener(_playerContactListener);
-
+    fixtureDef.userData = this;
+    _body->CreateFixture(&fixtureDef);
 }
 
 void Player::handleEvent(const SDL_Event &event)
@@ -128,12 +120,12 @@ void Player::jump()
    _body->ApplyLinearImpulse(b2Vec2(0, -_body->GetMass() * 6.0f), _body->GetWorldCenter(), true);
 }
 
-void Player::incrFootContacts()
-{
+void Player::beginContactEvent(GameObject* contactObject) {
+    (void)contactObject;
     _numFootContacts++;
 }
 
-void Player::decrFootContacts()
-{
+void Player::endContactEvent(GameObject* contactObject) {
+    (void)contactObject;
     _numFootContacts--;
 }
