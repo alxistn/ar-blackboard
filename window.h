@@ -35,6 +35,7 @@ public:
     int             getWidth() const;
     SDL_Renderer*   getRenderer() const;
     const SDL_Rect& getViewPort() const;
+    void            deleteScene();
     Scene*          getScene() const;
     void            setScene(Scene* scene);
 

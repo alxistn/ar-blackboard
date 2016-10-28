@@ -8,6 +8,8 @@ Scene::Scene(Window& window)
     _window->setScene(this);
 }
 
+Scene::~Scene(){}
+
 void Scene::setWindow(Window* window)
 {
     _window = window;

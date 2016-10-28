@@ -14,15 +14,15 @@ class VertexExtractor
     cv::Mat                             _correctedRegion;
     cv::Mat                             _homographyMatrix;
     cv::Mat                             _threshold;
+    unsigned int                        _mode;
 public:
-    int                                 _threshold_upper;
-    int                                 _threshold_lower;
+    unsigned int                        _threshold_upper;
+    unsigned int                        _threshold_lower;
 private:
     std::vector<cv::Point2f>            _theoricalPoint;
     std::vector<cv::Point2f>            _gameProjectionPoints;
     std::vector<std::vector<cv::Point>> _contours;
     std::vector<cv::Vec4i>              _hierarchy;
-
 
 public:
     VertexExtractor(int cameraId, Window& opencvWindow, Window& gameWindow);
@@ -37,6 +37,8 @@ public:
     void                                updateHomography();
     void                                updateCorrectedRegion();
     void                                updateShapesOutlines();
+    void                                setMode(unsigned int mode);
+    unsigned int                        getMode();
 };
 
 #endif // VERTEEXTRACTOR_H

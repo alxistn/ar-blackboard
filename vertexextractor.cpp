@@ -44,7 +44,7 @@ cv::Mat VertexExtractor::getThreshold() const
     return _threshold;
 }
 
-std::vector<std::vector<cv::Point> > VertexExtractor::getShapes() const
+std::vector<std::vector<cv::Point>> VertexExtractor::getShapes() const
 {
     return _contours;
 }
@@ -112,4 +112,14 @@ void VertexExtractor::updateShapesOutlines()
     }
     _contours = newList;
 
+}
+
+void VertexExtractor::setMode(unsigned int mode)
+{
+    _mode = mode;
+}
+
+unsigned int VertexExtractor::getMode()
+{
+    return _mode;
 }

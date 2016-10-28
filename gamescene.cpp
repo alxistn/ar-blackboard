@@ -5,11 +5,11 @@
 #include "destructibleobject.h"
 #include "player.h"
 
-GameScene::GameScene(Window& window, VertexExtractor *vertexExtractor)
-    : Scene(window), _vertexExtractor(vertexExtractor), _gravity(0.f, 9.8f), _world(_gravity)
+GameScene::GameScene(Window& window, bool clean)
+    : Scene(window), _gravity(0.f, 9.8f), _world(_gravity)
 {
     _world.SetContactListener(&_contactListener);
-    if (_vertexExtractor == NULL) {
+    if (!clean) {
         //createGround(_window->getWidth() / 2, _window->getHeight() / 2, _window->getWidth() / 2, 16.0f);
         createPlayer(_window->getWidth() / 2, 0);
         std::vector<cv::Point> pts;
@@ -59,17 +59,14 @@ void GameScene::handleEvent(const SDL_Event& event)
     for (GameObject* gameObject : _gameObjects) {
         gameObject->handleEvent(event);
     }
-    switch (event.type)
-    {
-    case SDL_KEYUP:
-        switch (event.key.keysym.sym)
-        {
-            case SDLK_r:
-            reset();
-            break;
-        }
-        break;
-    }
+}
+
+void GameScene::clear()
+{
+    for (GameObject* gameObject :_gameObjects)
+        delete gameObject;
+    _gameObjects.clear();
+    _player = NULL;
 }
 
 void GameScene::createGround(float x, float y, float w, float h)
@@ -82,7 +79,7 @@ void GameScene::createBox(float x, float y, float w, float h)
     _gameObjects.push_back(new CubeObject(&_world, _window->getRenderer(), x, y, w, h));
 }
 
-void GameScene::createDestructibleObject(float x, float y, std::vector<cv::Point>& points)
+void GameScene::createDestructibleObject(float x, float y, const std::vector<cv::Point>& points)
 {
     _gameObjects.push_back(new DestructibleObject(&_world, _window->getRenderer(), _window->getWidth() / 2, _window->getHeight() / 2 - 128.0f, points));
 }
@@ -94,22 +91,17 @@ void GameScene::createPlayer(float x, float y)
     return;
 }
 
-void GameScene::reset()
+void GameScene::addShape(const std::vector<cv::Point>& shape)
 {
-/*
-    for (GameObject* gameObject : _gameObjects)
-    {
-        delete gameObject;
+    if (shape.size() >= 3){
+        DestructibleObject *newObject = new DestructibleObject(&_world, _window->getRenderer(), 0,0, shape);
+        _gameObjects.push_back(newObject);
     }
-*/
-    if (_vertexExtractor){
-        std::vector<std::vector<cv::Point>> shapes = _vertexExtractor->getShapes();
-        for (auto& shape : shapes)
-        {
-            if (shape.size() > 5){
-            DestructibleObject *newObject = new DestructibleObject(&_world, _window->getRenderer(), 0,0, shape);
-            _gameObjects.push_back(newObject);
-            }
-        }
+}
+
+void GameScene::addShapes(const std::vector<std::vector<cv::Point>>& shapes)
+{
+    for (auto& shape : shapes){
+        addShape(shape);
     }
 }

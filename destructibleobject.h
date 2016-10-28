@@ -17,7 +17,7 @@ class DestructibleObject : public GameObject
     b2FixtureDef _fixtureDef;
 
 public:
-    DestructibleObject(b2World* world, SDL_Renderer* renderer, float x, float y, std::vector<cv::Point>& points);
+    DestructibleObject(b2World* world, SDL_Renderer* renderer, float x, float y, const std::vector<cv::Point>& points);
 
     void destroy(float x, float y, float r);
     void handleEvent(const SDL_Event& event);

@@ -63,6 +63,14 @@ const SDL_Rect& Window::getViewPort() const
     return _viewPort;
 }
 
+void Window::deleteScene()
+{
+    if (_scene) {
+        delete _scene;
+        _scene = NULL;
+    }
+}
+
 void Window::setScene(Scene* scene)
 {
     _scene = scene;

@@ -14,7 +14,7 @@ protected:
 
 public:
     Scene(Window& window);
-
+    virtual ~Scene();
     virtual void draw() const = 0;
     virtual void update(float deltaTime) = 0;
     virtual void handleEvent(const SDL_Event& event) = 0;

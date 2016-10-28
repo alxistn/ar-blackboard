@@ -3,7 +3,7 @@
 #include <stack>
 
 
-DestructibleObject::DestructibleObject(b2World* world, SDL_Renderer* renderer, float x, float y, std::vector<cv::Point>& points)
+DestructibleObject::DestructibleObject(b2World* world, SDL_Renderer* renderer, float x, float y, const std::vector<cv::Point>& points)
     : GameObject(world, renderer)
 {
     x /= BOX2D_SCALE;

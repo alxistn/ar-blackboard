@@ -13,7 +13,6 @@ class OpenCVScene : public Scene
     Window& _gameWindow;
     VertexExtractor *_vertexExtractor;
     SDL_Texture* _cameraTexture;
-    int _mode;
     int _hPointIndex;
 public:
     OpenCVScene(Window& window, Window& gameWindow, VertexExtractor *vertexExtractor);
