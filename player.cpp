@@ -1,8 +1,9 @@
 #include <iostream>
 #include "player.h"
+#include "gamescene.h"
 
-Player::Player(b2World* world, SDL_Renderer* renderer, float x, float y)
-    : GameObject(world, renderer, Type::PLAYER)
+Player::Player(GameScene* gameScene, b2World* world, SDL_Renderer* renderer, float x, float y)
+    : GameObject(gameScene, world, renderer, Type::PLAYER)
 {
     // Player Position
     x /= BOX2D_SCALE;
@@ -15,6 +16,11 @@ Player::Player(b2World* world, SDL_Renderer* renderer, float x, float y)
     // Foot size
     float footWidth = 8.0f / (2.0f * BOX2D_SCALE);
     float footHeight = 8.0f / (2.0f * BOX2D_SCALE);
+    // barrel position (relative to player)
+    b2Vec2 barrelOffest = b2Vec2(0, -height);
+    // Foot size
+    float barrelWidth = 8.0f / (2.0f * BOX2D_SCALE);
+    float barrelHeight = 48.0f / (2.0f * BOX2D_SCALE);
 
     // Creation of the body
     b2BodyDef bodyDef;
@@ -34,7 +40,13 @@ Player::Player(b2World* world, SDL_Renderer* renderer, float x, float y)
     fixtureDef.friction = 0.0f;
     fixtureDef.restitution = 0.0f;
     _body->CreateFixture(&fixtureDef);
-    
+
+    //add barrel
+    shape.SetAsBox(barrelWidth, barrelHeight, barrelOffest, 0);
+    fixtureDef.isSensor = true;
+    fixtureDef.userData = this;
+    _barrelFixture = _body->CreateFixture(&fixtureDef);
+
     //add foot sensor fixture
     shape.SetAsBox(footWidth, footHeight, footOffest, 0);
     fixtureDef.isSensor = true;
@@ -48,36 +60,51 @@ Player::~Player() {
 
 void Player::handleEvent(const SDL_Event &event)
 {
-    if (event.type == SDL_KEYDOWN)
-    {
-        switch(event.key.keysym.sym)
-        {
-            case SDLK_UP:
-                jump();
-            break;
-
-            case SDLK_LEFT:
-                moveLeft();
-            break;
-
-            case SDLK_RIGHT:
-                moveRight();
-            break;
-
-            default:
-            break;
-        }
-    }
     if (event.type == SDL_KEYUP)
     {
         switch(event.key.keysym.sym)
         {
             case SDLK_RIGHT:
-                stop();
+                setSpeed(0.0f);
             break;
 
             case SDLK_LEFT:
-                stop();
+                setSpeed(0.0f);
+            break;
+
+            case SDLK_w:
+                shoot();
+            break;
+
+            default:
+            break;
+        }
+    }
+    if (event.type == SDL_KEYDOWN)
+    {
+        switch(event.key.keysym.sym)
+        {
+            case SDLK_SPACE:
+                jump(6.0f);
+            break;
+            case SDLK_UP:
+                jump(6.0f);
+            break;
+
+            case SDLK_LEFT:
+                setSpeed(-3.0f);
+            break;
+
+            case SDLK_RIGHT:
+                setSpeed(3.0f);
+            break;
+
+            case SDLK_a:
+                rotateBarrel(-0.1f);
+            break;
+
+            case SDLK_d:
+                rotateBarrel(0.1f);
             break;
 
             default:
@@ -87,32 +114,44 @@ void Player::handleEvent(const SDL_Event &event)
 }
 
 
-void Player::moveLeft()
+void Player::setSpeed(float speed)
 {
-    //Apply Force
-    //_body->ApplyForceToCenter(b2Vec2(-10.0f, 0.0f), true);
     b2Vec2 movement = _body->GetLinearVelocity();
-    movement.x = -3.0f;
+    movement.x = speed;
     _body->SetLinearVelocity(movement);
 }
 
-void Player::moveRight()
+void Player::rotateBarrel(float deltaAngle)
 {
-    //Apply Froce
-    //_body->ApplyForceToCenter(b2Vec2(10.0f, 0.0f), true);
-    b2Vec2 movement = _body->GetLinearVelocity();
-    movement.x = 3.0f;
-    _body->SetLinearVelocity(movement);
+    //Update barrel angle
+    _barrelDirection += deltaAngle;
+    float s = sinf(deltaAngle);
+    float c = cosf(deltaAngle);
+
+    //Update barrel shape
+    b2PolygonShape* shape = static_cast<b2PolygonShape*>(_barrelFixture->GetShape());
+    b2Vec2* points = new b2Vec2[shape->GetVertexCount()];
+
+    for (int i = 0; i < shape->GetVertexCount(); ++i)
+    {
+        points[i] = shape->GetVertex(i);
+        points[i].Set(points[i].x * c - points[i].y * s,
+                      points[i].x * s + points[i].y * c);
+    }
+
+    shape->Set(points, shape->GetVertexCount());
+
+    delete points;
 }
 
-void Player::stop()
+void Player::shoot()
 {
-    b2Vec2 movement = _body->GetLinearVelocity();
-    movement.x = 0.0f;
-    _body->SetLinearVelocity(movement);
+    std::cout << "shoot" << std::endl;
+    b2Vec2 position = _body->GetPosition();
+    _gameScene->createMissile(position.x * BOX2D_SCALE, position.y * BOX2D_SCALE, _barrelDirection);
 }
 
-void Player::jump()
+void Player::jump(float height)
 {
     if (_numFootContacts < 1)
         return;
@@ -122,7 +161,7 @@ void Player::jump()
         return;
 
     _lastJumpTime = currTime;
-   _body->ApplyLinearImpulse(b2Vec2(0, -_body->GetMass() * 6.0f), _body->GetWorldCenter(), true);
+   _body->ApplyLinearImpulse(b2Vec2(0, -_body->GetMass() * height), _body->GetWorldCenter(), true);
 }
 
 void Player::beginContactEvent(GameObject* contactObject) {

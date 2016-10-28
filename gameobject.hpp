@@ -16,6 +16,8 @@
 
 #define BOX2D_SCALE     30.0f
 
+class GameScene;
+
 class GameObject {
     
 public:
@@ -31,12 +33,14 @@ public:
 protected:
 
     bool        _toDelete = false;
+
+    GameScene*  _gameScene = NULL;
     b2World*    _world = NULL;
     SDL_Renderer* _renderer = NULL;
     b2Body*     _body = NULL;
     
 public:
-    GameObject(b2World* world, SDL_Renderer* renderer, Type type);
+    GameObject(GameScene* gameScene, b2World* world, SDL_Renderer* renderer, Type type);
     virtual ~GameObject();
 
     SDL_Point getPosition();

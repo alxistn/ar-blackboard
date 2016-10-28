@@ -12,17 +12,19 @@ private:
     static const Uint32 _minJumpTimeInterval = 100;
     int _numFootContacts = 0;
     Uint32 _lastJumpTime = 0;
+    float _barrelDirection = 0.0f;
+    b2Fixture* _barrelFixture = NULL;
     
 public:
 
-    Player(b2World* world, SDL_Renderer* renderer, float x, float y);
+    Player(GameScene* gameScene, b2World* world, SDL_Renderer* renderer, float x, float y);
     ~Player();
     void HandleEvent();void handleEvent(const SDL_Event& event);
 
-    void moveLeft();
-    void moveRight();
-    void stop();
-    void jump();
+    void setSpeed(float speed);
+    void rotateBarrel(float deltaAngle);
+    void jump(float height);
+    void shoot();
     
     void beginContactEvent(GameObject* contactObject);
     void endContactEvent(GameObject* contactObject);

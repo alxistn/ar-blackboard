@@ -19,7 +19,7 @@ class DestructibleObject : public GameObject
     b2FixtureDef _fixtureDef;
 
 public:
-    DestructibleObject(b2World* world, SDL_Renderer* renderer, float x, float y, const std::vector<cv::Point>& points);
+    DestructibleObject(GameScene* gameScene, b2World* world, SDL_Renderer* renderer, float x, float y, const std::vector<cv::Point>& points);
     ~DestructibleObject();
 
     void update();

@@ -2,8 +2,8 @@
 #include "destructibleobject.h"
 #include <iostream>
 
-MissileObject::MissileObject(b2World* world, SDL_Renderer* renderer, float x, float y, float a)
-    : GameObject(world, renderer, Type::MISSILE)
+MissileObject::MissileObject(GameScene* gameScene, b2World* world, SDL_Renderer* renderer, float x, float y, float a)
+    : GameObject(gameScene, world, renderer, Type::MISSILE)
 {
     float width = 10.0f;
     float height = 10.0f;

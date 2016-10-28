@@ -1,6 +1,7 @@
 #include "gamescene.h"
 #include "window.h"
 #include <iostream>
+#include "gameobject.hpp"
 #include "cubeobject.h"
 #include "destructibleobject.h"
 #include "player.h"
@@ -65,8 +66,8 @@ void GameScene::handleEvent(const SDL_Event& event)
     {
         int x, y;
         SDL_GetMouseState(&x, &y);
-        createMissile(x, y, 0.8f);
-        //createPlayer(x, y);
+        //createMissile(x, y, 0.8f);
+        createPlayer(x, y);
     }
     for (GameObject* gameObject : _gameObjects) {
         gameObject->handleEvent(event);
@@ -82,36 +83,35 @@ void GameScene::clear()
 
 void GameScene::createGround(float x, float y, float w, float h)
 {
-    _gameObjects.push_back(new CubeObject(&_world, _window->getRenderer(), x, y, w, h, false));
+    _gameObjects.push_back(new CubeObject(this, &_world, _window->getRenderer(), x, y, w, h, false));
 }
 
 void GameScene::createBox(float x, float y, float w, float h)
 {
-    _gameObjects.push_back(new CubeObject(&_world, _window->getRenderer(), x, y, w, h));
+    _gameObjects.push_back(new CubeObject(this, &_world, _window->getRenderer(), x, y, w, h));
 }
 
 void GameScene::createDestructibleObject(float x, float y, const std::vector<cv::Point>& points)
 {
-    _gameObjects.push_back(new DestructibleObject(&_world, _window->getRenderer(), x, y, points));
+    _gameObjects.push_back(new DestructibleObject(this, &_world, _window->getRenderer(), x, y, points));
 }
 
 void GameScene::createPlayer(float x, float y)
 {
     std::cout << "createPlayer x=" << x << " y=" << y << std::endl;
-    Player* newPlayer = new Player(&_world, _window->getRenderer(), x, y);
-    _gameObjects.push_back(newPlayer);
-    return;
+    _gameObjects.push_back(new Player(this, &_world, _window->getRenderer(), x, y));
 }
 
 void GameScene::createMissile(float x, float y, float a)
 {
-    _gameObjects.push_back(new MissileObject(&_world, _window->getRenderer(), x, y, a));
+    std::cout << "Missile launched" << std::endl;
+    _gameObjects.push_back(new MissileObject(this, &_world, _window->getRenderer(), x, y, a));
 }
 
 void GameScene::addShape(const std::vector<cv::Point>& shape)
 {
     if (shape.size() >= 3){
-        DestructibleObject *newObject = new DestructibleObject(&_world, _window->getRenderer(), 0,0, shape);
+        DestructibleObject *newObject = new DestructibleObject(this, &_world, _window->getRenderer(), 0,0, shape);
         _gameObjects.push_back(newObject);
     }
 }

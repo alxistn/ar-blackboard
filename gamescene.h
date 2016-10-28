@@ -4,10 +4,11 @@
 #include "scene.h"
 #include <list>
 #include <Box2D/Box2D.h>
-#include <gameobject.hpp>
 #include "player.h"
 #include "scenecontactlistener.h"
 #include <opencv2/opencv.hpp>
+
+class GameObject;
 
 class GameScene : public Scene
 {
