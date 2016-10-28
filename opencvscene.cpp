@@ -48,11 +48,10 @@ void OpenCVScene::update(float deltaTime)
       if (_vertexExtractor->getMode() == 0){
         _vertexExtractor->getFrame().copyTo(dst);
         std::vector<cv::Point2f> gameProjectionPoints = _vertexExtractor->getHumographyPoints();
-        cv::line(dst, gameProjectionPoints[0], gameProjectionPoints[1],cv::Scalar(0,0,200), 3, 4);
-        cv::line(dst, gameProjectionPoints[1], gameProjectionPoints[2],cv::Scalar(0,0,200), 3, 4);
-        cv::line(dst, gameProjectionPoints[2], gameProjectionPoints[3],cv::Scalar(0,0,200), 3, 4);
-
-        cv::line(dst, gameProjectionPoints[3], gameProjectionPoints[0],cv::Scalar(0,0,200), 3, 4);
+        cv::line(dst, gameProjectionPoints[0], gameProjectionPoints[1],cv::Scalar(0,0,200), 1, 1);
+        cv::line(dst, gameProjectionPoints[1], gameProjectionPoints[2],cv::Scalar(0,0,200), 1, 4);
+        cv::line(dst, gameProjectionPoints[2], gameProjectionPoints[3],cv::Scalar(0,0,200), 1, 4);
+        cv::line(dst, gameProjectionPoints[3], gameProjectionPoints[0],cv::Scalar(0,0,200), 1, 4);
       }
       if (_vertexExtractor->getMode() == 1){
         _vertexExtractor->updateCorrectedRegion();
@@ -106,18 +105,16 @@ void OpenCVScene::handleEvent(const SDL_Event& event)
         _gameWindow.deleteScene();
         break;
       case SDLK_F3:
-        if (_vertexExtractor->getMode() == 1){
+          _vertexExtractor->setMode(1);
           _vertexExtractor->updateShapesOutlines();
-        }
           break;
       case SDLK_F4:
-	  if (_vertexExtractor->getMode() == 1){
+      _vertexExtractor->setMode(1);
         //_vertexExtractor->updateShapesOutlines();
         _gameWindow.deleteScene();
         _gameWindow.setScene(new GameScene(_gameWindow, _vertexExtractor));
         static_cast<GameScene*>(_gameWindow.getScene())->addShapes(_vertexExtractor->getShapes());
         _vertexExtractor->setMode(2);
-	  }
 	  break;
 	case SDLK_p:
 	  if (_vertexExtractor->_threshold_upper < 255)
