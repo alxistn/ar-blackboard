@@ -110,13 +110,16 @@ void Player::stop()
 
 void Player::jump()
 {
-   // _body->ApplyForceToCenter(b2Vec2(0.0f, -1000.0f), true);
-   //float impulse = _body->GetMass() * 10;
-   //_body->ApplyLinearImpulse(b2Vec2(0, impulse), _body->GetWorldCenter(), true);
+
+
     if (_numFootContacts < 1)
-    {
         return;
-    }
+
+    Uint32 currTime = SDL_GetTicks();
+    if ((_lastJumpTime + _minJumpTimeInterval) > currTime)
+        return;
+
+    _lastJumpTime = currTime;
    _body->ApplyLinearImpulse(b2Vec2(0, -_body->GetMass() * 6.0f), _body->GetWorldCenter(), true);
 }
 

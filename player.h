@@ -9,7 +9,9 @@ class PlayerContactListener;
 class Player : public GameObject
 {
 private:
+    static const Uint32 _minJumpTimeInterval = 100;
     int _numFootContacts = 0;
+    Uint32 _lastJumpTime = 0;
     
 public:
 
