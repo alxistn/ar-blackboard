@@ -22,10 +22,8 @@ public:
     void stop();
     void jump();
     
-
-
-    void incrFootContacts();
-    void decrFootContacts();
+    void beginContactEvent(GameObject* contactObject);
+    void endContactEvent(GameObject* contactObject);
     
 };
 

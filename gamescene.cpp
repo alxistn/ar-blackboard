@@ -8,6 +8,7 @@
 GameScene::GameScene(Window& window, VertexExtractor *vertexExtractor)
     : Scene(window), _vertexExtractor(vertexExtractor), _gravity(0.f, 9.8f), _world(_gravity)
 {
+    _world.SetContactListener(&_contactListener);
     if (_vertexExtractor == NULL) {
         //createGround(_window->getWidth() / 2, _window->getHeight() / 2, _window->getWidth() / 2, 16.0f);
         createPlayer(_window->getWidth() / 2, 0);
@@ -47,7 +48,7 @@ void GameScene::handleEvent(const SDL_Event& event)
         int x, y;
         SDL_GetMouseState(&x, &y);
         //createBox(x, y, 16.0f, 16.0f);
-        //createPlayer(x, y);
+        createPlayer(x, y);
     }
     for (GameObject* gameObject : _gameObjects) {
         gameObject->handleEvent(event);

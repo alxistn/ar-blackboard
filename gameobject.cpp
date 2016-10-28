@@ -113,3 +113,15 @@ void    GameObject::handleEvent(const SDL_Event& event)
     //Not implemented
     (void)event;
 }
+
+void    GameObject::beginContactEvent(GameObject* contactObject)
+{
+    //Not implemented
+    (void)contactObject;
+}
+
+void    GameObject::endContactEvent(GameObject* contactObject)
+{
+    //Not implemented
+    (void)contactObject;
+}
