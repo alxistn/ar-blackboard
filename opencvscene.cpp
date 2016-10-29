@@ -97,7 +97,8 @@ void OpenCVScene::handleEvent(const SDL_Event& event)
 	case SDLK_z: _hPointIndex = 3; break;
 	case SDLK_q: _hPointIndex = 1; break;
 	case SDLK_s: _hPointIndex = 2; break;
-    case SDLK_F1:
+    /*
+      case SDLK_F1:
         _vertexExtractor->setMode(0);
         _gameWindow.deleteScene();
         break;
@@ -117,6 +118,7 @@ void OpenCVScene::handleEvent(const SDL_Event& event)
         static_cast<GameScene*>(_gameWindow.getScene())->addShapes(_vertexExtractor->getShapes());
         _vertexExtractor->setMode(2);
 	  break;
+        */
 	case SDLK_p:
 	  if (_vertexExtractor->_threshold_upper < 255)
 	    _vertexExtractor->_threshold_upper += 1;
