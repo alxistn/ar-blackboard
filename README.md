@@ -2,7 +2,7 @@
 
 TODO: Write a project description
 
-## Installation Guide
+## Installation Guide*
 
 ### Linux
 
