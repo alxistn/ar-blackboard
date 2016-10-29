@@ -6,6 +6,7 @@
 #include "destructibleobject.h"
 #include "player.h"
 #include "missileobject.h"
+#include "ball.h"
 
 GameScene::GameScene(Window& window, bool clean)
     : Scene(window), _gravity(0.f, 9.8f), _world(_gravity)
@@ -62,12 +63,24 @@ void GameScene::update(float deltaTime)
 
 void GameScene::handleEvent(const SDL_Event& event)
 {
-    if (event.type == SDL_MOUSEBUTTONUP)
+    int x, y;
+    switch (event.type)
     {
-        int x, y;
-        SDL_GetMouseState(&x, &y);
-        //createMissile(x, y, 0.8f);
-        createPlayer(x, y);
+        case SDL_MOUSEBUTTONDOWN:
+            switch(event.button.button)
+            {
+                case SDL_BUTTON_LEFT:
+                    SDL_GetMouseState(&x, &y);
+                    //createMissile(x, y, 0.8f);
+                    createPlayer(x, y);
+                    break;
+                case SDL_BUTTON_RIGHT:
+                    SDL_GetMouseState(&x, &y);
+                    createBall(x, y);
+                    break;
+                default:
+                    break;
+            }
     }
     for (GameObject* gameObject : _gameObjects) {
         gameObject->handleEvent(event);
@@ -106,6 +119,12 @@ void GameScene::createMissile(float x, float y, float a)
 {
     std::cout << "Missile launched" << std::endl;
     _gameObjects.push_back(new MissileObject(this, &_world, _window->getRenderer(), x, y, a));
+}
+
+void GameScene::createBall(float x, float y)
+{
+    std::cout << "createBall x=" << x << " y=" << y << std::endl;
+    _gameObjects.push_back(new Ball(this, &_world, _window->getRenderer(), x, y));
 }
 
 void GameScene::addShape(const std::vector<cv::Point>& shape)

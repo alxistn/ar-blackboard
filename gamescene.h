@@ -36,6 +36,7 @@ public:
     void createDestructibleObject(float x, float y, const std::vector<cv::Point>& points);
     void createPlayer(float x, float y);
     void createMissile(float x, float y, float a);
+    void createBall(float x, float y);
 
     void        addShape(const std::vector<cv::Point>& shape);
     void        addShapes(const std::vector<std::vector<cv::Point>>& shapes);

@@ -19,7 +19,8 @@ SOURCES += main.cpp \
     cubeobject.cpp \
     destructibleobject.cpp \
     scenecontactlistener.cpp \
-    missileobject.cpp
+    missileobject.cpp \
+    ball.cpp
 
 HEADERS += \
     window.h \
@@ -33,5 +34,6 @@ HEADERS += \
     cubeobject.h \
     destructibleobject.h \
     scenecontactlistener.h \
-    missileobject.h
+    missileobject.h \
+    ball.h
 
