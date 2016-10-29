@@ -50,6 +50,8 @@ void    GameObject::draw() const
 {
     if (_body == NULL)
         return;
+    if (type != PLAYER && type != MISSILE && type != BALL)
+        return;
     for (const b2Fixture* fixture = _body->GetFixtureList(); fixture != NULL; fixture = fixture->GetNext())
     {
         const b2Shape* shape = fixture->GetShape();

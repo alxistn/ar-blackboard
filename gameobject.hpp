@@ -27,6 +27,7 @@ public:
         DESTRUCTIBLE,
         PLAYER,
         MISSILE,
+        BALL,
     };
     const Type type;
 

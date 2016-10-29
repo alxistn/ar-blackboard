@@ -2,10 +2,10 @@
 #include "ball.h"
 
 Ball::Ball(GameScene* gameScene, b2World* world, SDL_Renderer* renderer, float x, float y)
-    : GameObject(gameScene, world, renderer, Type::MISSILE)
+    : GameObject(gameScene, world, renderer, Type::BALL)
 {
-    float width = 10.0f;
-    float height = 10.0f;
+    float width = 20.0f;
+    float height = 20.0f;
 
     x /= BOX2D_SCALE;
     y /= BOX2D_SCALE;
@@ -36,7 +36,7 @@ Ball::Ball(GameScene* gameScene, b2World* world, SDL_Renderer* renderer, float x
     fixtureDef.shape = &shape;
     fixtureDef.density = width * height;
     fixtureDef.friction = 0.75f;
-    fixtureDef.restitution = 0.6f;
+    fixtureDef.restitution = 0.9f;
     fixtureDef.userData = this;
     //fixtureDef.isSensor = true;
     _body->CreateFixture(&fixtureDef);
