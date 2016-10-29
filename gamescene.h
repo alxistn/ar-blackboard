@@ -21,6 +21,8 @@ class GameScene : public Scene
 
     std::list<GameObject*> _gameObjects;
 
+    bool    _drawStatic = true;
+
 public:
     GameScene(Window& window, bool clean=true);
     ~GameScene();

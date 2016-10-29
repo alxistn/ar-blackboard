@@ -60,6 +60,7 @@ public:
     virtual void handleEvent(const SDL_Event& event);
     virtual void beginContactEvent(GameObject* contactObject);
     virtual void endContactEvent(GameObject* contactObject);
+    Type        getType()const;
     
 };
 

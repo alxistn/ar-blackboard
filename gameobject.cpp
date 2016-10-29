@@ -50,8 +50,6 @@ void    GameObject::draw() const
 {
     if (_body == NULL)
         return;
-    if (type != PLAYER && type != MISSILE && type != BALL)
-        return;
     for (const b2Fixture* fixture = _body->GetFixtureList(); fixture != NULL; fixture = fixture->GetNext())
     {
         const b2Shape* shape = fixture->GetShape();
@@ -168,4 +166,9 @@ void    GameObject::endContactEvent(GameObject* contactObject)
 {
     //Not implemented
     (void)contactObject;
+}
+
+GameObject::Type GameObject::getType() const
+{
+    return type;
 }

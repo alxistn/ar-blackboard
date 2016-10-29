@@ -33,7 +33,15 @@ GameScene::~GameScene()
 void GameScene::draw() const
 {
     for (GameObject* gameObject : _gameObjects) {
-        gameObject->draw();
+        if (_drawStatic)
+        {
+            gameObject->draw();
+        } else if (gameObject->getType() == GameObject::PLAYER
+            || gameObject->getType() == GameObject::MISSILE
+            || gameObject->getType() == GameObject::BALL)
+        {
+            gameObject->draw();
+        }
     }
 }
 
@@ -81,7 +89,19 @@ void GameScene::handleEvent(const SDL_Event& event)
                 default:
                     break;
             }
+            break;
+        case SDL_KEYUP:
+            switch(event.key.keysym.sym)
+            {
+                case SDLK_m:
+                    _drawStatic = !_drawStatic;
+                   break;
+                default:
+                    break;
+            }
+            break;
     }
+
     for (GameObject* gameObject : _gameObjects) {
         gameObject->handleEvent(event);
     }
