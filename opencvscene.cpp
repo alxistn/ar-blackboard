@@ -55,7 +55,7 @@ void OpenCVScene::update(float deltaTime)
       }
       if (_vertexExtractor->getMode() == 1){
         _vertexExtractor->updateCorrectedRegion();
-        //_vertexExtractor->updateShapesOutlines();
+        _vertexExtractor->updateShapesOutlines();
 
         cv::resize(_vertexExtractor->getCorrectedRegion(),
                    dst(cv::Rect(0,0,_gameWindow.getWidth()/2, _gameWindow.getHeight()/2)),
@@ -66,7 +66,8 @@ void OpenCVScene::update(float deltaTime)
 
         std::vector<std::vector<cv::Point>> shapes = _vertexExtractor->getShapes();
         for (std::vector<cv::Point>& shape : shapes){
-	  cv::Scalar color( rand()&255, rand()&255, rand()&255 );
+      //cv::Scalar color( rand()&255, rand()&255, rand()&255 );
+      cv::Scalar color(0, 0, 255 );
 	  unsigned int size = 0;
 	  while (size < shape.size() - 1){
 	    cv::line(tmp, shape[size], shape[(size + 1)], color);

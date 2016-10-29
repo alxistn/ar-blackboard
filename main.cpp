@@ -135,8 +135,8 @@ int main ()
     if (vdn >= 2){
        SDL_DisplayMode monitorA;
        SDL_DisplayMode monitorB;
-       SDL_GetCurrentDisplayMode(1, &monitorA);
-       SDL_GetCurrentDisplayMode(0, &monitorB);
+       SDL_GetCurrentDisplayMode(0, &monitorA);
+       SDL_GetCurrentDisplayMode(1, &monitorB);
 
        openCVWindow = new Window(0,
                                0,
