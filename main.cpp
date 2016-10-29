@@ -116,7 +116,7 @@ int main ()
 {
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
         throw std::logic_error(SDL_GetError());
-    Window *mainWindow = NULL;
+    Window *gameWindow = NULL;
     Window *openCVWindow = NULL;
     VertexExtractor* vertexExtractor = NULL;
     int vdn = SDL_GetNumVideoDisplays();
@@ -125,7 +125,7 @@ int main ()
     if (vdn == 1){
        SDL_DisplayMode monitorA;
        SDL_GetCurrentDisplayMode(0, &monitorA);
-       mainWindow = new Window(0,
+       gameWindow = new Window(0,
                                0,
                                monitorA.w / 2,
                                monitorA.h,
@@ -144,18 +144,18 @@ int main ()
                                monitorA.h,
                                SDL_WINDOW_FULLSCREEN,
                                "opencv parameter");
-       mainWindow = new Window(monitorA.w,
+       gameWindow = new Window(monitorA.w,
                                  0,
                                  monitorB.w,
                                  monitorB.h,
                                  SDL_WINDOW_FULLSCREEN,
                                  WINDOW_TITLE);
-        vertexExtractor = new VertexExtractor(1, *openCVWindow, *mainWindow);
+        vertexExtractor = new VertexExtractor(1, *openCVWindow, *gameWindow);
     }
     SDL_SetHint(SDL_HINT_VIDEO_MINIMIZE_ON_FOCUS_LOSS, "0");
-    new GameScene(*mainWindow, vertexExtractor);
+    new GameScene(*gameWindow, vertexExtractor);
 
-    if (openCVWindow)new OpenCVScene(*openCVWindow, *mainWindow, vertexExtractor);
+    if (openCVWindow)new OpenCVScene(*openCVWindow, *gameWindow, vertexExtractor);
 
 
     FPSTimer fpsTimer;
@@ -168,27 +168,54 @@ int main ()
         //Handle events on queue
         while(SDL_PollEvent(&event) != 0)
         {
-            //User requests quit
-            if (event.type == SDL_QUIT)
-                quit = true;
-            else {
-                mainWindow->handleEvent(event);
-                if (openCVWindow)openCVWindow->handleEvent(event);
+            switch (event.type)
+            {
+                case SDL_QUIT:
+                    quit = true;
+                    break;
+                case SDL_KEYUP:
+                    if (vertexExtractor == NULL)
+                        break;
+                    switch (event.key.keysym.sym)
+                    {
+                        case SDLK_F1:
+                            vertexExtractor->setMode(0);
+                            gameWindow->deleteScene();
+                            break;
+                        case SDLK_F2:
+                            vertexExtractor->setMode(1);
+                            gameWindow->deleteScene();
+                            break;
+                        case SDLK_F3:
+                            vertexExtractor->setMode(1);
+                            gameWindow->deleteScene();
+                            vertexExtractor->updateShapesOutlines();
+                            break;
+                        case SDLK_F4:
+                            vertexExtractor->setMode(1);
+                            gameWindow->deleteScene();
+                            gameWindow->setScene(new GameScene(*gameWindow));
+                            static_cast<GameScene*>(gameWindow->getScene())->addShapes(vertexExtractor->getShapes());
+                            vertexExtractor->setMode(2);
+                            break;
+                    }
             }
+            gameWindow->handleEvent(event);
+            if (openCVWindow)openCVWindow->handleEvent(event);
         }
         if (openCVWindow && openCVWindow->hidden())
             quit = true;
-        if(mainWindow->hidden())
+        if(gameWindow->hidden())
             quit = true;
 
         //Logic
         float time = fpsTimer.getFrameTime();
-        mainWindow->update(time);
+        gameWindow->update(time);
         if (openCVWindow)openCVWindow->update(time);
 
 
         //Rendering
-        mainWindow->draw();
+        gameWindow->draw();
         if (openCVWindow)openCVWindow->draw();
 
         //Update FPSTimer (& Cap FPS)
