@@ -1,4 +1,207 @@
+///*
 
+#include <iostream>
+#include <vector>
+#include <SDL2/SDL.h>
+#include <opencv2/opencv.hpp>
+
+#include "window.h"
+#include "vertexextractor.h"
+
+//?????????????
+#include <iostream>
+
+#include "scene.h"
+#include "opencvscene.h"
+#include "gamescene.h"
+#include "fpstimer.h"
+#include <cstddef>
+//??????????????
+
+int start (Window *gameWindow, Window *openCVWindow, VertexExtractor *vertexExtractor)
+{
+  new GameScene(*gameWindow, vertexExtractor);
+
+  if (openCVWindow)new OpenCVScene(*openCVWindow, *gameWindow, vertexExtractor);
+
+
+  FPSTimer fpsTimer;
+  fpsTimer.start();
+  bool quit = false;
+  SDL_Event event;
+  while (quit == false) {
+
+    //Events
+    //Handle events on queue
+    while(SDL_PollEvent(&event) != 0)
+      {
+    switch (event.type)
+      {
+      case SDL_QUIT:
+        quit = true;
+        break;
+      case SDL_KEYUP:
+        if (vertexExtractor == NULL)
+          break;
+        switch (event.key.keysym.sym)
+          {
+          case SDLK_F1:
+        vertexExtractor->setMode(0);
+        gameWindow->deleteScene();
+        break;
+          case SDLK_F2:
+        vertexExtractor->setMode(1);
+        gameWindow->deleteScene();
+        break;
+          case SDLK_F3:
+        vertexExtractor->setMode(1);
+        gameWindow->deleteScene();
+        vertexExtractor->updateShapesOutlines();
+        break;
+          case SDLK_F4:
+        vertexExtractor->setMode(1);
+        gameWindow->deleteScene();
+        gameWindow->setScene(new GameScene(*gameWindow));
+        static_cast<GameScene*>(gameWindow->getScene())->addShapes(vertexExtractor->getShapes());
+        vertexExtractor->setMode(2);
+        break;
+          }
+      }
+    gameWindow->handleEvent(event);
+    if (openCVWindow)openCVWindow->handleEvent(event);
+      }
+    if (openCVWindow && openCVWindow->hidden())
+      quit = true;
+    if(gameWindow->hidden())
+      quit = true;
+
+    //Logic
+    float time = fpsTimer.getFrameTime();
+    gameWindow->update(time);
+    if (openCVWindow)openCVWindow->update(time);
+
+
+    //Rendering
+    gameWindow->draw();
+    if (openCVWindow)openCVWindow->draw();
+
+    //Update FPSTimer (& Cap FPS)
+    fpsTimer.update();
+  }
+  return 0;
+}
+
+
+static int     findCamera(const int width, const int height){
+    cv::VideoCapture    cap;
+    int index = 0;
+    int camHeight = 0;
+    int camWidth = 0;
+
+    while (index < 10){
+        try{
+            cap.open(index);
+        }
+        catch(cv::Exception){
+            return -1;
+        }
+
+        if (cap.isOpened()){
+            camWidth = cap.get(CV_CAP_PROP_FRAME_WIDTH);
+            camHeight = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
+            cap.release();
+            if (camHeight == height && camWidth == width)
+                return index;
+        }
+        index++;
+    }
+    return -1;
+}
+
+
+static SDL_DisplayMode* findMonitor(const std::vector<SDL_DisplayMode*>& monitors,
+                                    const int width,
+                                    const int height){
+    for (auto monitor : monitors) {
+        if (monitor == NULL)
+            return NULL;
+        if (monitor->h == height && monitor->w == width){
+            return monitor;
+        }
+    }
+    return NULL;
+}
+
+int main(){
+    Window*             gameWindow = NULL;
+    Window*             openCVWindow = NULL;
+    VertexExtractor*    vertexExtractor = NULL;
+    int                 cameraId;
+
+    if (SDL_Init(SDL_INIT_VIDEO) < 0)
+        throw std::logic_error(SDL_GetError());
+    findCamera(1920, 1080);
+    std::cout << "ok" << std::endl;
+    /*
+    * detection ecrans
+    */
+
+    int vdn = SDL_GetNumVideoDisplays();
+    if (vdn < 1){
+        std::cout << "no video display connected" << std::endl;
+        return 0;
+    }
+    std::vector<SDL_DisplayMode*> monitors;
+    int index = vdn;
+    while (index){
+        SDL_DisplayMode *monitor = new SDL_DisplayMode;
+         if (SDL_GetCurrentDisplayMode(--index, monitor) != 0)
+             throw std::logic_error(SDL_GetError());
+         std::cout << "width: " << monitor->w << " height: " << monitor->h << std::endl;
+         monitors.push_back(monitor);
+    }
+    /*
+    * selection de l'ecran
+    */
+    if (vdn > 0){
+        SDL_DisplayMode* gameMonitor = findMonitor(monitors, 1920, 1080);
+        if (gameMonitor == NULL)
+            throw std::logic_error("cant find monitor for game");
+        int flag = SDL_WINDOW_BORDERLESS;
+        if (vdn > 1){
+            flag = SDL_WINDOW_FULLSCREEN;
+        }
+        gameWindow = new Window(0,
+                                0,
+                                gameMonitor->w,
+                                gameMonitor->h,
+                                flag,
+                                "game");
+        if (vdn > 1){
+            SDL_DisplayMode* openCVMonitor = findMonitor(monitors, 1800, 1600);
+            if (openCVMonitor == NULL)
+                throw std::logic_error("cant find monitor for openCV");
+            gameWindow = new Window(gameMonitor->w,
+                                    gameMonitor->h,
+                                    openCVMonitor->w,
+                                    openCVMonitor->h,
+                                    SDL_WINDOW_FULLSCREEN,
+                                    "configuration");
+            cameraId = findCamera(1920,1080);
+            if (cameraId < 0){
+                throw std::logic_error("cant find right camera");
+            }
+            vertexExtractor = new VertexExtractor(cameraId, *openCVWindow, *gameWindow);
+        }
+        SDL_SetHint(SDL_HINT_VIDEO_MINIMIZE_ON_FOCUS_LOSS, "0");
+        start(gameWindow, openCVWindow, vertexExtractor);
+    }
+    std::cout << "Closing Application." << std::endl;
+    SDL_Quit();
+    return 0;
+}
+
+//*/
 /*
 #include <opencv2/opencv.hpp>
 #include <vector>
@@ -93,135 +296,4 @@ int main(){
 }
 
 
-//*/
-
-
-///*
-
-
-
-
-#include <iostream>
-
-#include "window.h"
-#include "scene.h"
-#include "opencvscene.h"
-#include "vertexextractor.h"
-#include "gamescene.h"
-#include "fpstimer.h"
-#include <cstddef>
-#define WINDOW_TITLE    "Box2D Scene"
-
-int main ()
-{
-    if (SDL_Init(SDL_INIT_VIDEO) < 0)
-        throw std::logic_error(SDL_GetError());
-    Window *gameWindow = NULL;
-    Window *openCVWindow = NULL;
-    VertexExtractor* vertexExtractor = NULL;
-    int vdn = SDL_GetNumVideoDisplays();
-    if (vdn < 1)
-        return 0;
-    if (vdn == 1){
-       SDL_DisplayMode monitorA;
-       SDL_GetCurrentDisplayMode(0, &monitorA);
-       gameWindow = new Window(0,
-                               0,
-                               monitorA.w / 2,
-                               monitorA.h,
-                               SDL_WINDOW_BORDERLESS,
-                               WINDOW_TITLE);
-    }
-    if (vdn >= 2){
-       SDL_DisplayMode monitorA;
-       SDL_DisplayMode monitorB;
-       SDL_GetCurrentDisplayMode(0, &monitorA);
-       SDL_GetCurrentDisplayMode(1, &monitorB);
-
-       openCVWindow = new Window(0,
-                               0,
-                               monitorA.w,
-                               monitorA.h,
-                               SDL_WINDOW_FULLSCREEN,
-                               "opencv parameter");
-       gameWindow = new Window(monitorA.w,
-                                 0,
-                                 monitorB.w,
-                                 monitorB.h,
-                                 SDL_WINDOW_FULLSCREEN,
-                                 WINDOW_TITLE);
-        vertexExtractor = new VertexExtractor(1, *openCVWindow, *gameWindow);
-    }
-    SDL_SetHint(SDL_HINT_VIDEO_MINIMIZE_ON_FOCUS_LOSS, "0");
-    new GameScene(*gameWindow, vertexExtractor);
-
-    if (openCVWindow)new OpenCVScene(*openCVWindow, *gameWindow, vertexExtractor);
-
-
-    FPSTimer fpsTimer;
-    fpsTimer.start();
-    bool quit = false;
-    SDL_Event event;
-    while (quit == false) {
-
-        //Events
-        //Handle events on queue
-        while(SDL_PollEvent(&event) != 0)
-        {
-            switch (event.type)
-            {
-                case SDL_QUIT:
-                    quit = true;
-                    break;
-                case SDL_KEYUP:
-                    if (vertexExtractor == NULL)
-                        break;
-                    switch (event.key.keysym.sym)
-                    {
-                        case SDLK_F1:
-                            vertexExtractor->setMode(0);
-                            gameWindow->deleteScene();
-                            break;
-                        case SDLK_F2:
-                            vertexExtractor->setMode(1);
-                            gameWindow->deleteScene();
-                            break;
-                        case SDLK_F3:
-                            vertexExtractor->setMode(1);
-                            gameWindow->deleteScene();
-                            vertexExtractor->updateShapesOutlines();
-                            break;
-                        case SDLK_F4:
-                            vertexExtractor->setMode(1);
-                            gameWindow->deleteScene();
-                            gameWindow->setScene(new GameScene(*gameWindow));
-                            static_cast<GameScene*>(gameWindow->getScene())->addShapes(vertexExtractor->getShapes());
-                            vertexExtractor->setMode(2);
-                            break;
-                    }
-            }
-            gameWindow->handleEvent(event);
-            if (openCVWindow)openCVWindow->handleEvent(event);
-        }
-        if (openCVWindow && openCVWindow->hidden())
-            quit = true;
-        if(gameWindow->hidden())
-            quit = true;
-
-        //Logic
-        float time = fpsTimer.getFrameTime();
-        gameWindow->update(time);
-        if (openCVWindow)openCVWindow->update(time);
-
-
-        //Rendering
-        gameWindow->draw();
-        if (openCVWindow)openCVWindow->draw();
-
-        //Update FPSTimer (& Cap FPS)
-        fpsTimer.update();
-    }
-    std::cout << "Closing Application." << std::endl;
-    SDL_Quit();
-}
 //*/
