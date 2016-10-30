@@ -1,8 +1,8 @@
-#include "missileobject.h"
+#include "missile.h"
 #include "destructibleobject.h"
 #include <iostream>
 
-MissileObject::MissileObject(GameScene* gameScene, b2World* world, SDL_Renderer* renderer, float x, float y, float a)
+Missile::Missile(GameScene* gameScene, b2World* world, SDL_Renderer* renderer, float x, float y, float a)
     : GameObject(gameScene, world, renderer, Type::MISSILE)
 {
     float width = 10.0f;
@@ -49,12 +49,12 @@ MissileObject::MissileObject(GameScene* gameScene, b2World* world, SDL_Renderer*
 
 }
 
-MissileObject::~MissileObject()
+Missile::~Missile()
 {
     //std::cout << "Missile Destroyed" << std::endl;
 }
 
-void MissileObject::beginContactEvent(GameObject* contactObject)
+void Missile::beginContactEvent(GameObject* contactObject)
 {
     if (contactObject != NULL && contactObject->type == Type::DESTRUCTIBLE)
     {

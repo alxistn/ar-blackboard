@@ -3,10 +3,10 @@
 
 #include <Box2D/Box2D.h>
 
-class SceneContactListener : public b2ContactListener
+class ContactListener : public b2ContactListener
 {
 public:
-    SceneContactListener();
+    ContactListener();
 
     void BeginContact(b2Contact* contact);
     void EndContact(b2Contact* contact);

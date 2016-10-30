@@ -16,24 +16,24 @@ SOURCES += main.cpp \
     player.cpp \
     opencvscene.cpp \
     vertexextractor.cpp\
-    cubeobject.cpp \
     destructibleobject.cpp \
-    scenecontactlistener.cpp \
-    missileobject.cpp \
-    ball.cpp
+    ball.cpp \
+    cube.cpp \
+    missile.cpp \
+    contactlistener.cpp
 
 HEADERS += \
     window.h \
     fpstimer.h \
     scene.h \
     gamescene.h \
-    gameobject.hpp \
     player.h \
     opencvscene.h \
     vertexextractor.h\
-    cubeobject.h \
     destructibleobject.h \
-    scenecontactlistener.h \
-    missileobject.h \
-    ball.h
+    ball.h \
+    cube.h \
+    missile.h \
+    gameobject.h \
+    contactlistener.h
 

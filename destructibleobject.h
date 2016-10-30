@@ -1,7 +1,7 @@
 #ifndef DESTRUCTIBLEOBJECT_H
 #define DESTRUCTIBLEOBJECT_H
 
-#include "gameobject.hpp"
+#include "gameobject.h"
 
 #include <vector>
 #include <list>

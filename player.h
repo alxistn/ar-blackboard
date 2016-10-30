@@ -2,7 +2,7 @@
 #define PLAYER_H
 
 #include <iostream>
-#include "gameobject.hpp"
+#include "gameobject.h"
 
 class PlayerContactListener;
 

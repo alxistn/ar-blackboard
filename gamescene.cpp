@@ -1,11 +1,11 @@
 #include "gamescene.h"
 #include "window.h"
 #include <iostream>
-#include "gameobject.hpp"
-#include "cubeobject.h"
+#include "gameobject.h"
+#include "cube.h"
 #include "destructibleobject.h"
 #include "player.h"
-#include "missileobject.h"
+#include "missile.h"
 #include "ball.h"
 
 GameScene::GameScene(Window& window, bool clean)
@@ -57,7 +57,7 @@ void GameScene::update(float deltaTime)
         SDL_Point position = (*gameObjectIt)->getPosition();
         if ((*gameObjectIt)->toDelete() ||
                 position.x < (-_worldBoundaryOffset) || position.x > (_window->getWidth() + _worldBoundaryOffset) ||
-                position.y < (-_worldBoundaryOffset) || position.y > (_window->getHeight() + 100)) {
+                position.y < (-_worldBoundaryOffset) || position.y > (_window->getHeight() + _worldBoundaryOffset)) {
             delete *gameObjectIt;
             gameObjectIt = _gameObjects.erase(gameObjectIt);
         }
@@ -116,12 +116,12 @@ void GameScene::clear()
 
 void GameScene::createGround(float x, float y, float w, float h)
 {
-    _gameObjects.push_back(new CubeObject(this, &_world, _window->getRenderer(), x, y, w, h, false));
+    _gameObjects.push_back(new Cube(this, &_world, _window->getRenderer(), x, y, w, h, false));
 }
 
 void GameScene::createBox(float x, float y, float w, float h)
 {
-    _gameObjects.push_back(new CubeObject(this, &_world, _window->getRenderer(), x, y, w, h));
+    _gameObjects.push_back(new Cube(this, &_world, _window->getRenderer(), x, y, w, h));
 }
 
 void GameScene::createDestructibleObject(float x, float y, const std::vector<cv::Point>& points)
@@ -138,7 +138,7 @@ void GameScene::createPlayer(float x, float y)
 void GameScene::createMissile(float x, float y, float a)
 {
     std::cout << "Missile launched" << std::endl;
-    _gameObjects.push_back(new MissileObject(this, &_world, _window->getRenderer(), x, y, a));
+    _gameObjects.push_back(new Missile(this, &_world, _window->getRenderer(), x, y, a));
 }
 
 void GameScene::createBall(float x, float y)

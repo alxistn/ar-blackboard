@@ -1,13 +1,13 @@
-#include "scenecontactlistener.h"
+#include "contactlistener.h"
 
-#include "gameobject.hpp"
+#include "gameobject.h"
 
-SceneContactListener::SceneContactListener()
+ContactListener::ContactListener()
 {
 
 }
 
-void SceneContactListener::BeginContact(b2Contact* contact)
+void ContactListener::BeginContact(b2Contact* contact)
 {
     GameObject* gameObjectA = static_cast<GameObject*>(contact->GetFixtureA()->GetUserData());
     GameObject* gameObjectB = static_cast<GameObject*>(contact->GetFixtureB()->GetUserData());
@@ -18,7 +18,7 @@ void SceneContactListener::BeginContact(b2Contact* contact)
         gameObjectB->beginContactEvent(gameObjectA);
 }
 
-void SceneContactListener::EndContact(b2Contact* contact)
+void ContactListener::EndContact(b2Contact* contact)
 {
     GameObject* gameObjectA = static_cast<GameObject*>(contact->GetFixtureA()->GetUserData());
     GameObject* gameObjectB = static_cast<GameObject*>(contact->GetFixtureB()->GetUserData());

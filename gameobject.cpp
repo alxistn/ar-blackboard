@@ -9,7 +9,7 @@
 #include <cmath>
 #include <iostream>
 #include "gamescene.h"
-#include "gameobject.hpp"
+#include "gameobject.h"
 
 GameObject::GameObject(GameScene* gameScene, b2World* world, SDL_Renderer* renderer, Type type)
     : type(type), _gameScene(gameScene), _world(world), _renderer(renderer)

@@ -1,6 +1,6 @@
-#include "cubeobject.h"
+#include "cube.h"
 #include <iostream>
-CubeObject::CubeObject(GameScene* gameScene, b2World* world, SDL_Renderer* renderer, float x, float y, float width, float height, bool dynamic)
+Cube::Cube(GameScene* gameScene, b2World* world, SDL_Renderer* renderer, float x, float y, float width, float height, bool dynamic)
     : GameObject(gameScene, world, renderer, Type::CUBE)
 {
     x /= BOX2D_SCALE;
