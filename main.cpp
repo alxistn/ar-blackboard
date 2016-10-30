@@ -176,9 +176,11 @@ int main(){
         SDL_DisplayMode* gameMonitor = findMonitor(monitors, 1920, 1080);
         if (gameMonitor == NULL)
             throw std::logic_error("cant find monitor for game");
-        int flag = SDL_WINDOW_BORDERLESS;
-        if (vdn > 1){
-            flag = SDL_WINDOW_FULLSCREEN;
+        int flag = SDL_WINDOW_FULLSCREEN;
+        if (vdn == 1) {
+            flag = 0;
+            gameMonitor->w = 800;
+            gameMonitor->h = 600;
         }
         gameWindow = new Window(0,
                                 0,
