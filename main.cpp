@@ -20,7 +20,7 @@
 
 int start (Window *gameWindow, Window *openCVWindow, VertexExtractor *vertexExtractor)
 {
-  new GameScene(*gameWindow, vertexExtractor);
+  new GameScene(*gameWindow, !!vertexExtractor);
 
   if (openCVWindow)new OpenCVScene(*openCVWindow, *gameWindow, vertexExtractor);
 
@@ -195,13 +195,17 @@ int main(){
         SDL_DisplayMode* gameMonitor = findMonitor(monitors, 1920, 1080);
         if (gameMonitor == NULL)
             throw std::logic_error("cant find monitor for game");
+        int offsetGameWindow(0);
         int flag = SDL_WINDOW_FULLSCREEN;
         if (vdn == 1) {
             flag = 0;
             gameMonitor->w = 800;
             gameMonitor->h = 600;
+        }else{
+            offsetGameWindow = openCVWindow->getWidth();
+
         }
-        gameWindow = new Window(0,
+        gameWindow = new Window(offsetGameWindow,
                                 0,
                                 gameMonitor->w,
                                 gameMonitor->h,
