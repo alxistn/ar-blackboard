@@ -107,8 +107,16 @@ static int     findCamera(const int width, const int height){
         }
 
         if (cap.isOpened()){
+            bool res = false;
+            res = cap.set(CV_CAP_PROP_FRAME_WIDTH, width);
+            std::cout << "val: " << res << std::endl;
+            res = cap.set(CV_CAP_PROP_FRAME_HEIGHT, height);
+            std::cout << "val: " << res << std::endl;
+
+
             camWidth = cap.get(CV_CAP_PROP_FRAME_WIDTH);
             camHeight = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
+            std::cout << "cam width " << camWidth << " height " << camHeight << std::endl;
             cap.release();
             if (camHeight == height && camWidth == width)
                 return index;
@@ -140,11 +148,12 @@ int main(){
 
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
         throw std::logic_error(SDL_GetError());
-    findCamera(1920, 1080);
-    std::cout << "ok" << std::endl;
     /*
     * detection ecrans
     */
+
+    findCamera(1920, 1080);
+    return 0;
 
     int vdn = SDL_GetNumVideoDisplays();
     if (vdn < 1){
