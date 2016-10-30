@@ -152,9 +152,6 @@ int main(){
     * detection ecrans
     */
 
-    findCamera(1920, 1080);
-    return 0;
-
     int vdn = SDL_GetNumVideoDisplays();
     if (vdn < 1){
         std::cout << "no video display connected" << std::endl;
@@ -173,6 +170,28 @@ int main(){
     * selection de l'ecran
     */
     if (vdn > 0){
+        /*
+        * setup openCV screen
+        */
+        if (vdn > 1){
+            SDL_DisplayMode* openCVMonitor = findMonitor(monitors, 1800, 1600);
+            if (openCVMonitor == NULL)
+                throw std::logic_error("cant find monitor for openCV");
+            gameWindow = new Window(0,
+                                    0,
+                                    openCVMonitor->w,
+                                    openCVMonitor->h,
+                                    SDL_WINDOW_FULLSCREEN,
+                                    "configuration");
+            cameraId = findCamera(1920,1080);
+            if (cameraId < 0){
+                throw std::logic_error("cant find right camera");
+            }
+        }
+
+        /*
+        * setup game screen
+        */
         SDL_DisplayMode* gameMonitor = findMonitor(monitors, 1920, 1080);
         if (gameMonitor == NULL)
             throw std::logic_error("cant find monitor for game");
@@ -188,20 +207,10 @@ int main(){
                                 gameMonitor->h,
                                 flag,
                                 "game");
-        if (vdn > 1){
-            SDL_DisplayMode* openCVMonitor = findMonitor(monitors, 1800, 1600);
-            if (openCVMonitor == NULL)
-                throw std::logic_error("cant find monitor for openCV");
-            gameWindow = new Window(gameMonitor->w,
-                                    gameMonitor->h,
-                                    openCVMonitor->w,
-                                    openCVMonitor->h,
-                                    SDL_WINDOW_FULLSCREEN,
-                                    "configuration");
-            cameraId = findCamera(1920,1080);
-            if (cameraId < 0){
-                throw std::logic_error("cant find right camera");
-            }
+        /*
+        * if needed create vertex extractor
+        */
+        if (openCVWindow && gameWindow){
             vertexExtractor = new VertexExtractor(cameraId, *openCVWindow, *gameWindow);
         }
         SDL_SetHint(SDL_HINT_VIDEO_MINIMIZE_ON_FOCUS_LOSS, "0");
