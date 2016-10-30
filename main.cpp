@@ -174,7 +174,7 @@ int main(){
         * setup openCV screen
         */
         if (vdn > 1){
-            SDL_DisplayMode* openCVMonitor = findMonitor(monitors, 1600, 1200);
+            SDL_DisplayMode* openCVMonitor = findMonitor(monitors, 1920, 1080);
             if (openCVMonitor == NULL)
                 throw std::logic_error("cant find monitor for openCV");
             openCVWindow = new Window(0,
@@ -192,7 +192,7 @@ int main(){
         /*
         * setup game screen
         */
-        SDL_DisplayMode* gameMonitor = findMonitor(monitors, 1920, 1080);
+        SDL_DisplayMode* gameMonitor = findMonitor(monitors, 1600, 1200);
         if (gameMonitor == NULL)
             throw std::logic_error("cant find monitor for game");
         int offsetGameWindow(0);
