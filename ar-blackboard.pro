@@ -20,7 +20,8 @@ SOURCES += main.cpp \
     ball.cpp \
     cube.cpp \
     missile.cpp \
-    contactlistener.cpp
+    contactlistener.cpp \
+    gamecontroller.cpp
 
 HEADERS += \
     window.h \
@@ -35,5 +36,9 @@ HEADERS += \
     cube.h \
     missile.h \
     gameobject.h \
-    contactlistener.h
+    contactlistener.h \
+    gamecontrollerdb.h
+
+DISTFILES += \
+    gamecontrollerdb.txt
 

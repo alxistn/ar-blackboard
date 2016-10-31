@@ -1,22 +1,17 @@
 ///*
 
-#include <iostream>
 #include <vector>
+#include <cstddef>
+#include <iostream>
 #include <SDL2/SDL.h>
 #include <opencv2/opencv.hpp>
 
-#include "window.h"
-#include "vertexextractor.h"
-
-//?????????????
-#include <iostream>
-
 #include "scene.h"
-#include "opencvscene.h"
-#include "gamescene.h"
+#include "window.h"
 #include "fpstimer.h"
-#include <cstddef>
-//??????????????
+#include "gamescene.h"
+#include "opencvscene.h"
+#include "vertexextractor.h"
 
 int start (Window *gameWindow, Window *openCVWindow, VertexExtractor *vertexExtractor)
 {
@@ -107,16 +102,11 @@ static int     findCamera(const int width, const int height){
         }
 
         if (cap.isOpened()){
-            bool res = false;
-            res = cap.set(CV_CAP_PROP_FRAME_WIDTH, width);
-            std::cout << "val: " << res << std::endl;
-            res = cap.set(CV_CAP_PROP_FRAME_HEIGHT, height);
-            std::cout << "val: " << res << std::endl;
-
+            cap.set(CV_CAP_PROP_FRAME_WIDTH, width);
+            cap.set(CV_CAP_PROP_FRAME_HEIGHT, height);
 
             camWidth = cap.get(CV_CAP_PROP_FRAME_WIDTH);
             camHeight = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
-            std::cout << "cam width " << camWidth << " height " << camHeight << std::endl;
             cap.release();
             if (camHeight == height && camWidth == width)
                 return index;
