@@ -114,8 +114,9 @@ void Window::handleEvent(const SDL_Event& event)
     ** Scene Events
     */
     if (SDL_GetWindowFlags(_window) & SDL_WINDOW_INPUT_FOCUS)
-        if (_scene)
-        _scene->handleEvent(event);
+        if (_scene != NULL){
+            _scene->handleEvent(event);
+        }
 }
 
 void Window::hide()
