@@ -182,7 +182,11 @@ int main(){
         /*
         * setup game screen
         */
-        SDL_DisplayMode* gameMonitor = findMonitor(monitors, 1600, 1200);
+        SDL_DisplayMode* gameMonitor = NULL;
+        if (vdn == 1)
+            gameMonitor = findMonitor(monitors, 1920, 1080);
+        else
+            gameMonitor = findMonitor(monitors, 1600, 1200);
         if (gameMonitor == NULL)
             throw std::logic_error("cant find monitor for game");
         int offsetGameWindow(0);
